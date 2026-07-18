@@ -69,7 +69,7 @@ export default function Practice3() {
               className="btn ghost"
               style={revealed
                 ? { borderColor: i === answer ? 'var(--good)' : prediction === i ? 'var(--up)' : undefined,
-                    background: i === answer ? 'var(--good-soft)' : prediction === i && prediction !== answer ? '#fdeeee' : undefined }
+                    background: i === answer ? 'var(--good-soft)' : prediction === i && prediction !== answer ? '#ffeef0' : undefined }
                 : undefined}
               disabled={revealed}
               onClick={() => reveal(i)}>

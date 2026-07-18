@@ -96,15 +96,15 @@ export default function DiagnosisResult() {
       )}
 
       <div className="card pad mt16" style={{ background: 'var(--navy)', color: '#fff', border: 0 }}>
-        <div className="eyebrow" style={{ color: '#8fa3ff' }}>다음 단계</div>
+        <div className="eyebrow" style={{ color: '#4593fc' }}>다음 단계</div>
         <h3 style={{ color: '#fff', fontSize: 18, margin: '6px 0 4px' }}>이제, 투자를 직접 해보세요</h3>
-        <p style={{ color: '#9aa3bd', fontSize: 13.5 }}>
+        <p style={{ color: '#b0b8c1', fontSize: 13.5 }}>
           공부는 아직입니다. 가상 자금 1,000만원으로 이름이 가려진 종목들을 10년간
           사고팔아 보세요. 지금 점수 그대로의 실력으로요.
         </p>
         <button
           className="btn block mt16"
-          style={{ background: '#4a68e8' }}
+          style={{ background: '#3182f6' }}
           onClick={() => dispatch({ type: 'NAVIGATE', screen: 'sim' })}
         >
           블라인드 투자 시작하기

@@ -44,13 +44,13 @@ export default function SessionReport() {
         <LineChart
           height={210}
           series={[
-            { data: sim.valueHistory, color: '#2b4acb', width: 2.2 },
-            { data: r.benchmarkHistory, color: '#8b91a1', width: 2, dash: '6 5' },
+            { data: sim.valueHistory, color: '#3182f6', width: 2.2 },
+            { data: r.benchmarkHistory, color: '#8b95a1', width: 2, dash: '6 5' },
           ]}
         />
         <div className="legend">
-          <span><span className="sw" style={{ background: '#2b4acb' }} />내 계좌</span>
-          <span><span className="sw" style={{ background: '#8b91a1' }} />지수ETF 4주 적립 매수</span>
+          <span><span className="sw" style={{ background: '#3182f6' }} />내 계좌</span>
+          <span><span className="sw" style={{ background: '#8b95a1' }} />지수ETF 4주 적립 매수</span>
         </div>
       </div>
 

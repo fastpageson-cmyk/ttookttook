@@ -72,15 +72,15 @@ export default function Practice2() {
           height={220}
           revealX={week}
           series={[
-            { data: scenario.weeklyIndex, color: '#2b4acb', width: 2.2 },
-            { data: scenario.weeklyBaseRate, color: '#c2410c', width: 1.8, axis: 'right' },
+            { data: scenario.weeklyIndex, color: '#3182f6', width: 2.2 },
+            { data: scenario.weeklyBaseRate, color: '#e5780b', width: 1.8, axis: 'right' },
           ]}
           fmtLeft={(v) => v.toFixed(0)}
           fmtRight={(v) => `${v.toFixed(1)}%`}
         />
         <div className="legend">
-          <span><span className="sw" style={{ background: '#2b4acb' }} />주가지수</span>
-          <span><span className="sw" style={{ background: '#c2410c' }} />기준금리</span>
+          <span><span className="sw" style={{ background: '#3182f6' }} />주가지수</span>
+          <span><span className="sw" style={{ background: '#e5780b' }} />기준금리</span>
           <span className="tiny">{week}/{TOTAL}주</span>
         </div>
         <p className="tiny mt8">※ 실제 S&P500이 아닌, 학습용으로 연출된 가상 시나리오입니다.</p>
@@ -95,7 +95,7 @@ export default function Practice2() {
                 className={`btn ghost${cpChosen === i ? ' selected' : ''}`}
                 style={cpChosen !== undefined
                   ? { borderColor: i === cpAnswer ? 'var(--good)' : cpChosen === i ? 'var(--up)' : undefined,
-                      background: i === cpAnswer ? 'var(--good-soft)' : cpChosen === i && cpChosen !== cpAnswer ? '#fdeeee' : undefined }
+                      background: i === cpAnswer ? 'var(--good-soft)' : cpChosen === i && cpChosen !== cpAnswer ? '#ffeef0' : undefined }
                   : undefined}
                 disabled={cpChosen !== undefined}
                 onClick={() => answerCheckpoint(i)}>

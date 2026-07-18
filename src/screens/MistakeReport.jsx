@@ -28,13 +28,13 @@ export default function MistakeReport() {
       </div>
 
       <div className="card pad mt16" style={{ background: 'var(--navy)', color: '#fff', border: 0 }}>
-        <div className="eyebrow" style={{ color: '#8fa3ff' }}>1주차 시작</div>
+        <div className="eyebrow" style={{ color: '#4593fc' }}>1주차 시작</div>
         <h3 style={{ color: '#fff', fontSize: 18, margin: '6px 0 4px' }}>왜 이런 실수를 했는지 알아보기</h3>
-        <p style={{ color: '#9aa3bd', fontSize: 13.5 }}>
+        <p style={{ color: '#b0b8c1', fontSize: 13.5 }}>
           사실 그 10년 동안 화면에 보이지 않던 큰 흐름이 있었습니다.
           1주차 거시경제 강의에서 그 흐름을 배우고, 내 매매 기록 위에 직접 겹쳐봅니다.
         </p>
-        <button className="btn block mt16" style={{ background: '#4a68e8' }}
+        <button className="btn block mt16" style={{ background: '#3182f6' }}
           onClick={() => dispatch({ type: 'NAVIGATE', screen: 'lesson', lessonCard: 1 })}>
           1주차 강의 시작하기
         </button>

@@ -61,8 +61,8 @@ export default function Practice1() {
         <LineChart
           height={230}
           series={[
-            { data: sim.valueHistory, color: '#2b4acb', width: 2.2 },
-            { data: WEEKLY_RATES.slice(0, endWeek).map((r) => r.baseRate), color: '#c2410c', width: 1.6, axis: 'right', dash: '2 3' },
+            { data: sim.valueHistory, color: '#3182f6', width: 2.2 },
+            { data: WEEKLY_RATES.slice(0, endWeek).map((r) => r.baseRate), color: '#e5780b', width: 1.6, axis: 'right', dash: '2 3' },
           ]}
           bands={segments.map((s, i) => ({
             from: s.from, to: s.to,
@@ -74,8 +74,8 @@ export default function Practice1() {
           onBandClick={(b) => setSelectedSeg(b.seg)}
         />
         <div className="legend">
-          <span><span className="sw" style={{ background: '#2b4acb' }} />내 총자산</span>
-          <span><span className="sw" style={{ background: '#c2410c' }} />기준금리 (당시엔 비공개)</span>
+          <span><span className="sw" style={{ background: '#3182f6' }} />내 총자산</span>
+          <span><span className="sw" style={{ background: '#e5780b' }} />기준금리 (당시엔 비공개)</span>
           <span>▲ 매수 ▼ 매도</span>
         </div>
       </div>

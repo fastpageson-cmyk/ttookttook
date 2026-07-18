@@ -65,7 +65,7 @@ export default function LineChart({
             <rect x={x1} y={PAD.t} width={x2 - x1} height={innerH} fill={b.color} />
             {b.label && (
               <text x={(x1 + x2) / 2} y={PAD.t + 13} textAnchor="middle"
-                fontSize="10.5" fontWeight="700" fill={b.labelColor || '#7a8095'}>{b.label}</text>
+                fontSize="10.5" fontWeight="700" fill={b.labelColor || '#8b95a1'}>{b.label}</text>
             )}
           </g>
         )
@@ -77,8 +77,8 @@ export default function LineChart({
         const v = hi - (i / (gridYs.length - 1)) * (hi - lo)
         return (
           <g key={i}>
-            <line x1={PAD.l} x2={W - PAD.r} y1={y} y2={y} stroke="#e6e8ee" strokeWidth="1" />
-            <text x={PAD.l - 6} y={y + 3.5} textAnchor="end" fontSize="10" fill="#8b91a1">
+            <line x1={PAD.l} x2={W - PAD.r} y1={y} y2={y} stroke="#e5e8eb" strokeWidth="1" />
+            <text x={PAD.l - 6} y={y + 3.5} textAnchor="end" fontSize="10" fill="#8b95a1">
               {fmtLeft(v)}
             </text>
           </g>
@@ -89,14 +89,14 @@ export default function LineChart({
         const [lo, hi] = scales.rightRange
         const v = hi - (i / (gridYs.length - 1)) * (hi - lo)
         return (
-          <text key={i} x={W - PAD.r + 6} y={y + 3.5} textAnchor="start" fontSize="10" fill="#8b91a1">
+          <text key={i} x={W - PAD.r + 6} y={y + 3.5} textAnchor="start" fontSize="10" fill="#8b95a1">
             {fmtRight(v)}
           </text>
         )
       })}
       {/* x축 라벨 */}
       {xTicks.map((x, i) => (
-        <text key={i} x={xTo(x)} y={H - 7} textAnchor="middle" fontSize="10" fill="#8b91a1">
+        <text key={i} x={xTo(x)} y={H - 7} textAnchor="middle" fontSize="10" fill="#8b95a1">
           {x}주
         </text>
       ))}
@@ -130,7 +130,7 @@ export default function LineChart({
         const pts = m.kind === 'buy'
           ? `${x},${y + 4} ${x - size},${y + 4 + size * 1.6} ${x + size},${y + 4 + size * 1.6}`
           : `${x},${y - 4} ${x - size},${y - 4 - size * 1.6} ${x + size},${y - 4 - size * 1.6}`
-        return <polygon key={i} points={pts} fill={m.kind === 'buy' ? '#d9363e' : '#2563eb'} />
+        return <polygon key={i} points={pts} fill={m.kind === 'buy' ? '#f04452' : '#3182f6'} />
       })}
     </svg>
   )

@@ -80,7 +80,7 @@ export default function Simulation() {
         <div className="asset-item"><div className="lbl">총자산</div><div className="val">{fmtCompact(total)}</div></div>
         <div className="asset-item">
           <div className="lbl">수익률</div>
-          <div className="val" style={{ color: totalReturn >= 0 ? '#ff8a90' : '#7eaaff' }}>{fmtPct(totalReturn)}</div>
+          <div className="val" style={{ color: totalReturn >= 0 ? '#ff6e7a' : '#69a5ff' }}>{fmtPct(totalReturn)}</div>
         </div>
       </div>
 
@@ -90,7 +90,7 @@ export default function Simulation() {
           <span className="tiny">{fmtWon(price)} · 현재까지의 흐름</span>
         </div>
         <div style={{ padding: '4px 6px 6px' }}>
-          <LineChart series={[{ data: chartData, color: '#2b4acb', width: 2 }]} height={190} />
+          <LineChart series={[{ data: chartData, color: '#3182f6', width: 2 }]} height={190} />
         </div>
       </div>
 
