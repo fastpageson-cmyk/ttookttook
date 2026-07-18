@@ -46,7 +46,8 @@
 - **점수별 페르소나**: `src/data/personas.js` 신설 — 0~30 경제 새내기 / 35~55 초보 투자자 / 60~80 열정은 있지만 아직 채울 게 많은 투자자 / 85~100 기본기를 갖춘 투자자. 진단 결과·홈·마이페이지에 노출. `termLevel`(easy/standard) 필드는 추후 용어 난이도 분기용 훅.
 - 옵시디언 원본 접근 확인(`~/Library/Mobile Documents/iCloud~md~obsidian/Documents/KGW/김미정/`) — 사용자가 수정한 `프로젝트 기획서.md`를 `docs/기획원본/`에 재동기화.
 - 세션 2에서 미커밋으로 남아있던 `.gitignore` 변경 포함 커밋.
-- **다음 할 일**: 수준별 커리큘럼/용어 난이도 분기 구현 여부 사용자 결정 대기(백로그 참고). GitHub↔Vercel 자동 배포 여부 이번 push로 확인.
+- **GitHub↔Vercel 자동 배포 확인 완료**: push 후 1분 내 새 Production 배포 자동 생성(Ready). 고정 도메인 `https://ttookttook.vercel.app` 정상 (똑똑 반영 확인). 이후로는 main push만 하면 됨.
+- **다음 할 일**: 수준별 커리큘럼/용어 난이도 분기 구현 여부 사용자 결정 대기(백로그 참고).
 
 ### 2026-07-18 세션 1 (Claude Code)
 
