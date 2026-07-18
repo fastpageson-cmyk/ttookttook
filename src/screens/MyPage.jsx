@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useStore } from '../state/store.jsx'
 import { fmtPct, fmtWon } from '../engine/constants.js'
+import { personaForScore } from '../data/personas.js'
 import { Modal } from '../components/ui.jsx'
 
 export default function MyPage() {
@@ -18,7 +19,7 @@ export default function MyPage() {
       <div className="card pad mt16">
         <div className="my-row">
           <span className="lbl">사전 진단</span>
-          <span className="val">{diagnosis.score != null ? `${diagnosis.score}점 (또래 평균 62.6점)` : '미응시'}</span>
+          <span className="val">{diagnosis.score != null ? `${diagnosis.score}점 · ${personaForScore(diagnosis.score)?.name}` : '미응시'}</span>
         </div>
         <div className="my-row">
           <span className="lbl">0단계 결과</span>

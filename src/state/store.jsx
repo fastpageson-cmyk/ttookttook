@@ -7,7 +7,8 @@ import { generateMistakeReport } from '../engine/mistakeReport.js'
 import { scoreDiagnosis } from '../data/diagnosis.js'
 import { QUIZ_PASS_SCORE } from '../engine/constants.js'
 
-const STORAGE_KEY = 'ddukdduk-state-v1'
+const STORAGE_KEY = 'ttokttok-state-v1'
+const LEGACY_STORAGE_KEY = 'ddukdduk-state-v1' // 뚝뚝 시절 키 — 기존 사용자 진행 상태 이관용
 
 export function initialState() {
   return {
@@ -32,7 +33,7 @@ export function initialState() {
 
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
+    const raw = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY)
     if (!raw) return initialState()
     const saved = JSON.parse(raw)
     // 필드 누락 대비 얕은 병합 (버전업 시 안전망)

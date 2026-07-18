@@ -49,7 +49,7 @@ function Shell() {
       {screen !== 'splash' && (
         <header className="app-header">
           <button className="brand" onClick={() => dispatch({ type: 'NAVIGATE', screen: homeUnlocked ? 'home' : 'splash' })}>
-            뚝뚝<span className="dot">.</span>
+            똑똑<span className="dot">.</span>
           </button>
           {homeUnlocked && (
             <div className="header-actions">
@@ -64,7 +64,7 @@ function Shell() {
       </main>
       <footer className="app-footer">
         <p className="disclaimer">
-          뚝뚝은 학교 토이 프로젝트의 학습용 프로토타입입니다. 본 시뮬레이션의 모든 시세·금리
+          똑똑은 학교 토이 프로젝트의 학습용 프로토타입입니다. 본 시뮬레이션의 모든 시세·금리
           수치는 학습용 가상 데이터이며, 실제 시장 데이터가 아니고 투자 조언은 더더욱 아닙니다.
         </p>
       </footer>

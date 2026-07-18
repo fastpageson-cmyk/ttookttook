@@ -2,6 +2,7 @@
 import { useStore } from '../state/store.jsx'
 import { fmtPct } from '../engine/constants.js'
 import { WEEK1_LESSONS } from '../data/lessons.js'
+import { personaForScore } from '../data/personas.js'
 
 const LOCKED_WEEKS = [
   { num: '2주', title: '저축과 제도 활용', sub: '예적금 · ISA · 청년도약계좌 · 절세' },
@@ -65,7 +66,7 @@ export default function Home() {
       <div className="home-hello">
         <h2 className="section-title">{state.user.nickname}님의 학습</h2>
         <p className="muted mt8">
-          진단 {state.diagnosis.score}점 · 0단계 수익률 {fmtPct(report.finalReturn)}
+          진단 {state.diagnosis.score}점 ({personaForScore(state.diagnosis.score)?.name}) · 0단계 수익률 {fmtPct(report.finalReturn)}
         </p>
       </div>
 

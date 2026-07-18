@@ -1,4 +1,4 @@
-/* ============ 뚝뚝 디자인 토큰 ============ */
+/* ============ 똑똑 디자인 토큰 ============ */
 :root {
   --bg: #f4f5f8;
   --surface: #ffffff;
@@ -356,6 +356,90 @@ input[type="range"] { width: 100%; accent-color: var(--brand); }
 .my-row:last-child { border-bottom: 0; }
 .my-row .lbl { font-size: 14px; color: var(--ink2); }
 .my-row .val { font-size: 14px; font-weight: 700; }
+
+/* ============ 페르소나 · 오답 풀이 (진단 결과) ============ */
+.persona-card { margin-top: 8px; border-left: 3px solid var(--brand); }
+.persona-name { font-size: 18px; margin-top: 6px; letter-spacing: -0.01em; }
+.persona-guide {
+  font-size: 13.5px; color: var(--brand-ink); background: var(--brand-soft);
+  border-radius: 10px; padding: 9px 12px;
+}
+.cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 4px 0 14px; }
+.cat-chip {
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px;
+  font-size: 12.5px; color: var(--ink2);
+}
+.cat-chip b { font-size: 13px; }
+.cat-chip.full { background: var(--good-soft); border-color: transparent; }
+.cat-chip.full b { color: var(--good); }
+.cat-chip.weak { background: var(--warn-soft); border-color: transparent; }
+.cat-chip.weak b { color: var(--warn); }
+.review-toggle {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  background: none; border: 0; padding: 0; font-size: 15px; color: var(--ink);
+}
+.review-item { border-top: 1px solid var(--line); margin-top: 14px; padding-top: 14px; }
+.review-q { display: block; font-size: 14.5px; margin: 3px 0 8px; line-height: 1.5; }
+.review-answers { display: flex; flex-direction: column; gap: 3px; font-size: 13px; margin-bottom: 8px; }
+.wrong-pick { color: #a12730; }
+.right-pick { color: var(--good); font-weight: 700; }
+.review-explain {
+  font-size: 13.5px; color: var(--ink2); background: var(--bg);
+  border-radius: 10px; padding: 10px 12px; line-height: 1.6;
+}
+
+/* ============ 데스크톱 레이아웃 (≥1000px) ============ */
+/* 1000px 미만(모바일·태블릿)은 기존 단일 컬럼 유지. 데스크톱은 중앙 콘텐츠 컬럼 +
+   시뮬레이션 2컬럼 + 스플래시 풀블리드 히어로로 재배치 (DOM 동일, CSS만 분기). */
+@media (min-width: 1000px) {
+  .app { max-width: none; box-shadow: none; }
+  .app-header { padding: 14px max(36px, calc((100% - 1140px) / 2)); }
+  .app-footer { padding: 18px max(36px, calc((100% - 1140px) / 2)) 26px; }
+  .app-main { padding: 40px max(36px, calc((100% - 1140px) / 2)) 64px; }
+  .brand { font-size: 20px; }
+
+  /* 기본: 읽기 좋은 중앙 컬럼 */
+  .app-main > * { width: 100%; max-width: 680px; margin-left: auto; margin-right: auto; }
+
+  /* 스플래시: 풀블리드 다크 히어로 + 온보딩 3컬럼 */
+  .app-main:has(> .splash) { padding: 0; }
+  .app-main > .splash { max-width: none; margin: 0; padding: 72px max(36px, calc((100% - 1140px) / 2)) 56px; }
+  .splash > * { width: 100%; max-width: 900px; margin-left: auto; margin-right: auto; }
+  .wordmark { font-size: 72px; }
+  .splash .tagline { font-size: 19px; }
+  .onb-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    overflow: visible; margin: 44px auto 0; padding: 0;
+  }
+  .nick-form { padding-top: 48px; }
+
+  /* 시뮬레이션: 차트·종목 리스트(좌) + 주문 패널(우, sticky) */
+  .app-main > .sim-screen {
+    max-width: 1140px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    column-gap: 24px;
+    grid-template-areas:
+      "top      top"
+      "banner   banner"
+      "assets   assets"
+      "chart    trade"
+      "controls trade"
+      "list     trade";
+    align-content: start;
+  }
+  .sim-screen .sim-top { grid-area: top; }
+  .sim-screen .sim-banner { grid-area: banner; }
+  .sim-screen .asset-bar { grid-area: assets; padding: 14px 18px; }
+  .sim-screen .sim-chart-card { grid-area: chart; }
+  .sim-screen .time-controls { grid-area: controls; }
+  .sim-screen .sim-list-card { grid-area: list; align-self: start; }
+  .sim-screen .trade-panel {
+    grid-area: trade; margin-top: 0; align-self: start;
+    position: sticky; top: 78px;
+  }
+}
 
 /* 유틸 */
 .mt8 { margin-top: 8px; } .mt12 { margin-top: 12px; } .mt16 { margin-top: 16px; }

@@ -58,7 +58,7 @@ export default function Simulation() {
   const chartData = ALL_TICKERS.find((t) => t.code === selected).prices.slice(0, week)
 
   return (
-    <div>
+    <div className="sim-screen">
       <div className="sim-top">
         <div>
           <div className="eyebrow">0단계 · 블라인드 투자</div>
@@ -84,7 +84,7 @@ export default function Simulation() {
         </div>
       </div>
 
-      <div className="card">
+      <div className="card sim-chart-card">
         <div style={{ padding: '12px 14px 0' }}>
           <b style={{ fontSize: 14.5 }}>{selected}</b>{' '}
           <span className="tiny">{fmtWon(price)} · 현재까지의 흐름</span>
@@ -103,7 +103,7 @@ export default function Simulation() {
         <button className="btn danger" onClick={() => { setPlaying(false); setConfirmEnd(true) }}>종료</button>
       </div>
 
-      <div className="card">
+      <div className="card sim-list-card">
         <div className="stock-list">
           {ALL_TICKERS.map((t) => {
             const chg = weeklyChange(t.code, week)

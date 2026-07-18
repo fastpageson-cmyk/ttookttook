@@ -41,7 +41,7 @@ export default function Splash() {
 
   return (
     <div className="splash">
-      <h1 className="wordmark">뚝뚝<span className="dot">.</span></h1>
+      <h1 className="wordmark">똑똑<span className="dot">.</span></h1>
       <p className="tagline">
         떨어져 봐야 배웁니다.<br />
         <strong>잃어도 되는 곳에서, 먼저 잃어보세요.</strong>
