@@ -1,0 +1,66 @@
+<svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" font-family="'Noto Sans CJK KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3b4a6b"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="480" fill="#ffffff"/>
+
+  <!-- Top node -->
+  <rect x="330" y="16" width="240" height="64" rx="12" fill="#1f2d5c"/>
+  <text x="450" y="42" text-anchor="middle" fill="#ffffff" font-size="17" font-weight="700">기준금리 인상</text>
+  <text x="450" y="64" text-anchor="middle" fill="#c9d2ea" font-size="12">한국은행이 정책금리를 올렸을 때</text>
+
+  <!-- Arrows from top to two columns -->
+  <path d="M370,80 L190,150" stroke="#3b4a6b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <path d="M530,80 L710,150" stroke="#3b4a6b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Left column header -->
+  <text x="190" y="140" text-anchor="middle" fill="#1f2d5c" font-size="14" font-weight="700">물가로 가는 경로</text>
+
+  <!-- Left box 1 -->
+  <rect x="60" y="158" width="260" height="66" rx="10" fill="#eef1f8" stroke="#c7cfe6"/>
+  <text x="190" y="184" text-anchor="middle" fill="#1f2d5c" font-size="13" font-weight="600">은행 대출·예금 금리 상승</text>
+  <text x="190" y="205" text-anchor="middle" fill="#5a6482" font-size="11">시중은행도 금리를 따라 올림</text>
+
+  <path d="M190,224 L190,254" stroke="#3b4a6b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Left box 2 -->
+  <rect x="60" y="258" width="260" height="66" rx="10" fill="#eef1f8" stroke="#c7cfe6"/>
+  <text x="190" y="284" text-anchor="middle" fill="#1f2d5c" font-size="13" font-weight="600">대출 부담 증가 → 소비·투자 위축</text>
+  <text x="190" y="305" text-anchor="middle" fill="#5a6482" font-size="11">돈을 빌려서 쓰기 부담스러워짐</text>
+
+  <path d="M190,324 L190,354" stroke="#3b4a6b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Left box 3 -->
+  <rect x="60" y="358" width="260" height="66" rx="10" fill="#e3f2ea" stroke="#a9d4bd"/>
+  <text x="190" y="384" text-anchor="middle" fill="#1a5c3a" font-size="13" font-weight="700">물가 상승 압력 둔화</text>
+  <text x="190" y="405" text-anchor="middle" fill="#3d6b52" font-size="11">시중에 도는 돈이 줄어드니까</text>
+
+  <!-- Right column header -->
+  <text x="710" y="140" text-anchor="middle" fill="#1f2d5c" font-size="14" font-weight="700">환율로 가는 경로</text>
+
+  <!-- Right box 1 -->
+  <rect x="580" y="158" width="260" height="66" rx="10" fill="#eef1f8" stroke="#c7cfe6"/>
+  <text x="710" y="184" text-anchor="middle" fill="#1f2d5c" font-size="13" font-weight="600">해외 자본이 국내로 유입</text>
+  <text x="710" y="205" text-anchor="middle" fill="#5a6482" font-size="11">이자를 더 주니까 돈이 몰림</text>
+
+  <path d="M710,224 L710,254" stroke="#3b4a6b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Right box 2 -->
+  <rect x="580" y="258" width="260" height="66" rx="10" fill="#eef1f8" stroke="#c7cfe6"/>
+  <text x="710" y="284" text-anchor="middle" fill="#1f2d5c" font-size="13" font-weight="600">원화 수요 증가</text>
+  <text x="710" y="305" text-anchor="middle" fill="#5a6482" font-size="11">원화로 바꿔서 투자해야 하니까</text>
+
+  <path d="M710,324 L710,354" stroke="#3b4a6b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Right box 3 -->
+  <rect x="580" y="358" width="260" height="66" rx="10" fill="#e3f2ea" stroke="#a9d4bd"/>
+  <text x="710" y="384" text-anchor="middle" fill="#1a5c3a" font-size="13" font-weight="700">원화 강세 (환율 하락 압력)</text>
+  <text x="710" y="405" text-anchor="middle" fill="#3d6b52" font-size="11">원/달러 환율이 내려가는 쪽으로 작용</text>
+
+  <!-- footnote -->
+  <text x="450" y="450" text-anchor="middle" fill="#8a91a8" font-size="11">※ 단순화한 설명입니다. 실제 환율·물가는 무역수지, 지정학 이슈 등 다른 요인과 함께 움직입니다.</text>
+  <text x="450" y="468" text-anchor="middle" fill="#8a91a8" font-size="11">금리를 내리면(인하) 위 화살표가 대체로 반대 방향으로 작동합니다.</text>
+</svg>
