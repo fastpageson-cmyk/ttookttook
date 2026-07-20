@@ -190,6 +190,16 @@ h2.section { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin:
   animation: slideup .25s cubic-bezier(.2,.9,.3,1);
 }
 @keyframes slideup { from { transform: translate(-50%, 40%); opacity: .4; } }
+/* 데스크톱: 하단 시트 대신 중앙 다이얼로그 */
+@media (min-width: 1024px) {
+  .sheet {
+    top: 50%; bottom: auto; transform: translate(-50%, -50%);
+    max-width: 440px; border-radius: 20px;
+    padding: 26px 24px; box-shadow: 0 24px 60px -12px rgba(0,0,0,.35);
+    animation: sheetPop .2s cubic-bezier(.2,.9,.3,1);
+  }
+  @keyframes sheetPop { from { transform: translate(-50%, -46%); opacity: .3; } }
+}
 .sheet h3 { font-size: 18px; font-weight: 800; margin-bottom: 14px; }
 .qty-row { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
 .qty-row input {
@@ -265,7 +275,85 @@ h2.section { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin:
 .my-row:last-child { border-bottom: 0; }
 .my-row b { font-variant-numeric: tabular-nums; }
 
-@media (min-width: 640px) {
+/* ---------- 태블릿 ---------- */
+@media (min-width: 640px) and (max-width: 1023px) {
   .screen { padding: 28px 32px 48px; }
   .screen.has-tabbar { padding-bottom: 100px; }
+}
+
+/* ==================== 데스크톱 (≥1024px) ==================== */
+@media (min-width: 1024px) {
+  html, body { background: var(--bg); }
+  .app { max-width: 1160px; background: transparent; box-shadow: none; }
+
+  /* 기본(읽기형) 화면: 편안한 폭으로 중앙 정렬 */
+  .screen {
+    max-width: 680px; width: 100%; margin-inline: auto;
+    padding: 44px 24px 72px;
+  }
+  .topbar { margin-top: 4px; }
+
+  /* 상단 탭바 (모바일 하단 → 데스크톱 상단 네비) */
+  .tabbar {
+    top: 0; bottom: auto; left: 0; right: 0; transform: none;
+    width: 100%; max-width: none;
+    border-top: 0; border-bottom: 1px solid var(--line);
+    justify-content: center; gap: 8px; padding: 10px 0;
+  }
+  .tabbar button {
+    flex: 0 0 auto; flex-direction: row; gap: 8px;
+    font-size: 14px; padding: 9px 20px; border-radius: 10px;
+  }
+  .tabbar button .ico { font-size: 18px; }
+  .tabbar button.active { background: var(--blue-soft); }
+  .screen.has-tabbar { max-width: 720px; padding-top: 96px; padding-bottom: 72px; }
+
+  /* ---------- 스플래시: 히어로 2컬럼 ---------- */
+  .screen.splash {
+    max-width: 1080px; min-height: 100dvh; align-content: center;
+    display: grid; gap: 4px 72px; padding: 56px 48px;
+    grid-template-columns: 1.05fr 1fr;
+    grid-template-rows: auto auto auto 1fr auto;
+    grid-template-areas:
+      "logo   cards"
+      "title  cards"
+      "sub    cards"
+      "space  cards"
+      "cta    cards";
+  }
+  .screen.splash .splash-logo { grid-area: logo; margin: 0; }
+  .screen.splash h1.hero { grid-area: title; font-size: 46px; margin-top: 14px; }
+  .screen.splash > .desc { grid-area: sub; margin-top: 18px; font-size: 17px; }
+  .screen.splash .onb-track {
+    grid-area: cards; align-self: center;
+    display: flex; flex-direction: column; gap: 14px;
+    overflow: visible; margin: 0; padding: 0;
+  }
+  .screen.splash .onb-card { flex: 0 0 auto; width: 100%; min-height: 0; }
+  .screen.splash .onb-dots { display: none; }
+  .screen.splash .cta-area { grid-area: cta; margin-top: 30px; padding-top: 0; max-width: 400px; }
+
+  /* ---------- 시뮬레이션: 트레이딩 2컬럼 ---------- */
+  .screen.sim-screen { max-width: 1080px; }
+  .sim-grid { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 16px; align-items: start; }
+  .sim-grid .sim-side { display: flex; flex-direction: column; gap: 12px; }
+  .sim-grid .sim-side > .card,
+  .sim-grid .sim-side > .stock-chips { margin: 0; }
+  .sim-grid .sim-side .stock-chips { flex-wrap: wrap; overflow: visible; padding: 0; }
+  .sim-grid .time-controls { margin-top: 0; }
+  .sim-grid .sim-main { min-width: 0; }
+  .sim-grid .sim-main > .card { margin: 0; }
+  .sim-grid .sim-main .chart { min-height: 340px; }
+}
+
+/* 모바일/태블릿: sim-grid 를 펼쳐 단일 컬럼으로(총자산→종목→차트→시간 순) */
+@media (max-width: 1023px) {
+  .sim-grid, .sim-grid .sim-side, .sim-grid .sim-main { display: contents; }
+  .sim-screen > .topbar { order: 0; }
+  .sim-summary-card { order: 1; }
+  .sim-screen .stock-chips { order: 2; }
+  .sim-chart-card { order: 3; }
+  .sim-screen .time-controls { order: 4; }
+  .sim-screen > .small { order: 5; }
+  .sim-screen > .disclaimer { order: 6; }
 }

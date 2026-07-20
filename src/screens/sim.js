@@ -17,7 +17,7 @@ register('sim', () => {
   if (sim.status === 'ended') { queueMicrotask(() => go('report')); return h('div') }
   if (sim.status === 'not_started') { sim.status = 'in_progress'; save() }
 
-  const wrap = h('div', { class: 'screen' })
+  const wrap = h('div', { class: 'screen sim-screen' })
   onLeave(() => { stopTimer(); save() })
 
   function finalize() {
@@ -147,6 +147,59 @@ register('sim', () => {
     const chartData = ALL_STOCKS.find(s => s.code === selected).prices.slice(0, Math.max(2, w))
 
     wrap.innerHTML = ''
+    const summaryCard = h('div', { class: 'card sim-summary-card' },
+      h('div', { class: 'sim-summary' },
+        h('div', {},
+          h('div', { class: 'small' }, '총자산'),
+          h('div', { class: 'total' }, won(total)),
+        ),
+        h('div', { style: 'text-align:right' },
+          h('div', { class: 'small' }, '수익률'),
+          h('div', { class: 'chg ' + numClass(ret), style: 'font-size:18px;font-weight:800' }, pct(ret)),
+        ),
+      ),
+      h('div', { style: 'margin-top:12px' },
+        h('div', { class: 'progressbar' }, h('i', { style: `width:${(w / TOTAL_WEEKS * 100).toFixed(1)}%` })),
+        h('div', { class: 'sim-week', style: 'margin-top:6px;display:flex;justify-content:space-between' },
+          h('span', {}, `${fmt(w)}주차 · 약 ${(w / 52).toFixed(1)}년 경과`),
+          h('span', {}, `현금 ${won(sim.cash)}`),
+        ),
+      ),
+    )
+    const chipsWrap = h('div', { class: 'stock-chips' },
+      ALL_STOCKS.map(s => h('button', {
+        class: 'chip' + (selected === s.code ? ' on' : ''),
+        onclick: () => { selected = s.code; paint() },
+      }, s.code, (sim.holdings[s.code] || 0) > 0 ? h('span', { class: 'hold-dot' }) : null)),
+    )
+    const timeControls = h('div', { class: 'time-controls' },
+      h('button', { class: 'tc' + (timer && speed === 1 ? ' playing' : ''), onclick: () => togglePlay(1) },
+        timer && speed === 1 ? '⏸ 일시정지' : '▶ 재생'),
+      h('button', { class: 'tc' + (timer && speed === 4 ? ' playing' : ''), onclick: () => togglePlay(4) },
+        timer && speed === 4 ? '⏸ 일시정지' : '⏩ 빨리감기'),
+      h('button', { class: 'tc', onclick: () => { stopTimer(); sim.currentWeek = Math.min(TOTAL_WEEKS, sim.currentWeek + 4); if (sim.currentWeek >= TOTAL_WEEKS) finalize(); else { save(); paint() } } }, '+4주'),
+    )
+    const chartCard = h('div', { class: 'card sim-chart-card' },
+      h('div', { class: 'price-line' },
+        h('span', { class: 'chip', style: 'background:var(--ink);color:#fff;border-color:var(--ink);pointer-events:none' }, selected),
+        h('span', { class: 'p' }, won(p)),
+        h('span', { class: 'chg ' + numClass(chg) }, pct(chg) + ' 주간'),
+      ),
+      lineChart({
+        h: 210,
+        series: [{ data: chartData, color: chg >= 0 ? '#f04452' : '#3182f6', width: 2, fill: chg >= 0 ? 'rgba(240,68,82,.06)' : 'rgba(49,130,246,.06)' }],
+        yFmt: v => fmt(v / 1000) + 'k',
+      }),
+      held > 0
+        ? h('div', { class: 'pos-line' },
+            `보유 ${fmt(held)}주 · 평가액 ${won(held * p)}`)
+        : h('div', { class: 'pos-line' }, '보유 없음'),
+      h('div', { class: 'trade-btns' },
+        h('button', { class: 'btn buy', onclick: () => openTrade('buy') }, '매수'),
+        h('button', { class: 'btn sell', onclick: () => openTrade('sell') }, '매도'),
+      ),
+    )
+
     wrap.append(
       h('div', { class: 'topbar' },
         h('div', { class: 'tb-title' }, '0단계 · 블라인드 투자'),
@@ -155,56 +208,9 @@ register('sim', () => {
           onclick: confirmEnd,
         }, '종료'),
       ),
-      h('div', { class: 'card' },
-        h('div', { class: 'sim-summary' },
-          h('div', {},
-            h('div', { class: 'small' }, '총자산'),
-            h('div', { class: 'total' }, won(total)),
-          ),
-          h('div', { style: 'text-align:right' },
-            h('div', { class: 'small' }, '수익률'),
-            h('div', { class: 'chg ' + numClass(ret), style: 'font-size:18px;font-weight:800' }, pct(ret)),
-          ),
-        ),
-        h('div', { style: 'margin-top:12px' },
-          h('div', { class: 'progressbar' }, h('i', { style: `width:${(w / TOTAL_WEEKS * 100).toFixed(1)}%` })),
-          h('div', { class: 'sim-week', style: 'margin-top:6px;display:flex;justify-content:space-between' },
-            h('span', {}, `${fmt(w)}주차 · 약 ${(w / 52).toFixed(1)}년 경과`),
-            h('span', {}, `현금 ${won(sim.cash)}`),
-          ),
-        ),
-      ),
-      h('div', { class: 'stock-chips' },
-        ALL_STOCKS.map(s => h('button', {
-          class: 'chip' + (selected === s.code ? ' on' : ''),
-          onclick: () => { selected = s.code; paint() },
-        }, s.code, (sim.holdings[s.code] || 0) > 0 ? h('span', { class: 'hold-dot' }) : null)),
-      ),
-      h('div', { class: 'card' },
-        h('div', { class: 'price-line' },
-          h('span', { class: 'p' }, won(p)),
-          h('span', { class: 'chg ' + numClass(chg) }, pct(chg) + ' 주간'),
-        ),
-        lineChart({
-          h: 210,
-          series: [{ data: chartData, color: chg >= 0 ? '#f04452' : '#3182f6', width: 2, fill: chg >= 0 ? 'rgba(240,68,82,.06)' : 'rgba(49,130,246,.06)' }],
-          yFmt: v => fmt(v / 1000) + 'k',
-        }),
-        held > 0
-          ? h('div', { class: 'pos-line' },
-              `보유 ${fmt(held)}주 · 평가액 ${won(held * p)}`)
-          : h('div', { class: 'pos-line' }, '보유 없음'),
-        h('div', { class: 'trade-btns' },
-          h('button', { class: 'btn buy', onclick: () => openTrade('buy') }, '매수'),
-          h('button', { class: 'btn sell', onclick: () => openTrade('sell') }, '매도'),
-        ),
-      ),
-      h('div', { class: 'time-controls' },
-        h('button', { class: 'tc' + (timer && speed === 1 ? ' playing' : ''), onclick: () => togglePlay(1) },
-          timer && speed === 1 ? '⏸ 일시정지' : '▶ 재생'),
-        h('button', { class: 'tc' + (timer && speed === 4 ? ' playing' : ''), onclick: () => togglePlay(4) },
-          timer && speed === 4 ? '⏸ 일시정지' : '⏩ 빨리감기'),
-        h('button', { class: 'tc', onclick: () => { stopTimer(); sim.currentWeek = Math.min(TOTAL_WEEKS, sim.currentWeek + 4); if (sim.currentWeek >= TOTAL_WEEKS) finalize(); else { save(); paint() } } }, '+4주'),
+      h('div', { class: 'sim-grid' },
+        h('div', { class: 'sim-side' }, summaryCard, chipsWrap, timeControls),
+        h('div', { class: 'sim-main' }, chartCard),
       ),
       h('p', { class: 'small', style: 'margin-top:10px;text-align:center' },
         `매매 ${fmt(sim.trades.length)}건 · 520주가 되면 자동 종료됩니다`),
