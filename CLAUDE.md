@@ -1,45 +1,57 @@
 # 똑똑 — 투자 교육 웹사이트 프로토타입
 
-> **이름 변경 (2026-07-18)**: 프로젝트명이 **뚝뚝 → 똑똑**으로 바뀌었다. 폴더도 `~/Desktop/post/커리어/똑똑`으로 이동. 단 **GitHub 저장소(`fastpageson-cmyk/ttookttook`)와 Vercel 프로젝트명(`ttookttook`)은 옛 이름 그대로**다(URL·배포 연동 유지 목적 — 바꾸려면 사용자 승인 필요). localStorage 키는 `ttokttok-state-v1`(구 `ddukdduk-state-v1`에서 읽기 폴백 있음).
+사회초년생이 지식 없이 투자를 해보고 실패를 겪은 뒤(0단계), 거시경제 강의와 실습을
+통해 왜 실패했는지 배우는(1주차) 흐름을 목업 데이터로 동작하는 웹사이트로 만든 프로젝트.
+학교 토이 프로젝트 — 금융 규제 검토 불필요 (확정, 2026-07-18).
+**프로젝트명**: 구명 "뚝뚝" → "똑똑" (2026-07-19 확정). 슬로건 "먼저 잃고, 똑똑해집니다".
 
-"아무것도 모른 채 투자해보고 실패한 뒤, 그 실패를 교재 삼아 배운다"는 6주 투자 교육 서비스의 **MVP 프로토타입** (0단계 + 1주차만). 학교 토이 프로젝트.
+## 현재 상태 (2026-07-19 기준)
 
-## 에이전트가 먼저 읽을 것
-
-1. **`WORKLOG.md`** — 작업 진행 상황·남은 일·결정사항이 기록된 인수인계 로그. **작업을 이어받으면 여기부터 읽고, 작업 후 반드시 갱신할 것.**
-2. `docs/기획원본/빌드_브리프_클로드코드용.md` — 스코프·완료 기준(Acceptance Criteria 8항목). 기획 문서 간 충돌 시 이 문서 우선.
-3. `docs/기획원본/화면기획서.md` — 화면 12개 상세 스펙.
-4. `docs/기획원본/데이터모델.md` — state 구조 원본.
-
-기획 원본의 소스 오브 트루스는 Obsidian (`~/Library/Mobile Documents/iCloud~md~obsidian/Documents/KGW/김미정/`)이며, `docs/기획원본/`은 2026-07-18 시점 사본이다.
-
-## 확정된 스코프 (빌드 브리프 요약)
-
-- 0단계(닉네임 → 사전진단 20문항 → 블라인드 자유투자 → 종료 리포트 → AI 실수 리포트) + 1주차(강의 카드 10장 → 실습 3종 → 퀴즈 5문항, 통과 4/5)
-- **로그인·백엔드·DB 없음.** 상태는 localStorage 저장.
-- **AI 리포트는 실제 LLM 호출 금지** — `src/engine/mistakeReport.js`의 `generateMistakeReport(trades, ...)` 규칙 기반 구현. 함수 시그니처는 유지(나중에 내부만 LLM으로 교체 가능하게).
-- 모든 시세·금리는 `src/data/*.json` 목업 (재생성: 기획원본 폴더의 generate_mock_data.py, 시드 42).
-- 2주차 이후 화면은 이번 범위 밖.
-- **배포**: 원래 "로컬 프리뷰만"이었으나 2026-07-18 세션 중 사용자가 Vercel 배포로 전환 요청. GitHub `fastpageson-cmyk/ttookttook` ↔ Vercel 프로젝트 `ttookttook` 연결 완료, main push 시 자동 배포. 배포 URL·상세는 `WORKLOG.md` 참고.
+**MVP(0단계+1주차) 구현 완료.** 화면 12개 전부 동작하며, 전체 흐름
+(닉네임 → 사전진단 20문항 → 0단계 매매 → 종료 리포트 → AI 실수 리포트(규칙 기반) →
+강의 10카드 → 실습 3종 → 퀴즈 통과)을 실제 브라우저 E2E로 검증함(콘솔 에러 0, 빌드 통과).
+남은 백로그는 `docs/TASKS.md` 하단 "다음 백로그" 참고(배포·실기기 QA·실데이터 교체 등).
+아직 git 저장소 아님.
 
 ## 실행
 
 ```bash
 npm install
-npm run dev   # Vite, 포트 5175 고정 (vite.config.js — 처인:담다 등 다른 로컬 프로토타입과 포트 충돌 방지)
+npm run dev    # Vite, 포트 5174
+npm run build  # dist/ (gitignore 대상)
 ```
 
-## 구조
+## 무엇으로 만들어졌나
 
-- `src/App.jsx` — 화면 라우팅 (state 기반, react-router 없음)
-- `src/state/store.jsx` — AppState reducer + localStorage 영속화 (`ttokttok-state-v1`, 구 키 폴백)
-- `src/engine/` — 시뮬레이션 체결/평가, 리포트 계산, 규칙 기반 실수 리포트 (순수 함수, React 무관)
-- `src/data/` — 목업 JSON 3종 + 진단 20문항(오답 풀이 포함)·페르소나(`personas.js`)·강의 10카드·퀴즈 5문항 (기획원본 md에서 코드로 옮긴 것 — 문구 수정 시 원본 md와 어긋나지 않게 주의)
-- `src/screens/` — 화면 단위 컴포넌트 (화면기획서 3-1~3-12 매핑)
-- `src/components/` — LineChart(커스텀 SVG, 금리 밴드·매매 마커·점진 재생 지원), 공통 UI
+Vite 6 + **순수 JS(ES 모듈), React 없음**. 화면 = `src/screens/*.js`의 render 함수,
+초경량 라우터(`src/router.js`)가 이름으로 전환. 상태는 `src/state.js`의 단일 객체
+(`docs/데이터모델.md`의 AppState 구조를 따름)이며 localStorage로 새로고침 시 유지.
 
-## 도메인 상수 (목업 기준)
+| 경로 | 무엇 |
+|---|---|
+| `src/main.js` | 부트스트랩 + 시작 화면 결정(재방문 시 온보딩 생략) |
+| `src/state.js` | AppState + localStorage 저장/초기화. `FEE_RATE`(0.2%)·시작자금 상수 |
+| `src/sim-core.js` | 시세/금리 접근, 자산곡선 리플레이, MDD, ETF 주간적립(DCA) 벤치마크, **규칙 기반 AI 실수 리포트**(`generateMistakeReport` — 시그니처 유지, 추후 LLM 교체 지점) |
+| `src/content.js` | 진단 20문항·강의 카드 10개·퀴즈 5문항 — `docs/콘텐츠/` 원고 그대로 |
+| `src/ui.js` | DOM 빌더 `h()`, `countUp()`(카운트업 모션), SVG `lineChart()`(밴드/마커/점선), 바텀시트 |
+| `src/screens/` | onboarding(스플래시·닉네임) / diagnosis / sim(0단계) / report(리포트·공유카드·AI리포트) / learn(홈·강의·퀴즈·마이) / practice(실습 3종) |
+| `src/data/` | 목업 JSON (docs/콘텐츠/mock-data의 사본) |
+| `src/assets/` | 강의용 SVG 인포그래픽 2종 |
 
-- 초기 자금 1,000만원 · 매수/매도 수수료 각 0.015% · 매도 거래세 0.18% (`src/engine/constants.js`)
-- 시뮬레이션 520주. 금리 레짐: 1~120 완화(2.0%) → **121~220 긴축(2.0→5.0%)** → 221~300 고금리 → 301~420 인하(→2.5%) → 421~520 저금리. 긴축기 구간이 1주차 학습과의 연결고리이므로 유저가 이 구간을 겪게 하는 설계가 중요.
-- 또래 평균 62.6점 (한은 2024, 20대) · 주가 상승=빨강, 하락=파랑 (국내 관례)
+## 편집 시 지킬 것
+
+1. **콘텐츠 원고는 `docs/콘텐츠/`가 원본.** 화면 문구를 바꾸려면 원고를 먼저 바꾸고 `src/content.js`에 반영(둘이 어긋나지 않게).
+2. **AI 리포트는 규칙 기반 유지** — 실제 LLM 호출 금지(빌드 브리프 5번). 교체 시 `generateMistakeReport` 내부만.
+3. `wrap.append(...)`에 배열을 직접 넘기지 말 것(문자열로 변환됨). `...arr`로 스프레드하거나 `h()`의 자식으로. (실제로 있었던 버그)
+4. 디자인 토큰은 `src/styles.css` 상단 `:root` — 토스 계열 차분한 금융 톤. 수익=빨강(`--up`)/손실=파랑(`--down`) 국내 관례.
+5. 데이터 구조 바꿀 땐 `docs/데이터모델.md`와 localStorage 마이그레이션(`state.js`의 방어 로직) 함께.
+
+## 문서 (기획 전문)
+
+`docs/빌드_브리프_클로드코드용.md`(스코프·완료기준 — **다른 문서와 충돌 시 우선**) ·
+`docs/화면기획서.md`(화면 12개 스펙) · `docs/프로젝트 기획서.md` · `docs/데이터모델.md` ·
+`docs/기본적인 컨셉과 개요..md` · `docs/TASKS.md`(**할 일 체크리스트 — 작업 시마다 갱신**)
+
+원본은 Obsidian 볼트 `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/KGW/김미정/`
+(볼트가 소스 오브 트루스 — `docs/`와 어긋나면 볼트 기준. TASKS.md는 양쪽 함께 갱신).
+리서치 자료(기획 초안 docx): `~/Claude/Projects/hufs_better_world/`

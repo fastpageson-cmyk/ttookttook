@@ -1,0 +1,2608 @@
+{
+  "meta": {
+    "disclaimer": "실제 한국은행 기준금리가 아닌 합성 목업 데이터입니다.",
+    "totalWeeks": 520
+  },
+  "weeklyRates": [
+    {
+      "week": 1,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 2,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 3,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 4,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 5,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 6,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 7,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 8,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 9,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 10,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 11,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 12,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 13,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 14,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 15,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 16,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 17,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 18,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 19,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 20,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 21,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 22,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 23,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 24,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 25,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 26,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 27,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 28,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 29,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 30,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 31,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 32,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 33,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 34,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 35,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 36,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 37,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 38,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 39,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 40,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 41,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 42,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 43,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 44,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 45,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 46,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 47,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 48,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 49,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 50,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 51,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 52,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 53,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 54,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 55,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 56,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 57,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 58,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 59,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 60,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 61,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 62,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 63,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 64,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 65,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 66,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 67,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 68,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 69,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 70,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 71,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 72,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 73,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 74,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 75,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 76,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 77,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 78,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 79,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 80,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 81,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 82,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 83,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 84,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 85,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 86,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 87,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 88,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 89,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 90,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 91,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 92,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 93,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 94,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 95,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 96,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 97,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 98,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 99,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 100,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 101,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 102,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 103,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 104,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 105,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 106,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 107,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 108,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 109,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 110,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 111,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 112,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 113,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 114,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 115,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 116,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 117,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 118,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 119,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 120,
+      "baseRate": 2.0,
+      "phase": "완화 유지"
+    },
+    {
+      "week": 121,
+      "baseRate": 2.03,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 122,
+      "baseRate": 2.06,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 123,
+      "baseRate": 2.09,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 124,
+      "baseRate": 2.12,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 125,
+      "baseRate": 2.15,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 126,
+      "baseRate": 2.18,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 127,
+      "baseRate": 2.21,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 128,
+      "baseRate": 2.24,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 129,
+      "baseRate": 2.27,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 130,
+      "baseRate": 2.3,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 131,
+      "baseRate": 2.33,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 132,
+      "baseRate": 2.36,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 133,
+      "baseRate": 2.39,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 134,
+      "baseRate": 2.42,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 135,
+      "baseRate": 2.45,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 136,
+      "baseRate": 2.48,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 137,
+      "baseRate": 2.51,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 138,
+      "baseRate": 2.54,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 139,
+      "baseRate": 2.57,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 140,
+      "baseRate": 2.6,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 141,
+      "baseRate": 2.63,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 142,
+      "baseRate": 2.66,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 143,
+      "baseRate": 2.69,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 144,
+      "baseRate": 2.72,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 145,
+      "baseRate": 2.75,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 146,
+      "baseRate": 2.78,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 147,
+      "baseRate": 2.81,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 148,
+      "baseRate": 2.84,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 149,
+      "baseRate": 2.87,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 150,
+      "baseRate": 2.9,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 151,
+      "baseRate": 2.93,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 152,
+      "baseRate": 2.96,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 153,
+      "baseRate": 2.99,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 154,
+      "baseRate": 3.02,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 155,
+      "baseRate": 3.05,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 156,
+      "baseRate": 3.08,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 157,
+      "baseRate": 3.11,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 158,
+      "baseRate": 3.14,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 159,
+      "baseRate": 3.17,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 160,
+      "baseRate": 3.2,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 161,
+      "baseRate": 3.23,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 162,
+      "baseRate": 3.26,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 163,
+      "baseRate": 3.29,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 164,
+      "baseRate": 3.32,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 165,
+      "baseRate": 3.35,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 166,
+      "baseRate": 3.38,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 167,
+      "baseRate": 3.41,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 168,
+      "baseRate": 3.44,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 169,
+      "baseRate": 3.47,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 170,
+      "baseRate": 3.5,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 171,
+      "baseRate": 3.53,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 172,
+      "baseRate": 3.56,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 173,
+      "baseRate": 3.59,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 174,
+      "baseRate": 3.62,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 175,
+      "baseRate": 3.65,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 176,
+      "baseRate": 3.68,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 177,
+      "baseRate": 3.71,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 178,
+      "baseRate": 3.74,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 179,
+      "baseRate": 3.77,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 180,
+      "baseRate": 3.8,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 181,
+      "baseRate": 3.83,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 182,
+      "baseRate": 3.86,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 183,
+      "baseRate": 3.89,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 184,
+      "baseRate": 3.92,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 185,
+      "baseRate": 3.95,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 186,
+      "baseRate": 3.98,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 187,
+      "baseRate": 4.01,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 188,
+      "baseRate": 4.04,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 189,
+      "baseRate": 4.07,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 190,
+      "baseRate": 4.1,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 191,
+      "baseRate": 4.13,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 192,
+      "baseRate": 4.16,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 193,
+      "baseRate": 4.19,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 194,
+      "baseRate": 4.22,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 195,
+      "baseRate": 4.25,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 196,
+      "baseRate": 4.28,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 197,
+      "baseRate": 4.31,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 198,
+      "baseRate": 4.34,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 199,
+      "baseRate": 4.37,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 200,
+      "baseRate": 4.4,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 201,
+      "baseRate": 4.43,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 202,
+      "baseRate": 4.46,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 203,
+      "baseRate": 4.49,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 204,
+      "baseRate": 4.52,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 205,
+      "baseRate": 4.55,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 206,
+      "baseRate": 4.58,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 207,
+      "baseRate": 4.61,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 208,
+      "baseRate": 4.64,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 209,
+      "baseRate": 4.67,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 210,
+      "baseRate": 4.7,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 211,
+      "baseRate": 4.73,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 212,
+      "baseRate": 4.76,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 213,
+      "baseRate": 4.79,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 214,
+      "baseRate": 4.82,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 215,
+      "baseRate": 4.85,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 216,
+      "baseRate": 4.88,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 217,
+      "baseRate": 4.91,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 218,
+      "baseRate": 4.94,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 219,
+      "baseRate": 4.97,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 220,
+      "baseRate": 5.0,
+      "phase": "긴축기 (금리 인상)"
+    },
+    {
+      "week": 221,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 222,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 223,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 224,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 225,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 226,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 227,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 228,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 229,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 230,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 231,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 232,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 233,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 234,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 235,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 236,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 237,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 238,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 239,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 240,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 241,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 242,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 243,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 244,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 245,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 246,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 247,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 248,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 249,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 250,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 251,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 252,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 253,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 254,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 255,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 256,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 257,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 258,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 259,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 260,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 261,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 262,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 263,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 264,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 265,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 266,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 267,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 268,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 269,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 270,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 271,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 272,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 273,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 274,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 275,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 276,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 277,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 278,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 279,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 280,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 281,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 282,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 283,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 284,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 285,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 286,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 287,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 288,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 289,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 290,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 291,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 292,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 293,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 294,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 295,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 296,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 297,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 298,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 299,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 300,
+      "baseRate": 5.0,
+      "phase": "고금리 유지"
+    },
+    {
+      "week": 301,
+      "baseRate": 4.98,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 302,
+      "baseRate": 4.96,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 303,
+      "baseRate": 4.94,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 304,
+      "baseRate": 4.92,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 305,
+      "baseRate": 4.9,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 306,
+      "baseRate": 4.88,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 307,
+      "baseRate": 4.85,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 308,
+      "baseRate": 4.83,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 309,
+      "baseRate": 4.81,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 310,
+      "baseRate": 4.79,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 311,
+      "baseRate": 4.77,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 312,
+      "baseRate": 4.75,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 313,
+      "baseRate": 4.73,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 314,
+      "baseRate": 4.71,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 315,
+      "baseRate": 4.69,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 316,
+      "baseRate": 4.67,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 317,
+      "baseRate": 4.65,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 318,
+      "baseRate": 4.62,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 319,
+      "baseRate": 4.6,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 320,
+      "baseRate": 4.58,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 321,
+      "baseRate": 4.56,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 322,
+      "baseRate": 4.54,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 323,
+      "baseRate": 4.52,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 324,
+      "baseRate": 4.5,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 325,
+      "baseRate": 4.48,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 326,
+      "baseRate": 4.46,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 327,
+      "baseRate": 4.44,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 328,
+      "baseRate": 4.42,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 329,
+      "baseRate": 4.4,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 330,
+      "baseRate": 4.38,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 331,
+      "baseRate": 4.35,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 332,
+      "baseRate": 4.33,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 333,
+      "baseRate": 4.31,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 334,
+      "baseRate": 4.29,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 335,
+      "baseRate": 4.27,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 336,
+      "baseRate": 4.25,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 337,
+      "baseRate": 4.23,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 338,
+      "baseRate": 4.21,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 339,
+      "baseRate": 4.19,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 340,
+      "baseRate": 4.17,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 341,
+      "baseRate": 4.15,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 342,
+      "baseRate": 4.12,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 343,
+      "baseRate": 4.1,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 344,
+      "baseRate": 4.08,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 345,
+      "baseRate": 4.06,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 346,
+      "baseRate": 4.04,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 347,
+      "baseRate": 4.02,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 348,
+      "baseRate": 4.0,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 349,
+      "baseRate": 3.98,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 350,
+      "baseRate": 3.96,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 351,
+      "baseRate": 3.94,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 352,
+      "baseRate": 3.92,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 353,
+      "baseRate": 3.9,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 354,
+      "baseRate": 3.88,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 355,
+      "baseRate": 3.85,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 356,
+      "baseRate": 3.83,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 357,
+      "baseRate": 3.81,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 358,
+      "baseRate": 3.79,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 359,
+      "baseRate": 3.77,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 360,
+      "baseRate": 3.75,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 361,
+      "baseRate": 3.73,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 362,
+      "baseRate": 3.71,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 363,
+      "baseRate": 3.69,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 364,
+      "baseRate": 3.67,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 365,
+      "baseRate": 3.65,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 366,
+      "baseRate": 3.62,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 367,
+      "baseRate": 3.6,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 368,
+      "baseRate": 3.58,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 369,
+      "baseRate": 3.56,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 370,
+      "baseRate": 3.54,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 371,
+      "baseRate": 3.52,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 372,
+      "baseRate": 3.5,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 373,
+      "baseRate": 3.48,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 374,
+      "baseRate": 3.46,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 375,
+      "baseRate": 3.44,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 376,
+      "baseRate": 3.42,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 377,
+      "baseRate": 3.4,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 378,
+      "baseRate": 3.38,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 379,
+      "baseRate": 3.35,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 380,
+      "baseRate": 3.33,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 381,
+      "baseRate": 3.31,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 382,
+      "baseRate": 3.29,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 383,
+      "baseRate": 3.27,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 384,
+      "baseRate": 3.25,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 385,
+      "baseRate": 3.23,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 386,
+      "baseRate": 3.21,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 387,
+      "baseRate": 3.19,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 388,
+      "baseRate": 3.17,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 389,
+      "baseRate": 3.15,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 390,
+      "baseRate": 3.12,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 391,
+      "baseRate": 3.1,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 392,
+      "baseRate": 3.08,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 393,
+      "baseRate": 3.06,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 394,
+      "baseRate": 3.04,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 395,
+      "baseRate": 3.02,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 396,
+      "baseRate": 3.0,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 397,
+      "baseRate": 2.98,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 398,
+      "baseRate": 2.96,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 399,
+      "baseRate": 2.94,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 400,
+      "baseRate": 2.92,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 401,
+      "baseRate": 2.9,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 402,
+      "baseRate": 2.88,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 403,
+      "baseRate": 2.85,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 404,
+      "baseRate": 2.83,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 405,
+      "baseRate": 2.81,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 406,
+      "baseRate": 2.79,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 407,
+      "baseRate": 2.77,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 408,
+      "baseRate": 2.75,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 409,
+      "baseRate": 2.73,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 410,
+      "baseRate": 2.71,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 411,
+      "baseRate": 2.69,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 412,
+      "baseRate": 2.67,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 413,
+      "baseRate": 2.65,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 414,
+      "baseRate": 2.62,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 415,
+      "baseRate": 2.6,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 416,
+      "baseRate": 2.58,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 417,
+      "baseRate": 2.56,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 418,
+      "baseRate": 2.54,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 419,
+      "baseRate": 2.52,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 420,
+      "baseRate": 2.5,
+      "phase": "완화 전환 (금리 인하)"
+    },
+    {
+      "week": 421,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 422,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 423,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 424,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 425,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 426,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 427,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 428,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 429,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 430,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 431,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 432,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 433,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 434,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 435,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 436,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 437,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 438,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 439,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 440,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 441,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 442,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 443,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 444,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 445,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 446,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 447,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 448,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 449,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 450,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 451,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 452,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 453,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 454,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 455,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 456,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 457,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 458,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 459,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 460,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 461,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 462,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 463,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 464,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 465,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 466,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 467,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 468,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 469,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 470,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 471,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 472,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 473,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 474,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 475,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 476,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 477,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 478,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 479,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 480,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 481,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 482,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 483,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 484,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 485,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 486,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 487,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 488,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 489,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 490,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 491,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 492,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 493,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 494,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 495,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 496,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 497,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 498,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 499,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 500,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 501,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 502,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 503,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 504,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 505,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 506,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 507,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 508,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 509,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 510,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 511,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 512,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 513,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 514,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 515,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 516,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 517,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 518,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 519,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    },
+    {
+      "week": 520,
+      "baseRate": 2.5,
+      "phase": "저금리 유지"
+    }
+  ]
+}
