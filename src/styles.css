@@ -153,6 +153,28 @@ h2.section { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin:
 .cmp-bar { height: 14px; border-radius: 999px; background: #eef1f4; overflow: hidden; }
 .cmp-bar > i { display: block; height: 100%; border-radius: 999px; width: 0; transition: width 1s cubic-bezier(.2,.8,.2,1); }
 
+/* 진단 결과 — 페르소나 */
+.persona-card { background: linear-gradient(135deg, #eef4ff, #f7f9ff); box-shadow: none; border: 1px solid #e2ebff; }
+.persona-head { display: flex; align-items: center; gap: 14px; }
+.persona-emoji { font-size: 40px; line-height: 1; flex: 0 0 auto; }
+.persona-name { font-size: 18px; font-weight: 800; letter-spacing: -0.01em; word-break: keep-all; }
+.persona-guide { margin-top: 12px; background: rgba(255,255,255,.7); border-radius: 12px; padding: 11px 14px; font-size: 13px; color: var(--sub); word-break: keep-all; }
+
+/* 진단 결과 — 영역별 이해도 */
+.cat-row { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.cat-row.last { border-bottom: 0; padding-bottom: 2px; }
+.cat-head { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 7px; }
+.cat-head b { font-variant-numeric: tabular-nums; }
+.cat-bar { height: 8px; border-radius: 999px; background: #eef1f4; overflow: hidden; }
+.cat-bar > i { display: block; height: 100%; border-radius: 999px; }
+
+/* 진단 결과 — 오답 풀이 카드 */
+.wrong-card { border-left: 4px solid var(--up); }
+.wrong-card .wq { font-size: 15px; word-break: keep-all; }
+.wrong-line { font-size: 13.5px; padding: 3px 0; word-break: keep-all; }
+.wrong-line.no { color: var(--up); }
+.wrong-line.ok { color: var(--green); font-weight: 600; }
+
 /* ---------- 시뮬레이션 ---------- */
 .sim-summary { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .sim-summary .total { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
@@ -224,6 +246,11 @@ h2.section { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin:
 .stat .s-num { font-size: 19px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .legend { display: flex; gap: 14px; font-size: 12px; color: var(--sub); margin-top: 8px; }
 .legend i { display: inline-block; width: 10px; height: 3px; border-radius: 2px; margin-right: 5px; vertical-align: 3px; }
+
+/* 파산 배너 */
+.bankrupt-banner { background: var(--up-soft); border: 1px solid #f6c6cb; border-radius: 14px; padding: 14px 16px; margin-bottom: 4px; text-align: center; }
+.bankrupt-banner b { display: block; color: var(--up); font-size: 15px; margin-bottom: 4px; }
+.bankrupt-banner span { font-size: 12.5px; color: var(--sub); }
 
 /* AI 리포트 카드 */
 .mistake-card { border-left: 4px solid var(--blue); }

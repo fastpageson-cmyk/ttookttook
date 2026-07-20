@@ -89,6 +89,11 @@ export function maxDrawdown(curve) {
   return mdd * 100
 }
 
+// 파산 판정: 총자산이 시작 자금의 20% 미만(= -80% 이상 손실)이면 사실상 파산.
+// (목업 데이터상 단일 종목 all-in 최악 손실이 약 -84%라, 이 구간을 잡도록 설정.
+//  스펙 3-5의 '잔고 0' 완전 파산은 상장폐지 데이터가 있어야 성립 — 데이터 확보 시 하향)
+export const BANKRUPT_RATIO = 0.20
+
 // 0단계 종료 리포트 (데이터모델 SessionReport + 차트용 곡선)
 export function computeReport(sim) {
   const endWeek = sim.currentWeek
@@ -103,6 +108,7 @@ export function computeReport(sim) {
     totalTrades: sim.trades.length,
     totalFees: sim.trades.reduce((a, t) => a + t.fee, 0),
     benchmarkReturn: (bm[bm.length - 1] / STARTING_CASH - 1) * 100,
+    bankrupt: finalValue < STARTING_CASH * BANKRUPT_RATIO,
     equityCurve: eq,
     benchmarkCurve: bm,
   }

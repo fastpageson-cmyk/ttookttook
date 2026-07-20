@@ -18,6 +18,10 @@ register('report', () => {
   const gap = r.finalReturn - r.benchmarkReturn
 
   return h('div', { class: 'screen' },
+    r.bankrupt ? h('div', { class: 'bankrupt-banner' },
+      h('b', {}, '💥 파산 — 자산의 대부분을 잃었습니다'),
+      h('span', {}, '한 종목에 크게 걸었다가 무너진 결과예요. 아래 실수 리포트에서 이유를 짚어봅니다.'),
+    ) : null,
     h('div', { class: 'report-hero' },
       h('div', { class: 'rh-label' }, `${S.user.nickname}님의 첫 투자 성적표 · ${fmt(r.endWeek)}주(약 ${(r.endWeek / 52).toFixed(1)}년)`),
       h('div', { class: 'rh-num ' + numClass(r.finalReturn) }, retNode),

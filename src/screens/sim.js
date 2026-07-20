@@ -2,12 +2,13 @@
 import { h, fmt, won, pct, numClass, lineChart, openSheet } from '../ui.js'
 import { register, go, onLeave } from '../router.js'
 import { S, save } from '../state.js'
-import { TOTAL_WEEKS, ALL_STOCKS, price, tradeFee, portfolioValue, computeReport, generateMistakeReport } from '../sim-core.js'
+import { TOTAL_WEEKS, ALL_STOCKS, price, tradeFee, portfolioValue, computeReport, generateMistakeReport, BANKRUPT_RATIO } from '../sim-core.js'
 import { DISCLAIMER } from '../content.js'
 
 let selected = ALL_STOCKS[0].code
 let timer = null
 let speed = 1 // 1: 재생(주당 160ms), 4: 빨리감기(주당 45ms, 2주씩)
+let bankruptShown = false // 파산 안내는 세션당 1회만
 
 function stopTimer() { if (timer) { clearInterval(timer); timer = null } }
 
@@ -18,6 +19,7 @@ register('sim', () => {
   if (sim.status === 'not_started') { sim.status = 'in_progress'; save() }
 
   const wrap = h('div', { class: 'screen sim-screen' })
+  bankruptShown = false
   onLeave(() => { stopTimer(); save() })
 
   function finalize() {
@@ -29,10 +31,26 @@ register('sim', () => {
     go('report')
   }
 
+  // 파산: 보유 종목이 있고 총자산이 시작 자금의 10% 미만
+  function isBankrupt() {
+    const invested = Object.values(sim.holdings).some(q => q > 0)
+    return invested && portfolioValue(sim, sim.currentWeek) < sim.startingCash * BANKRUPT_RATIO
+  }
+  function showBankruptcy() {
+    stopTimer(); bankruptShown = true; paint()
+    const close = openSheet(
+      h('h3', {}, '⚠️ 파산했습니다'),
+      h('p', { class: 'desc', style: 'margin-bottom:18px' },
+        `총자산이 시작 자금의 ${Math.round((1 - BANKRUPT_RATIO) * 100)}% 이상 사라졌어요. 한 종목에 크게 걸었다가 회복 불가능한 손실을 본 겁니다. 여기서 마치고, 무엇이 문제였는지 리포트로 확인해봐요.`),
+      h('button', { class: 'btn', onclick: () => { close(); finalize() } }, '결과 보기'),
+    )
+  }
+
   function tick() {
     const step = speed === 4 ? 2 : 1
     sim.currentWeek = Math.min(TOTAL_WEEKS, sim.currentWeek + step)
     if (sim.currentWeek >= TOTAL_WEEKS) { finalize(); return }
+    if (!bankruptShown && isBankrupt()) { showBankruptcy(); return }
     paint()
   }
 
@@ -177,7 +195,7 @@ register('sim', () => {
         timer && speed === 1 ? '⏸ 일시정지' : '▶ 재생'),
       h('button', { class: 'tc' + (timer && speed === 4 ? ' playing' : ''), onclick: () => togglePlay(4) },
         timer && speed === 4 ? '⏸ 일시정지' : '⏩ 빨리감기'),
-      h('button', { class: 'tc', onclick: () => { stopTimer(); sim.currentWeek = Math.min(TOTAL_WEEKS, sim.currentWeek + 4); if (sim.currentWeek >= TOTAL_WEEKS) finalize(); else { save(); paint() } } }, '+4주'),
+      h('button', { class: 'tc', onclick: () => { stopTimer(); sim.currentWeek = Math.min(TOTAL_WEEKS, sim.currentWeek + 4); if (sim.currentWeek >= TOTAL_WEEKS) { finalize(); return } if (!bankruptShown && isBankrupt()) { showBankruptcy(); return } save(); paint() } }, '+4주'),
     )
     const chartCard = h('div', { class: 'card sim-chart-card' },
       h('div', { class: 'price-line' },

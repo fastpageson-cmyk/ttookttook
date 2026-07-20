@@ -2,7 +2,7 @@
 import { h, countUp } from '../ui.js'
 import { register, go } from '../router.js'
 import { S, save } from '../state.js'
-import { DIAGNOSIS, PEER_AVG } from '../content.js'
+import { DIAGNOSIS, PEER_AVG, categoryBreakdown, personaForScore } from '../content.js'
 
 register('diag', () => {
   // 중도 이탈 임시저장: answers에 저장된 다음 문항부터 재개
@@ -75,11 +75,30 @@ register('diagResult', () => {
     ? `또래 평균보다 ${diff.toFixed(1)}점 높아요. 그래도 방심은 금물 — 아는 것과 버는 건 다릅니다.`
     : `또래 평균보다 ${Math.abs(diff).toFixed(1)}점 낮아요. 괜찮습니다. 여기는 잃어도 되는 곳이니까요.`
 
+  const persona = personaForScore(score)
+  const cats = categoryBreakdown(S.diagnosis.answers)
+  const wrong = DIAGNOSIS
+    .map((q, i) => ({ q, i, picked: S.diagnosis.answers[i] }))
+    .filter(({ q, picked }) => picked !== q.a)
+
   return h('div', { class: 'screen' },
     h('div', { class: 'report-hero' },
       h('div', { class: 'rh-label' }, `${S.user.nickname}님의 금융이해력`),
       h('div', { class: 'rh-num' }, scoreNode, h('span', { style: 'font-size:22px;color:var(--mut)' }, ' / 100')),
     ),
+    // 페르소나
+    persona ? h('div', { class: 'card persona-card' },
+      h('div', { class: 'persona-head' },
+        h('span', { class: 'persona-emoji' }, persona.emoji),
+        h('div', {},
+          h('div', { class: 'small' }, '나의 학습 유형'),
+          h('b', { class: 'persona-name' }, persona.name),
+        ),
+      ),
+      h('p', { class: 'desc', style: 'margin-top:12px' }, persona.desc),
+      h('div', { class: 'persona-guide' }, '📚 ' + persona.guide),
+    ) : null,
+    // 또래 비교
     h('div', { class: 'card' },
       h('div', { class: 'cmp-row' },
         h('div', { class: 'cmp-label' }, h('span', {}, '내 점수'), h('b', {}, score + '점')),
@@ -90,7 +109,35 @@ register('diagResult', () => {
       h('hr', { class: 'divider' }),
       h('p', { class: 'desc' }, diffText),
     ),
-    h('div', { class: 'card', style: 'background:var(--blue-soft);box-shadow:none' },
+    // 카테고리별 강·약
+    h('h2', { class: 'section' }, '영역별 이해도'),
+    h('div', { class: 'card' },
+      cats.map((c, ci) => {
+        const rate = c.correct / c.total
+        const color = rate >= 0.7 ? 'var(--green)' : rate <= 0.34 ? 'var(--up)' : 'var(--amber)'
+        return h('div', { class: 'cat-row' + (ci === cats.length - 1 ? ' last' : '') },
+          h('div', { class: 'cat-head' },
+            h('span', {}, c.cat),
+            h('b', { style: `color:${color}` }, `${c.correct}/${c.total}`)),
+          h('div', { class: 'cat-bar' }, h('i', { style: `width:${(rate * 100).toFixed(0)}%;background:${color}` })),
+        )
+      }),
+    ),
+    // 틀린 문항 오답풀이
+    wrong.length ? h('div', {},
+      h('h2', { class: 'section' }, `틀린 문항 다시 보기 (${wrong.length})`),
+      h('p', { class: 'small', style: 'margin:-4px 0 12px' }, '지금 몰라도 괜찮아요. 관련 개념은 앞으로 강의에서 다룹니다.'),
+      wrong.map(({ q, picked }) => h('div', { class: 'card wrong-card' },
+        h('div', { class: 'small' }, q.cat),
+        h('b', { class: 'wq', style: 'display:block;margin:4px 0 10px' }, q.q),
+        h('div', { class: 'wrong-line no' }, `내 답: ${'ABCD'[picked] || '-'}. ${q.opts[picked] ?? '무응답'}`),
+        h('div', { class: 'wrong-line ok' }, `정답: ${'ABCD'[q.a]}. ${q.opts[q.a]}`),
+        h('div', { class: 'explain', style: 'margin-top:10px' }, q.explain),
+      )),
+    ) : h('div', { class: 'card', style: 'background:var(--green-soft);box-shadow:none' },
+      h('p', { style: 'font-weight:700;color:var(--green)' }, '🎉 20문항 전부 정답! 기본기가 탄탄하네요.')),
+    // CTA
+    h('div', { class: 'card', style: 'background:var(--blue-soft);box-shadow:none;margin-top:12px' },
       h('p', { style: 'font-size:15px;font-weight:700;color:var(--blue-dark)' }, '이제, 투자를 직접 해보세요'),
       h('p', { class: 'desc', style: 'font-size:13px;margin-top:4px' },
         '설명은 없습니다. 가상 자금 1,000만 원으로 10년치 시장이 시작됩니다. 지금 아는 만큼만 부딪혀보세요.'),
