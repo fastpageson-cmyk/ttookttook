@@ -2,6 +2,7 @@
 import { register } from '../router.js'
 import { miniSimScreen } from '../mini-sim.js'
 import { S, week } from '../state.js'
+import { FIGURES } from '../infographics.js'
 import week1 from './week1.js'
 import week2 from './week2.js'
 import week3 from './week3.js'
@@ -11,6 +12,16 @@ import week6 from './week6.js'
 
 export const WEEKS = [week1, week2, week3, week4, week5, week6]
 export const byId = id => WEEKS.find(w => w.id === Number(id)) || WEEKS[0]
+
+// 강의 카드에 인포그래픽(인라인 SVG) 주입 — 카드 데이터에 figure 문자열을 심는다.
+// 콘텐츠(주차 모듈)와 도해(infographics)를 분리해 두고 여기서 연결한다.
+for (const w of WEEKS) {
+  const map = FIGURES[w.id]
+  if (!map) continue
+  for (const [idx, fn] of Object.entries(map)) {
+    if (w.cards[idx]) w.cards[idx].figure = fn()
+  }
+}
 
 // 미니 모의투자 화면 등록 (mini1 ~ mini6)
 for (const w of WEEKS) {

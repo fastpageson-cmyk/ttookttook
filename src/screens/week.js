@@ -32,7 +32,8 @@ register('lecture', (params = {}) => {
       h('div', { class: 'card lecture-card' },
         h('div', { class: 'eyebrow' }, `카드 ${idx + 1} / ${cards.length}`),
         h('div', { class: 'lc-title' }, c.title),
-        c.img ? h('img', { src: c.img, alt: c.title }) : null,
+        // 인포그래픽: figure(인라인 SVG · 디자인 토큰 색) 우선, 없으면 기존 img
+        c.figure ? h('figure', { class: 'lc-figure', html: c.figure }) : c.img ? h('img', { src: c.img, alt: c.title }) : null,
         (c.paras || []).map(p => h('p', {}, p)),
         c.bullets ? h('ul', {}, c.bullets.map(b => h('li', {}, b))) : null,
         c.note ? h('div', { class: 'note' }, '💡 ' + c.note) : null,
