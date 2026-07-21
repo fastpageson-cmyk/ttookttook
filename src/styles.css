@@ -541,3 +541,38 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .lc-figure { margin: var(--s2) 0 var(--s4); background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s4) var(--s3); }
 .lc-figure .ig { width: 100%; height: auto; display: block; }
 .lc-figure + p { margin-top: 0; }
+
+/* ---------- 졸업 리포트 ---------- */
+.grad-hero { text-align: center; padding: var(--s6) 0 var(--s4); }
+.grad-cap { font-size: 56px; line-height: 1; margin-bottom: var(--s3); }
+.grad-hero .hero { line-height: 1.32; }
+
+.grad-arc-row { display: flex; align-items: center; gap: var(--s2); }
+.grad-arc-col { flex: 1; display: flex; flex-direction: column; gap: 3px; text-align: center; }
+.grad-arc-col b { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.grad-arc-sub { font-size: 11px; color: var(--mut); }
+.grad-arrow { flex: 0 0 auto; font-size: 20px; color: var(--mut-soft); font-weight: 700; }
+
+.grad-take { display: flex; align-items: center; gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
+.grad-take:last-child { border-bottom: 0; }
+.grad-take-em { font-size: 22px; flex: 0 0 auto; }
+.grad-take-body { flex: 1; min-width: 0; }
+.grad-take-body b { font-size: var(--t-body); display: block; }
+.grad-take-body span { font-size: var(--t-cap); color: var(--mut); }
+
+.grad-stats { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+.grad-stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s4); display: flex; flex-direction: column; gap: var(--s1); }
+.grad-stat b { font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+.grad-retest { margin-top: var(--s3); }
+.grad-retest b { font-size: var(--t-body); }
+.grad-home:active { background: var(--fill); }
+
+/* 진단 재측정 비교 (졸업 후) */
+.retest-card { margin-bottom: var(--s3); }
+.retest-row { display: flex; align-items: center; gap: var(--s3); }
+.retest-col { flex: 1; display: flex; flex-direction: column; gap: 2px; text-align: center; }
+.retest-col b { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.retest-arrow { color: var(--mut-soft); font-size: 18px; font-weight: 700; }
+.retest-delta { flex: 0 0 auto; font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--mut); background: var(--fill); border-radius: var(--r-pill); padding: 4px 12px; }
+.retest-delta.up { color: var(--green-ink); background: var(--green-soft); }

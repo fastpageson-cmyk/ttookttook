@@ -200,8 +200,11 @@ register('quiz', (params = {}) => {
                     class: 'btn', style: 'margin-bottom:10px',
                     onclick: () => go('lecture', { week: nextWeek.id }),
                   }, `${nextWeek.id}주차 시작하기`)
-                : null,
-              h('button', { class: 'btn' + (nextWeek ? ' secondary' : ''), onclick: () => go('home') }, '홈으로'))
+                : h('button', {
+                    class: 'btn', style: 'margin-bottom:10px',
+                    onclick: () => go('graduation'),
+                  }, '🎓 졸업 리포트 보기'),
+              h('button', { class: 'btn secondary', onclick: () => go('home') }, '홈으로'))
           : h('div', {},
               h('button', { class: 'btn secondary', style: 'margin-bottom:10px', onclick: () => go('lecture', { week: w.id }) }, '강의 다시 보기'),
               h('button', { class: 'btn', onclick: () => { idx = 0; score = 0; paintQ() } }, '다시 풀기')),

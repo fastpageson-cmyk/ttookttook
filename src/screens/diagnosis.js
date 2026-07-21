@@ -47,6 +47,10 @@ register('diag', () => {
     if (idx < DIAGNOSIS.length - 1) { idx++; renderQ() }
     else {
       const correct = DIAGNOSIS.reduce((a, item, i) => a + (S.diagnosis.answers[i] === item.a ? 1 : 0), 0)
+      // 재측정(졸업 후)일 때 최초 점수를 보존해 성장 비교에 쓴다
+      if (S.diagnosis.completedAt && S.diagnosis.firstScore == null) {
+        S.diagnosis.firstScore = S.diagnosis.score
+      }
       S.diagnosis.score = correct * 5
       S.diagnosis.completedAt = new Date().toISOString()
       save()
@@ -62,7 +66,7 @@ register('diagResult', () => {
   const score = S.diagnosis.score ?? 0
   const scoreNode = h('span', {}, '0')
   const myBar = h('i', { style: `background:var(--blue);width:0` })
-  const peerBar = h('i', { style: `background:#c6cdd5;width:0` })
+  const peerBar = h('i', { style: `background:var(--line-strong);width:0` })
   requestAnimationFrame(() => {
     countUp(scoreNode, score, { dur: 1300 })
     setTimeout(() => {
@@ -81,11 +85,31 @@ register('diagResult', () => {
     .map((q, i) => ({ q, i, picked: S.diagnosis.answers[i] }))
     .filter(({ q, picked }) => picked !== q.a)
 
+  // 졸업 후 재측정이면 최초 점수 대비 성장을 먼저 보여준다
+  const first = S.diagnosis.firstScore
+  const grew = first != null ? score - first : null
+
   return h('div', { class: 'screen' },
     h('div', { class: 'report-hero' },
       h('div', { class: 'rh-label' }, `${S.user.nickname}님의 금융이해력`),
       h('div', { class: 'rh-num' }, scoreNode, h('span', { style: 'font-size:22px;color:var(--mut)' }, ' / 100')),
     ),
+    first != null ? h('div', { class: 'card retest-card' },
+      h('div', { class: 'retest-row' },
+        h('div', { class: 'retest-col' },
+          h('span', { class: 'small' }, '6주 전'),
+          h('b', {}, `${first}점`)),
+        h('span', { class: 'retest-arrow' }, '→'),
+        h('div', { class: 'retest-col' },
+          h('span', { class: 'small' }, '지금'),
+          h('b', { style: 'color:var(--blue)' }, `${score}점`)),
+        h('div', { class: 'retest-delta' + (grew >= 0 ? ' up' : '') },
+          grew >= 0 ? `+${grew}점` : `${grew}점`)),
+      h('p', { class: 'small', style: 'margin-top:12px;text-align:center' },
+        grew > 0 ? '6주가 숫자로 남았습니다. 먼저 잃고, 정말 똑똑해졌네요.'
+          : grew === 0 ? '점수는 그대로지만, 이제 왜 그런지 설명할 수 있습니다.'
+            : '점수에 일희일비하지 마세요 — 중요한 건 판단의 기준이 생겼다는 것입니다.'),
+    ) : null,
     // 페르소나
     persona ? h('div', { class: 'card persona-card' },
       h('div', { class: 'persona-head' },
@@ -136,14 +160,18 @@ register('diagResult', () => {
       )),
     ) : h('div', { class: 'card', style: 'background:var(--green-soft);box-shadow:none' },
       h('p', { style: 'font-weight:700;color:var(--green)' }, '🎉 20문항 전부 정답! 기본기가 탄탄하네요.')),
-    // CTA
-    h('div', { class: 'card', style: 'background:var(--blue-soft);box-shadow:none;margin-top:12px' },
-      h('p', { style: 'font-size:15px;font-weight:700;color:var(--blue-dark)' }, '이제, 투자를 직접 해보세요'),
-      h('p', { class: 'desc', style: 'font-size:13px;margin-top:4px' },
-        '설명은 없습니다. 가상 자금 1,000만 원으로 10년치 시장이 시작됩니다. 지금 아는 만큼만 부딪혀보세요.'),
-    ),
-    h('div', { class: 'cta-area' },
-      h('button', { class: 'btn', onclick: () => go('sim') }, '블라인드 투자 시작하기'),
-    ),
+    // CTA — 최초 진단이면 0단계로, 졸업 후 재측정이면 홈/졸업으로
+    first != null
+      ? h('div', { class: 'cta-area' },
+          h('button', { class: 'btn', onclick: () => go('graduation') }, '졸업 리포트로 돌아가기'))
+      : h('div', {},
+          h('div', { class: 'card', style: 'background:var(--blue-soft);margin-top:12px' },
+            h('p', { style: 'font-size:15px;font-weight:700;color:var(--blue-dark)' }, '이제, 투자를 직접 해보세요'),
+            h('p', { class: 'desc', style: 'font-size:13px;margin-top:4px' },
+              '설명은 없습니다. 가상 자금 1,000만 원으로 10년치 시장이 시작됩니다. 지금 아는 만큼만 부딪혀보세요.'),
+          ),
+          h('div', { class: 'cta-area' },
+            h('button', { class: 'btn', onclick: () => go('sim') }, '블라인드 투자 시작하기'),
+          )),
   )
 })
