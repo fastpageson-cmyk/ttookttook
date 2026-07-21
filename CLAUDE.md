@@ -60,7 +60,19 @@ Vite 6 + **순수 JS(ES 모듈), React 없음**. 화면 = `src/screens/*.js`의 
 | `src/weeks/index.js` | 주차 레지스트리 + 잠금·진행 헬퍼(`isUnlocked`/`currentWeek`/`practiceCount`) |
 | `src/mini-sim.js` | 미니 모의투자 **공용 엔진**(브리핑→설정→진행→결과) + 목업 계열 생성(채권·금·현금)·MDD·공용 UI 조각 |
 | `src/styles.css` | 디자인 토큰(`:root`) + 반응형. 파일 하단에 데스크톱(≥1024) 블록 |
-| `src/data/` | **전부 실제 시장 데이터**(`docs/콘텐츠/mock-data`의 사본). `stocks.json`=국내 8종목+KOSPI 520주(2016-07~2026-07, FinanceDataReader), `rates.json`=한국 정책금리·국면(FRED), `sp500_scenario.json`=2020년 S&P500·연준금리(FRED). 생성 스크립트가 같은 폴더에 있음 |
+| `src/data/` | **전부 실제 시장 데이터**(`docs/콘텐츠/mock-data`의 사본). `stocks.json`=국내 8종목+KOSPI 520주(FinanceDataReader), `rates.json`=한국 정책금리·국면(FRED), `sp500_scenario.json`=2020년 S&P500·연준금리(FRED), `fundamentals.json`=5주차 실제 재무지표·공시(DART). 생성 스크립트가 같은 폴더에 있음 |
+| `src/infographics.js` | 강의 카드용 인라인 SVG 도해(색은 CSS 변수). `weeks/index.js`에서 카드에 주입 |
+| `src/screens/graduation.js` | 졸업 리포트(6주 완주 후). 홈·6주차 퀴즈통과에서 진입 |
+
+## 🔑 API 키 · 보안 (중요)
+- **DART 오픈API 키는 `.env.local`(gitignore·chmod600)에만** 둔다. `docs/콘텐츠/mock-data/fetch_dart_fundamentals.py`가 **빌드 타임에만** 읽어 `fundamentals.json`을 생성한다.
+- 이 앱은 **정적 SPA라 프론트엔드에 키를 넣으면 번들에 그대로 노출**된다. `VITE_` 접두사 사용 금지, 런타임 API 호출 금지. 키가 필요한 건 데이터 생성 스크립트뿐이고 산출물(JSON)만 앱에 들어간다.
+- 커밋 전 스테이징 diff·소스·산출 JSON에 키 문자열이 없는지 확인할 것. `.env.example`만 커밋한다.
+
+## 🎨 디자인 시스템 (2026-07-22, design/premium-fintech 브랜치)
+- 토큰은 `styles.css` `:root`: 간격 `--s1~s12`(8px), radius `--r-sm/md/lg`, 타이포 `--t-display/title/body/cap`(화면당 4단계), 모션 `--dur`(200ms)+`--ease`. **색을 하드코딩하지 말고 토큰**을 쓸 것.
+- 원칙: 그라디언트·글라스모피즘·과한 그림자 금지, **보더 우선**. 상태색(up/down/green)은 의미가 있을 때만. WCAG AA 유지(밝은 배경 위 초록 텍스트는 `--green-ink`, 캡션은 `--mut`).
+- 인라인 SVG(infographics)에서는 `fill="var(--blue)"`가 동작한다(img src로는 안 됨). 새 도해도 이 방식으로.
 
 ## 편집 시 지킬 것 (실제로 당한 것들)
 
