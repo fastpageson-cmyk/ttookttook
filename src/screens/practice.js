@@ -1,7 +1,7 @@
 // 화면 3-10 — 1주차 실습 3종 (0단계 복기 / 금리 인하기 리플레이 / 한미 금리차 위젯)
 import { h, fmt, pct, numClass, lineChart } from '../ui.js'
 import { register, go, onLeave } from '../router.js'
-import { S, save } from '../state.js'
+import { S, week as weekState, save } from '../state.js'
 import sp500 from '../data/sp500_scenario.json'
 import { RATE_PHASES, rateAt, price, ETF_CODE, TOTAL_WEEKS } from '../sim-core.js'
 
@@ -13,35 +13,8 @@ const PHASE_COLORS = {
   '저금리 유지': 'rgba(18,183,106,.12)',
 }
 
-// ---------- 실습 허브 ----------
-register('practices', () => {
-  const pr = S.week1.practices
-  const item = (done, ico, title, desc, screen) =>
-    h('div', { class: 'card', style: 'cursor:pointer', onclick: () => go(screen) },
-      h('div', { class: 'prac-row' },
-        h('span', { style: 'font-size:28px' }, ico),
-        h('div', { style: 'flex:1' },
-          h('b', { style: 'font-size:16px' }, title),
-          h('p', { class: 'small', style: 'margin-top:2px' }, desc)),
-        h('span', { class: 'badge ' + (done ? 'green' : 'blue') }, done ? '완료' : '하러 가기'),
-      ))
-  return h('div', { class: 'screen' },
-    h('div', { class: 'topbar' },
-      h('button', { class: 'btn-back', onclick: () => go('home') }, '‹'),
-      h('div', { class: 'tb-title' }, '1주차 실습'),
-    ),
-    h('p', { class: 'desc', style: 'margin-bottom:16px' }, '배운 개념을 바로 손으로 확인해봅니다. 세 가지 모두 완료하면 확인 퀴즈가 열립니다.'),
-    item(pr.review0, '🔍', '실습 1 · 0단계 복기', '그때 금리는 어떻게 움직였을까', 'prac1'),
-    item(pr.rateCutReplay, '📈', '실습 2 · 금리 인하기 리플레이', '지수 급락과 반등, 그 뒤의 금리', 'prac2'),
-    item(pr.fxWidget, '⚖️', '실습 3 · 한미 금리차와 환율', '슬라이더로 직접 움직여보기', 'prac3'),
-    h('div', { class: 'cta-area' },
-      h('button', {
-        class: 'btn', disabled: !(pr.review0 && pr.rateCutReplay && pr.fxWidget),
-        onclick: () => go('quiz'),
-      }, '확인 퀴즈 풀러 가기'),
-    ),
-  )
-})
+// (실습 허브는 주차 공통 화면 screens/week.js로 이동 — 여기에는 1주차 개별 실습 3종만 남는다)
+const backToHub = () => go('practices', { week: 1 })
 
 // ---------- 실습 1 · 0단계 복기 ----------
 register('prac1', () => {
@@ -52,9 +25,9 @@ register('prac1', () => {
   let clickedOnce = false
 
   const doneBtn = h('button', {
-    class: 'btn', disabled: !S.week1.practices.review0,
-    onclick: () => { S.week1.practices.review0 = true; save(); go('practices') },
-  }, S.week1.practices.review0 ? '실습 완료됨 · 돌아가기' : '구간을 눌러 확인해보세요')
+    class: 'btn', disabled: !weekState(1).practices.review0,
+    onclick: () => { weekState(1).practices.review0 = true; save(); backToHub() },
+  }, weekState(1).practices.review0 ? '실습 완료됨 · 돌아가기' : '구간을 눌러 확인해보세요')
 
   const svg = lineChart({
     h: 240,
@@ -93,7 +66,7 @@ register('prac1', () => {
 
   return h('div', { class: 'screen' },
     h('div', { class: 'topbar' },
-      h('button', { class: 'btn-back', onclick: () => go('practices') }, '‹'),
+      h('button', { class: 'btn-back', onclick: () => backToHub() }, '‹'),
       h('div', { class: 'tb-title' }, '실습 1 · 0단계 복기'),
     ),
     h('div', { class: 'card' },
@@ -143,7 +116,7 @@ register('prac2', () => {
     const chg = (curIdx / sp500.meta.startIndexValue - 1) * 100
     wrap.append(
       h('div', { class: 'topbar' },
-        h('button', { class: 'btn-back', onclick: () => { stop(); go('practices') } }, '‹'),
+        h('button', { class: 'btn-back', onclick: () => { stop(); backToHub() } }, '‹'),
         h('div', { class: 'tb-title' }, '실습 2 · 금리 인하기 리플레이'),
       ),
       h('div', { class: 'card' },
@@ -229,7 +202,7 @@ register('prac2', () => {
           '이번 리플레이에서는 금리 인하와 지수 반등이 함께 왔습니다. 하지만 금리 인하와 지수 반등이 항상 같이 오지는 않습니다. 경기 침체가 심각해서 금리를 내리는 경우라면, 주가는 더 떨어질 수도 있습니다. "금리 인하 = 매수 신호"로 기계적으로 외우지 않는 것이 이번 실습의 진짜 결론입니다.')),
       h('div', { class: 'cta-area' },
         h('button', {
-          class: 'btn', onclick: () => { S.week1.practices.rateCutReplay = true; save(); go('practices') },
+          class: 'btn', onclick: () => { weekState(1).practices.rateCutReplay = true; save(); backToHub() },
         }, '실습 완료')))
   }
 
@@ -256,7 +229,7 @@ register('prac3', () => {
     wrap.innerHTML = ''
     wrap.append(
       h('div', { class: 'topbar' },
-        h('button', { class: 'btn-back', onclick: () => go('practices') }, '‹'),
+        h('button', { class: 'btn-back', onclick: () => backToHub() }, '‹'),
         h('div', { class: 'tb-title' }, '실습 3 · 한미 금리차와 환율'),
       ),
       h('div', { class: 'card' },
@@ -293,7 +266,7 @@ register('prac3', () => {
             revealed && prediction === oi && oi !== ans ? h('span', { class: 'mark no' }, '✕') : null,
           ))),
         !revealed
-          ? h('button', { class: 'btn', style: 'margin-top:8px', disabled: prediction == null, onclick: () => { S.week1.practices.fxWidget = true; save(); paint(true) } }, '정답 확인')
+          ? h('button', { class: 'btn', style: 'margin-top:8px', disabled: prediction == null, onclick: () => { weekState(1).practices.fxWidget = true; save(); paint(true) } }, '정답 확인')
           : h('div', { class: 'explain' },
               diff > 0.5
                 ? `미국 금리가 한국보다 ${diff.toFixed(2)}%p 높습니다. 자본이 더 높은 이자를 주는 달러 쪽으로 이동하려는 유인이 생겨, 원/달러 환율은 상승(원화 약세) 압력을 받는 쪽이 일반적입니다.`
@@ -306,7 +279,7 @@ register('prac3', () => {
         revealed
           ? h('div', { class: 'btn-row' },
               h('button', { class: 'btn secondary', onclick: () => { prediction = null; paint() } }, '다른 조합 실험'),
-              h('button', { class: 'btn', onclick: () => go('practices') }, '실습 완료'))
+              h('button', { class: 'btn', onclick: () => backToHub() }, '실습 완료'))
           : null),
     )
   }

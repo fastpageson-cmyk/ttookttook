@@ -384,3 +384,114 @@ h2.section { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin:
   .sim-screen > .small { order: 5; }
   .sim-screen > .disclaimer { order: 6; }
 }
+
+/* ---------- 미니 모의투자 (주차별 실습 마무리) ---------- */
+.ms-steps { display: flex; gap: 6px; margin: 0 0 16px; }
+.ms-steps i { flex: 1; height: 4px; border-radius: 999px; background: var(--line); transition: background .2s; }
+.ms-steps i.on { background: var(--blue); }
+
+.ms-brief .eyebrow { color: var(--blue); font-weight: 700; font-size: 12px; letter-spacing: .02em; }
+.ms-brief .desc + .desc { margin-top: 10px; }
+.ms-tools ul { margin: 10px 0 0; padding-left: 18px; }
+.ms-tools li { font-size: 14px; color: var(--sub); margin: 6px 0; }
+
+.ms-choices { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.ms-choice {
+  flex: 1 1 0; min-width: 92px; border: 1.5px solid var(--line); background: #fff;
+  border-radius: 14px; padding: 12px 8px; cursor: pointer; text-align: center;
+  display: flex; flex-direction: column; gap: 3px; transition: all .15s;
+}
+.ms-choice b { font-size: 15px; }
+.ms-choice span { font-size: 11px; color: var(--mut); }
+.ms-choice.on { border-color: var(--blue); background: var(--blue-soft); }
+.ms-choice.on b { color: var(--blue-dark); }
+
+.ms-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.ms-metric {
+  background: #fff; border-radius: 14px; padding: 14px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.ms-metric .ms-mk { font-size: 12px; color: var(--mut); font-weight: 600; }
+.ms-metric b { font-size: 18px; font-variant-numeric: tabular-nums; }
+.ms-metric .ms-ms { font-size: 11px; color: var(--mut); }
+
+.ms-coach b { font-size: 16px; display: block; margin-bottom: 8px; }
+.ms-coach p { font-size: 14px; color: var(--sub); line-height: 1.7; }
+.ms-coach p + p { margin-top: 10px; }
+
+.ms-rate { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+.ms-rate b { font-size: 20px; color: var(--blue); font-variant-numeric: tabular-nums; }
+.ms-warn {
+  margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--up);
+  background: var(--up-soft); border-radius: 12px; padding: 10px 12px;
+}
+
+.ms-legend { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.ms-legend span { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--sub); }
+.ms-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+.ms-bars { display: flex; flex-direction: column; gap: 12px; }
+.ms-bar { display: grid; grid-template-columns: 1fr; gap: 4px; }
+.ms-bar > span { font-size: 13px; color: var(--sub); font-weight: 600; }
+.ms-bar > i { height: 12px; border-radius: 999px; background: var(--line); display: block; min-width: 6px; }
+.ms-bar > b { font-size: 15px; font-variant-numeric: tabular-nums; }
+.ms-bar.on > i { background: var(--blue); }
+.ms-bar:not(.on) > i { background: #cdd3da; }
+
+.ms-alloc { display: flex; height: 14px; border-radius: 999px; overflow: hidden; margin-top: 14px; background: var(--line); }
+.ms-alloc i { display: block; height: 100%; }
+
+.ms-play-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+.ms-big { display: block; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.ms-row3 { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; }
+.ms-row3 > div { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.ms-row3 span { font-size: 11px; color: var(--mut); }
+.ms-row3 b { font-size: 14px; font-variant-numeric: tabular-nums; }
+
+.ms-alert { background: #fff8e6; box-shadow: none; border: 1px solid #ffe4a3; }
+.ms-alert b { font-size: 15px; }
+.ms-alert p { font-size: 13.5px; color: var(--sub); margin-top: 6px; line-height: 1.65; }
+.ms-alert.danger { background: var(--up-soft); border-color: #ffd2d6; }
+
+.ms-stocks { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.ms-stock {
+  border: 1.5px solid var(--line); background: #fff; border-radius: 16px;
+  padding: 14px; cursor: pointer; text-align: left; width: 100%; transition: all .15s;
+}
+.ms-stock.on { border-color: var(--blue); background: var(--blue-soft); }
+.ms-st-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ms-st-head b { font-size: 15px; }
+.ms-st-sector { font-size: 11px; color: var(--mut); background: #eef1f4; padding: 2px 8px; border-radius: 999px; }
+.ms-st-figs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.ms-st-figs > div { display: flex; flex-direction: column; gap: 1px; }
+.ms-st-figs span { font-size: 10.5px; color: var(--mut); }
+.ms-st-figs b { font-size: 13px; font-variant-numeric: tabular-nums; }
+
+.ms-news .ms-news-src { font-size: 12px; font-weight: 700; color: var(--mut); margin-bottom: 8px; }
+.ms-news .ms-news-body {
+  font-size: 15px; font-weight: 600; line-height: 1.6; color: var(--ink);
+  background: #f7f8fa; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+}
+
+.ms-eventlog { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.ms-ev { border-top: 1px solid var(--line); padding-top: 12px; }
+.ms-ev:first-child { border-top: 0; padding-top: 0; }
+.ms-ev-top { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
+.ms-ev-src { font-size: 12px; color: var(--mut); flex: 1; }
+
+.ms-positions { margin-top: 12px; }
+.ms-pos { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+.ms-pos.total { border-top: 1.5px solid var(--line); margin-top: 6px; padding-top: 12px; font-weight: 700; }
+.ms-tax-note { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+.ms-tax-note p { margin: 6px 0; line-height: 1.6; }
+
+.ms-divider { display: flex; align-items: center; gap: 10px; margin: 18px 0 12px; }
+.ms-divider::before, .ms-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.ms-divider span { font-size: 12px; font-weight: 700; color: var(--mut); }
+.ms-entry { border: 1.5px solid var(--blue); }
+
+@media (min-width: 640px) {
+  .ms-metrics { grid-template-columns: repeat(4, 1fr); }
+  .ms-stocks { grid-template-columns: 1fr 1fr; }
+}
+.ms-locked { font-style: normal; font-size: 11px; font-weight: 700; color: var(--amber); }
