@@ -1,6 +1,6 @@
 // 주차 공통 화면 — 강의 카드 / 실습 허브 / 확인 퀴즈
 // 1주차만 개별 실습 3종(prac1~3)을 갖고, 모든 주차는 실습 마지막에 미니 모의투자가 붙는다.
-import { h } from '../ui.js'
+import { h, appendKids } from '../ui.js'
 import { register, go } from '../router.js'
 import { S, week, save } from '../state.js'
 import { QUIZ_PASS } from '../content.js'
@@ -83,8 +83,7 @@ register('practices', (params = {}) => {
     h('div', { class: 'ms-divider' }, h('span', {}, '마무리 · 미니 모의투자')),
     item(st.miniSim.done, '🎮', w.miniSim.navTitle, w.miniSim.navDesc, 'mini' + w.id, ' ms-entry'),
     st.miniSim.done && st.miniSim.result
-      ? h('p', { class: 'small', style: 'text-align:center;margin-top:-6px' },
-          `지난 결과: ${st.miniSim.result.headline}`)
+      ? h('p', { class: 'small ms-last' }, `지난 결과: ${st.miniSim.result.headline}`)
       : null,
     h('div', { class: 'cta-area' },
       h('button', {
@@ -174,7 +173,7 @@ register('quiz', (params = {}) => {
     const isLast = w.id === WEEKS[WEEKS.length - 1].id
     const nextWeek = WEEKS.find(x => x.id === w.id + 1)
     wrap.innerHTML = ''
-    wrap.append(
+    appendKids(wrap,
       h('div', { class: 'report-hero' },
         h('div', { class: 'rh-label' }, '퀴즈 결과'),
         h('div', { class: 'rh-num', style: passed ? 'color:var(--green)' : 'color:var(--up)' }, `${score} / ${QUIZ.length}`),

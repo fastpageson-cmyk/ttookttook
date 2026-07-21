@@ -4,6 +4,7 @@
 // 이 주차의 미니 모의투자는 "배운 걸 실제로 써본다"의 대표 사례다.
 // 카드에서 레버리지·상환방식·마진콜을 배우고, 모의투자에서 직접 대출을 당겨 52주를 버텨본다.
 import { onLeave } from '../router.js'
+import { appendKids } from '../ui.js'
 import {
   h, fmt, won, pct, numClass, seriesFrom, maxDD,
   metricGrid, choiceRow, coachCard, compareChart, lineChart,
@@ -262,7 +263,7 @@ export default {
         const total = EQUITY0 + loan
         const payment = annuityPayment(loan, LOAN_RATE / 52, WEEKS)
         node.innerHTML = ''
-        node.append(
+        appendKids(node,
           h('div', { class: 'card' },
             h('b', {}, '① 대출을 얼마나 받을까요?'),
             choiceRow([
@@ -328,7 +329,7 @@ export default {
         const hitMargin = full.ended === 'margin' && i >= full.endIndex
 
         box.innerHTML = ''
-        box.append(
+        appendKids(box,
           h('div', { class: 'card' },
             h('div', { class: 'ms-play-head' },
               h('div', {},

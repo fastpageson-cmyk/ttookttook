@@ -67,6 +67,10 @@ Vite 6 + **순수 JS(ES 모듈), React 없음**. 화면 = `src/screens/*.js`의 
 1. **콘텐츠 원고 원본은 `docs/콘텐츠/`.** 화면 문구를 바꾸려면 원고 먼저 → `src/content.js` 반영.
 2. **AI 리포트는 규칙 기반 유지** — 실제 LLM 호출 금지(빌드 브리프 5번). 교체 시 `generateMistakeReport` 내부만.
 3. `wrap.append(...)`에 **배열을 직접 넘기지 말 것**(문자열로 변환됨). `...arr` 스프레드 또는 `h()`의 자식으로. — 실제 버그였음.
+   같은 이유로 **`append()`에 `null`을 넘기면 화면에 문자열 "null"이 찍힌다.** 조건부 자식
+   (`cond ? h(...) : null`)을 붙일 때는 반드시 `ui.js`의 **`appendKids(parent, ...)`** 를 쓸 것.
+   `h()`의 자식으로 들어가는 null은 h가 걸러주므로 안전하다 — 위험한 건 `parent.append(...)` 직접 호출.
+   (퀴즈 미통과 화면·3주차 설정/진행 화면에서 실제로 "null"이 노출됐음)
 4. 색: 수익=빨강(`--up`)/손실=파랑(`--down`) 국내 관례.
 5. **시뮬 화면 순서**: 데스크톱은 `.sim-grid` 2컬럼, 모바일은 `display:contents`+`order`로
    총자산→종목→차트→시간 순 유지. `order`를 쓰므로 topbar/안내문/disclaimer에도 order를 명시해야

@@ -17,6 +17,17 @@ export function h(tag, props = {}, ...kids) {
   return n
 }
 
+// 자식 목록에서 null/false를 걸러 붙인다.
+// ⚠️ DOM의 append()는 null을 받으면 문자열 "null"을 그대로 렌더한다.
+// 조건부 자식(`cond ? h(...) : null`)을 붙일 때는 반드시 이 함수를 쓸 것.
+export function appendKids(parent, ...kids) {
+  for (const kid of kids.flat(9)) {
+    if (kid == null || kid === false) continue
+    parent.append(kid.nodeType ? kid : document.createTextNode(kid))
+  }
+  return parent
+}
+
 export const fmt = (n, d = 0) =>
   Number(n).toLocaleString('ko-KR', { maximumFractionDigits: d, minimumFractionDigits: d })
 export const won = n => fmt(Math.round(n)) + '원'

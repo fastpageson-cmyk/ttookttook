@@ -462,9 +462,9 @@ h2.section { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin:
 .ms-st-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
 .ms-st-head b { font-size: 15px; }
 .ms-st-sector { font-size: 11px; color: var(--mut); background: #eef1f4; padding: 2px 8px; border-radius: 999px; }
-.ms-st-figs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.ms-st-figs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 12px; }
 .ms-st-figs > div { display: flex; flex-direction: column; gap: 1px; }
-.ms-st-figs span { font-size: 10.5px; color: var(--mut); }
+.ms-st-figs span { font-size: 11px; color: var(--mut); white-space: nowrap; }
 .ms-st-figs b { font-size: 13px; font-variant-numeric: tabular-nums; }
 
 .ms-news .ms-news-src { font-size: 12px; font-weight: 700; color: var(--mut); margin-bottom: 8px; }
@@ -489,6 +489,7 @@ h2.section { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; margin:
 .ms-divider::before, .ms-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .ms-divider span { font-size: 12px; font-weight: 700; color: var(--mut); }
 .ms-entry { border: 1.5px solid var(--blue); }
+.ms-last { text-align: center; margin-top: 10px; color: var(--mut); }
 
 @media (min-width: 640px) {
   .ms-metrics { grid-template-columns: repeat(4, 1fr); }
