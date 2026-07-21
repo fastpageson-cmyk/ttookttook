@@ -92,13 +92,13 @@ register('prac2', () => {
       week: 12,
       q: '지금, 기준금리는 어느 방향으로 움직이고 있을까요?',
       opts: ['인상 중', '인하 중', '동결 중'], a: 1,
-      explain: '급락 구간에서 중앙은행이 금리를 빠르게 내리는 중입니다. 위 금리 숫자가 계속 줄어들고 있었어요.',
+      explain: '연준은 2020년 3월 3일 0.5%p, 3월 15일 1.0%p를 연달아 내려 사실상 제로금리로 갔습니다. 위 금리 숫자가 1.55%에서 0.15%까지 줄어드는 걸 보셨을 거예요.',
     },
     {
       week: 34,
       q: '금리가 크게 낮아진 뒤, 지수는 어떻게 되었나요?',
       opts: ['계속 하락했다', '저점을 지나 반등했다', '전혀 변화가 없었다'], a: 1,
-      explain: '낮아진 금리와 유동성 공급을 배경으로 지수가 저점을 지나 강하게 반등하는 모습입니다.',
+      explain: '3월 저점(2,304) 이후 지수는 회복해 8월에는 급락 전 수준을 넘어섰습니다. 낮아진 금리와 유동성 공급이 배경으로 꼽힙니다.',
     },
   ]
   let week = 1
@@ -122,22 +122,22 @@ register('prac2', () => {
       h('div', { class: 'card' },
         h('div', { style: 'display:flex;justify-content:space-between;align-items:baseline' },
           h('div', {},
-            h('div', { class: 'small' }, '가상 지수'),
-            h('b', { style: 'font-size:22px' }, curIdx.toFixed(1)),
+            h('div', { class: 'small' }, 'S&P 500'),
+            h('b', { style: 'font-size:22px' }, fmt(curIdx, 0)),
             h('span', { class: 'chg ' + numClass(chg), style: 'font-size:13px;font-weight:700;margin-left:6px' }, pct(chg))),
           h('div', { style: 'text-align:right' },
-            h('div', { class: 'small' }, '기준금리'),
+            h('div', { class: 'small' }, '미국 기준금리'),
             h('b', { style: 'font-size:22px;color:var(--blue)' }, curRate.toFixed(2) + '%')),
         ),
         lineChart({
           h: 200,
           series: [{ data: idxData.slice(0, Math.max(2, week)), color: '#191f28', width: 2.5, fill: 'rgba(25,31,40,.05)' }],
           xMax: 52,
-          yFmt: v => v.toFixed(0),
+          yFmt: v => fmt(v, 0),
         }),
         h('div', { class: 'small', style: 'display:flex;justify-content:space-between' },
           h('span', {}, `${week} / 52주`),
-          h('span', {}, '연출된 가상 데이터')),
+          h('span', {}, '2020년 실제 데이터 · 출처 FRED')),
       ),
       quiz ? renderQuiz(quiz) : finished ? renderEnd() : renderControls(),
     )
@@ -147,9 +147,9 @@ register('prac2', () => {
     return h('div', {},
       week === 1
         ? h('div', { class: 'card', style: 'background:#f7f8fa;box-shadow:none' },
-            h('b', { style: 'font-size:14px' }, '📰 상황 브리핑 (연출)'),
+            h('b', { style: 'font-size:14px' }, '📰 상황 브리핑 · 2020년'),
             h('p', { class: 'small', style: 'margin-top:6px' },
-              '지수가 몇 주 만에 -25% 급락했습니다. 중앙은행이 긴급 대응을 시작합니다. 재생을 누르고, 오른쪽 위 기준금리 숫자를 눈여겨보세요.'))
+              '2020년 1월, S&P 500은 3,234에서 시작합니다. 곧 코로나19로 지수가 고점 대비 -31.8% 급락하고 연준이 긴급 대응에 나섭니다. 재생을 누르고, 오른쪽 위 기준금리 숫자를 눈여겨보세요.'))
         : null,
       h('div', { class: 'cta-area' },
         h('button', {
@@ -199,7 +199,7 @@ register('prac2', () => {
       h('div', { class: 'card' },
         h('b', { style: 'font-size:16px' }, '🧭 균형 잡힌 해설'),
         h('p', { class: 'desc', style: 'margin-top:8px' },
-          '이번 리플레이에서는 금리 인하와 지수 반등이 함께 왔습니다. 하지만 금리 인하와 지수 반등이 항상 같이 오지는 않습니다. 경기 침체가 심각해서 금리를 내리는 경우라면, 주가는 더 떨어질 수도 있습니다. "금리 인하 = 매수 신호"로 기계적으로 외우지 않는 것이 이번 실습의 진짜 결론입니다.')),
+          '2020년에는 금리 인하와 지수 반등이 함께 왔습니다. 그해 S&P 500은 고점 대비 -31.8%까지 빠졌다가 연말에는 연초 대비 +14.5%로 끝났습니다. 하지만 이건 2020년 한 해의 기록일 뿐입니다. 금리 인하와 지수 반등이 항상 같이 오지는 않습니다 — 경기 침체가 심각해서 금리를 내리는 경우라면 주가는 더 떨어질 수도 있습니다. "금리 인하 = 매수 신호"로 기계적으로 외우지 않는 것이 이번 실습의 진짜 결론입니다.')),
       h('div', { class: 'cta-area' },
         h('button', {
           class: 'btn', onclick: () => { weekState(1).practices.rateCutReplay = true; save(); backToHub() },
