@@ -1,84 +1,71 @@
 // 5주차 · 기업 분석과 거시경제 지표 읽기
 // 원고 원본: docs/콘텐츠/5주차_기업분석과_거시지표_읽기.md (수정 시 함께 반영)
 import {
-  h, fmt, won, pct, numClass, rng, metricGrid, coachCard, compareChart, lineChart,
+  h, fmt, won, pct, numClass, metricGrid, coachCard, compareChart, lineChart,
 } from '../mini-sim.js'
+import FUND from '../data/fundamentals.json'
 
 const SEED = 10_000_000
-const LEN = 52
 const FEE = 0.002
+const LEN = Math.min(52, Math.min(...Object.values(FUND.weeklyPrices).map(a => a.length)))
 
-// ⚠️ 이 주차만 실제 기업이 아니라 '예시 기업'을 쓴다.
-// 이유: PER·PBR·영업이익률을 가르치는 실습인데, 과거 시점의 실제 재무지표를 확보할
-// 출처가 아직 없다(FRED에 없고, pykrx의 재무지표 API는 KRX 응답 변경으로 동작하지 않음).
-// 실제 기업명에 지어낸 재무지표를 붙이는 것은 하지 않는다.
-// DART 오픈API를 연동하면 실제 기업·실제 지표로 교체할 것. 그 전까지는 예시 기업으로 둔다.
-// 아래 주가도 그래서 실제 시세가 아니라 지표 서사에 맞춘 결정론적 합성 계열이다.
+// 종목·지표·공시가 전부 실제 데이터다.
+//  - 재무지표: DART 오픈API 사업보고서(2024) 기준 → PER=시총/당기순이익, PBR=시총/자본총계
+//  - 업종 평균 PER: 같은 업종 비교군 PER의 실제 중앙값
+//  - 주가: 지표를 알 수 있게 된 시점(2025-04) 이후 52주 실제 주간 종가
+// 생성 스크립트: docs/콘텐츠/mock-data/fetch_dart_fundamentals.py (API 키는 .env.local, 커밋 금지)
+const UNIVERSE = FUND.universe
 
-// 목업 재무지표 — 실제 기업 데이터가 아니라 교육용 합성값.
-// C케미칼은 의도적으로 '저PER 함정'(싸 보이지만 본업 수익성이 무너진 기업)으로 배치했다.
-const UNIVERSE = [
-  { code: 'E에너지', sector: '정유·에너지', per: 7.2, pbr: 0.8, opm: 12.4, sectorPer: 9.0 },
-  { code: 'G헬스케어', sector: '헬스케어', per: 11.5, pbr: 1.2, opm: 18.2, sectorPer: 14.0 },
-  { code: 'F리테일', sector: '유통', per: 9.8, pbr: 0.9, opm: 4.1, sectorPer: 11.0 },
-  { code: 'C케미칼', sector: '화학', per: 5.1, pbr: 0.5, opm: 2.0, sectorPer: 9.0 },
-  { code: 'A전자', sector: '전자·IT', per: 19.4, pbr: 1.6, opm: 8.3, sectorPer: 13.0 },
-  { code: 'H반도체', sector: '반도체', per: 27.1, pbr: 2.3, opm: 11.0, sectorPer: 13.0 },
-  { code: 'D플랫폼', sector: '인터넷', per: 38.0, pbr: 4.1, opm: 9.4, sectorPer: 25.0 },
-  { code: 'B바이오', sector: '바이오', per: null, pbr: 6.8, opm: -15.3, sectorPer: 20.0 },
-]
+// 공시일(YYYYMMDD)이 투자 시작일 기준 몇 주차인지
+function weekOf(yyyymmdd) {
+  const d = new Date(`${yyyymmdd.slice(0, 4)}-${yyyymmdd.slice(4, 6)}-${yyyymmdd.slice(6)}`)
+  const s0 = new Date(FUND.meta.valuationDate)
+  return Math.max(2, Math.min(LEN - 4, Math.round((d - s0) / (7 * 864e5)) + 1))
+}
+const REPORT_WEEK = weekOf(
+  (UNIVERSE.find(u => u.disclosure) || {}).disclosure?.date || '20250814')
 
+const 조 = n => (n / 1e12).toFixed(n >= 1e13 ? 0 : 1) + '조'
+const yoy = v => (v == null ? '—' : (v > 0 ? '+' : '') + v.toFixed(1) + '%')
+
+// 소음은 특정 실제 기업을 지목하지 않는다(허위 정보가 되므로).
+// 신호는 실제 DART 공시와 실제 실적 숫자만 쓴다.
 const EVENTS = [
   {
-    week: 10, kind: 'noise', target: 'B바이오',
-    icon: '💬', source: '카톡 리딩방',
-    text: '"B바이오 내부 정보 입수. 다음 주 임상 발표로 급등 확정. 지금이 마지막 기회."',
+    week: 10, kind: 'noise', icon: '💬', source: '카톡 리딩방',
+    text: '"내부 정보 입수. 다음 주 발표로 급등 확정. 지금이 마지막 기회입니다."',
     q: '이 정보를 근거로 매매하시겠습니까?',
-    explain: '출처가 불분명한 리딩방 찌라시는 전형적인 소음입니다. 애초에 진짜 내부 정보라면 그건 불법이고, 대부분은 물량을 떠넘기기 위한 작전입니다.',
+    explain: '출처가 불분명한 리딩방 찌라시는 전형적인 소음입니다. 진짜 내부 정보라면 그걸로 거래하는 건 불법이고, 대부분은 물량을 떠넘기기 위한 작전입니다.',
   },
   {
-    week: 22, kind: 'signal', target: 'E에너지', good: true,
-    icon: '📄', source: 'DART 전자공시',
-    text: 'E에너지 분기 영업(잠정)실적 공시 — 매출 전년 동기 대비 +18%, 영업이익 +42%',
-    q: '보유 중이라면 어떻게 하시겠습니까?',
-    explain: 'DART 정기 공시의 실적 개선은 검증된 신호입니다. 본업이 좋아지고 있다는 뜻이므로, 특별한 이유 없이 팔 근거는 아닙니다.',
+    week: REPORT_WEEK, kind: 'signal', good: null, icon: '📄', source: 'DART 전자공시',
+    text: '보유 종목의 반기보고서가 공시되었습니다. 상반기 누적 실적입니다.',
+    q: '실적을 보고 어떻게 하시겠습니까?',
+    explain: 'DART 정기 공시는 검증된 신호입니다. 다만 "매출이 늘었다"만 보면 안 됩니다 — 매출이 늘어도 영업이익이 줄었다면 본업 수익성이 나빠지고 있다는 뜻입니다(카드 3).',
+    showFinancials: true,
   },
   {
-    week: 34, kind: 'noise', target: null,
-    icon: '📺', source: '유튜브',
+    week: 34, kind: 'noise', icon: '📺', source: '유튜브',
     text: '"지금 안 사면 평생 후회하는 종목 TOP3 — 조회수 82만"',
     q: '이 영상을 보고 포트폴리오를 바꾸시겠습니까?',
     explain: '조회수를 노린 자극적인 콘텐츠는 소음입니다. 썸네일의 확신은 데이터가 아니라 클릭을 위한 장치입니다.',
   },
   {
-    week: 44, kind: 'signal', target: 'C케미칼', good: false,
-    icon: '📄', source: 'DART 전자공시',
-    text: 'C케미칼 유상증자 결정 공시 — 자금 조달 목적: 채무 상환',
-    q: '보유 중이라면 어떻게 하시겠습니까?',
-    explain: '같은 유상증자라도 목적이 다릅니다. 시설 투자 목적이면 장기 호재일 수 있지만, 채무 상환 목적은 회사가 빚을 갚을 돈이 없다는 신호입니다. 매도를 검토할 근거가 되는 진짜 신호입니다.',
+    week: 45, kind: 'signal', good: false, icon: '📄', source: 'DART 전자공시',
+    text: '보유 종목 중 상반기 영업이익이 가장 많이 줄어든 곳이 있습니다.',
+    q: '이 종목을 어떻게 하시겠습니까?',
+    explain: '영업이익 감소는 매도를 "검토"할 근거이지 자동 매도 신호는 아닙니다. 일시적 요인인지 구조적 악화인지는 사업보고서 본문을 봐야 알 수 있습니다.',
+    worstOnly: true,
   },
 ]
 
-// 예시 기업의 합성 주가 — seed 고정이라 항상 같은 계열이 나온다.
-// 최종 수익률을 지표 서사(저PER·고영업이익률이 대체로 유리하되 함정도 있음)에 맞춰 고정한다.
-const TARGET_RETURN = {
-  'E에너지': 0.50, 'G헬스케어': 0.18, 'D플랫폼': 0.11, 'F리테일': 0.06,
-  'A전자': -0.05, 'H반도체': -0.07, 'C케미칼': -0.10, 'B바이오': -0.22,
-}
-const VOL = { 'B바이오': 0.075, 'D플랫폼': 0.055, 'H반도체': 0.05, 'E에너지': 0.045 }
-const _cache = {}
+const _px = {}
 function priceSeries(code) {
-  if (_cache[code]) return _cache[code]
-  const target = TARGET_RETURN[code] ?? 0
-  const vol = VOL[code] ?? 0.03
-  const rand = rng([...code].reduce((a, c) => a + c.charCodeAt(0), 7))
-  const drift = Math.pow(1 + target, 1 / (LEN - 1)) - 1
-  const out = [1]
-  for (let i = 1; i < LEN; i++) out.push(out[i - 1] * (1 + drift + (rand() - 0.5) * vol))
-  // 마지막 값이 정확히 목표 수익률이 되도록 잔차를 균등 보정
-  const adj = (1 + target) / out[LEN - 1]
-  _cache[code] = out.map((v, i) => v * Math.pow(adj, i / (LEN - 1)))
-  return _cache[code]
+  if (!_px[code]) {
+    const raw = FUND.weeklyPrices[code].slice(0, LEN)
+    _px[code] = raw.map(v => v / raw[0])
+  }
+  return _px[code]
 }
 
 export default {
@@ -191,7 +178,7 @@ export default {
       lines: [
         '0단계에서는 종목 이름과 가격만 보고 골랐습니다. 이번엔 PER·PBR·영업이익률·업종 평균 PER이 함께 표시됩니다.',
         '1,000만 원으로 3종목을 골라 균등 매수하고 52주를 갑니다. 중간에 뉴스가 네 번 뜨는데, 그게 소음인지 신호인지 직접 판단해야 합니다.',
-        '⚠️ 이 실습의 8개 회사는 실제 기업이 아니라 지표를 비교해보기 위한 예시입니다. 다른 주차와 달리 주가도 실제 시세가 아닙니다 — 실제 기업의 과거 재무지표를 가져올 출처가 확보되면 교체할 예정입니다.',
+        `지표·공시·주가가 모두 실제 데이터입니다. 재무지표는 ${FUND.meta.fiscalYear}년 사업보고서(DART) 기준이고, 그 지표를 알 수 있게 된 ${FUND.meta.valuationDate} 이후 실제 ${LEN}주를 그대로 돌립니다. 특정 종목 추천이 아닙니다.`,
       ],
       tools: [
         '카드 1~3 · PER·PBR·영업이익률 — 종목 카드에서 직접 비교',
@@ -208,22 +195,22 @@ export default {
           h('div', { class: 'card' },
             h('b', {}, `종목 3개를 고르세요 (${picked.length}/3)`),
             h('p', { class: 'small', style: 'margin:6px 0 12px' },
-              '예시 기업입니다(실제 기업 아님). PER은 같은 업종 평균과 비교해야 의미가 있습니다.'),
+              `${FUND.meta.fiscalYear}년 사업보고서 기준 실제 지표입니다(출처 DART). PER은 같은 업종 평균과 비교해야 의미가 있습니다.`),
           ),
           h('div', { class: 'ms-stocks' },
             UNIVERSE.map(s => {
-              const on = picked.includes(s.code)
+              const on = picked.includes(s.name)
               const cheap = s.per != null && s.per < s.sectorPer
               return h('button', {
                 class: 'ms-stock' + (on ? ' on' : ''),
                 onclick: () => {
-                  if (on) picked = picked.filter(c => c !== s.code)
-                  else if (picked.length < 3) picked.push(s.code)
+                  if (on) picked = picked.filter(c => c !== s.name)
+                  else if (picked.length < 3) picked.push(s.name)
                   paint()
                 },
               },
                 h('div', { class: 'ms-st-head' },
-                  h('b', {}, s.code),
+                  h('b', {}, s.name),
                   h('span', { class: 'ms-st-sector' }, s.sector),
                   on ? h('span', { class: 'badge blue' }, '선택') : null),
                 h('div', { class: 'ms-st-figs' },
@@ -270,19 +257,28 @@ export default {
         hd.sold = true
       }
 
+      // 보유 종목의 실제 반기 실적 (DART)
+      const heldInfo = picked.map(n => UNIVERSE.find(u => u.name === n))
+      const improving = heldInfo.filter(u => (u.disclosure?.opYoY ?? 0) > 0).length
+      const reportIsGood = improving * 2 >= picked.length      // 과반이 개선 → 계속 보유가 합리적
+      const worst = heldInfo.slice().sort(
+        (a, b) => (a.disclosure?.opYoY ?? 0) - (b.disclosure?.opYoY ?? 0))[0]
+
+      function targetOf(ev) { return ev.worstOnly ? worst.name : null }
+      function goodOf(ev) { return ev.showFinancials ? reportIsGood : ev.good }
+
       function act(ev, didTrade) {
         if (ev.kind === 'noise' && didTrade) noiseReactions++
         if (ev.kind === 'signal') {
-          const right = ev.good ? !didTrade : didTrade
-          if (right) signalHits++
+          const good = goodOf(ev)
+          if (good != null && (good ? !didTrade : didTrade)) signalHits++
         }
         if (didTrade) {
-          if (ev.target && picked.includes(ev.target)) sell(ev.target, ev.week)
-          else { // 특정 종목이 없는 소음이면 전량 정리
-            for (const c of picked) sell(c, ev.week)
-          }
+          const t = targetOf(ev)
+          if (t && picked.includes(t)) sell(t, ev.week)
+          else for (const c of picked) sell(c, ev.week)   // 특정 종목이 없으면 전량 정리
         }
-        log.push({ ev, didTrade })
+        log.push({ ev, didTrade, target: targetOf(ev) })
         ei++
         paint()
       }
@@ -292,13 +288,15 @@ export default {
         box.innerHTML = ''
         if (!ev) {
           const finalValue = valueAt(LEN - 1)
-          done(buildResult({ picked, px, finalValue, fees, noiseReactions, signalHits, log, holding, cash }))
+          done(buildResult({ picked, px, finalValue, fees, noiseReactions, signalHits,
+            signalTotal: EVENTS.filter(e => e.kind === 'signal').length, log, holding, cash }))
           return
         }
         const i = ev.week
         const v = valueAt(i)
         const ret = (v / SEED - 1) * 100
-        const owned = ev.target && picked.includes(ev.target) && !holding[ev.target].sold
+        const tgt = targetOf(ev)
+        const owned = tgt && picked.includes(tgt) && !holding[tgt].sold
         box.append(
           h('div', { class: 'card' },
             h('div', { class: 'ms-play-head' },
@@ -319,16 +317,26 @@ export default {
           h('div', { class: 'card ms-news' },
             h('div', { class: 'ms-news-src' }, `${ev.icon} ${ev.source}`),
             h('p', { class: 'ms-news-body' }, ev.text),
-            ev.target
+            ev.showFinancials
+              ? h('div', { class: 'ms-fin' },
+                  heldInfo.map(u => h('div', { class: 'ms-fin-row' },
+                    h('b', {}, u.name),
+                    h('span', {}, `매출 ${조(u.disclosure.revenue)} `,
+                      h('i', { class: numClass(u.disclosure.revenueYoY ?? 0) }, yoy(u.disclosure.revenueYoY))),
+                    h('span', {}, `영업이익 ${조(u.disclosure.op)} `,
+                      h('i', { class: numClass(u.disclosure.opYoY ?? 0) }, yoy(u.disclosure.opYoY))),
+                  )))
+              : null,
+            ev.worstOnly
               ? h('p', { class: 'small' },
-                  owned ? `※ ${ev.target}를 보유 중입니다.` : `※ ${ev.target}는 보유하고 있지 않습니다.`)
+                  `※ ${worst.name} — 상반기 영업이익 ${yoy(worst.disclosure?.opYoY)} (전년 동기 대비)`)
               : null,
             h('b', { style: 'display:block;margin-top:14px' }, ev.q),
             h('div', { class: 'btn-row', style: 'margin-top:12px' },
               h('button', { class: 'btn secondary', onclick: () => act(ev, false) }, '무시하고 유지'),
               h('button', {
                 class: 'btn secondary', onclick: () => act(ev, true),
-              }, ev.target && owned ? `${ev.target} 매도` : '포트폴리오 정리'),
+              }, owned ? `${tgt} 매도` : '포트폴리오 정리'),
             ),
           ),
           h('p', { class: 'disclaimer' }, `뉴스 ${ei + 1} / ${EVENTS.length} · 매매에는 수수료 0.2%가 붙습니다`),
@@ -338,36 +346,47 @@ export default {
       paint()
     },
     review(ctx, res) {
-      const { picked, finalValue, fees, noiseReactions, signalHits, ret, avgPer, valuePort, log } = res
+      const { picked, finalValue, fees, noiseReactions, signalHits, signalTotal,
+              ret, avgPer, valuePort, valuePick, log, benchRet } = res
+      const info = n => UNIVERSE.find(u => u.name === n)
+      const cheap = picked.filter(n => info(n).per && info(n).sectorPer && info(n).per < info(n).sectorPer)
       const lines = [
-        `고른 3종목의 매수 시점 평균 PER은 ${avgPer == null ? '계산 불가(적자 종목 포함)' : avgPer.toFixed(1) + '배'}였고, 52주 뒤 결과는 ${pct(ret)}입니다.`,
-        `참고로 저PER·고영업이익률 조합(E에너지·G헬스케어·F리테일)만 골랐다면 ${pct(valuePort)}였습니다.`,
+        `고른 3종목의 매수 시점 평균 PER은 ${avgPer == null ? '계산 불가(적자 종목 포함)' : avgPer.toFixed(1) + '배'}였고, ${LEN}주 뒤 결과는 ${pct(ret)}입니다. 이 8종목에 똑같이 나눠 담았다면 ${pct(benchRet)}였습니다 — 종목 선택이 결과를 얼마나 갈랐는지 보여주는 기준선입니다.`,
+        `이 목록에서 저PER(업종 평균 미만)이면서 영업이익률이 높았던 조합 ${valuePick.join('·')}만 골랐다면 ${pct(valuePort)}였습니다.`,
       ]
-      if (picked.includes('C케미칼')) {
+      // 실제 데이터가 만들어낸 교훈 — 지어낸 사례가 아니라 이 구간의 실제 결과를 짚는다
+      const best = UNIVERSE.slice().sort((a, b) => {
+        const r = n => priceSeries(n.name)[LEN - 1]
+        return r(b) - r(a)
+      })[0]
+      lines.push(
+        `이 구간 1위는 ${best.name}였습니다 — PER ${best.per}배(업종 평균 ${best.sectorPer}배)에 영업이익률 ${best.opm}%로, "싸면서 본업을 잘하는" 조건을 둘 다 만족했습니다. 카드 3이 말한 조합이 실제로 통한 사례입니다.`)
+      const naver = UNIVERSE.find(u => u.name === 'NAVER')
+      if (naver) {
         lines.push(
-          'C케미칼을 고르셨군요. PER 5.1배로 이 목록에서 가장 싸 보였지만, 영업이익률이 2.0%에 불과했습니다. 싼 데는 이유가 있었던 것입니다 — 본업이 돈을 못 벌고 있었고, 결국 채무 상환 목적 유상증자 공시까지 나왔습니다. 이걸 가치 함정(value trap)이라고 합니다. PER만 보면 안 되는 이유입니다(카드 3).')
+          `다만 지표가 정답표는 아닙니다. NAVER는 PER ${naver.per}배로 업종 평균(${naver.sectorPer}배)보다 훨씬 쌌고 영업이익률도 ${naver.opm}%로 낮지 않았지만, 이 구간 성과는 8종목 중 가장 낮았습니다. 싸 보인다고 반드시 오르지는 않습니다.`)
       }
-      if (picked.includes('D플랫폼')) {
+      if (picked.includes('카카오')) {
         lines.push(
-          'D플랫폼은 PER 38배로 업종 평균(25배)보다 비쌌지만 결과는 나쁘지 않았습니다. 고PER이 항상 틀린 것도 아닙니다 — 성장이 실제로 따라와 주면 비싼 값을 정당화합니다. 지표는 확률을 높이는 도구지 정답표가 아닙니다.')
+          '카카오는 당기순손실이라 PER 자체가 계산되지 않았습니다. PER이 "없는" 종목은 싼 게 아니라 이익이 없는 것입니다 — 이럴 때는 PBR과 영업이익률로 봐야 합니다(카드 2·3).')
       }
       lines.push(
         noiseReactions === 0
-          ? `소음에 반응해 매매한 횟수는 0회입니다. 리딩방 찌라시와 유튜브 썸네일을 둘 다 무시하셨습니다 — 그게 카드 6이 말하는 태도입니다.`
+          ? '소음에 반응해 매매한 횟수는 0회입니다. 리딩방 찌라시와 유튜브 썸네일을 둘 다 무시하셨습니다 — 그게 카드 6이 말하는 태도입니다.'
           : `소음에 반응해 매매한 횟수는 ${noiseReactions}회입니다. 그때마다 수수료가 나갔고(총 ${won(fees)}), 근거는 리딩방과 유튜브 썸네일이었습니다. 0단계에서 아무 근거 없이 버튼을 눌렀던 것과 구조가 같습니다.`)
       lines.push(
-        `DART 공시(진짜 신호) 2건에 대해서는 ${signalHits}/2 건을 적절히 처리했습니다. 실적 개선 공시는 팔 근거가 아니고, 채무 상환 목적 유상증자는 검토할 근거가 맞습니다.`)
+        `DART 공시(진짜 신호) ${signalTotal}건 중 ${signalHits}건을 적절히 처리했습니다. 실적이 개선되는 종목을 특별한 이유 없이 파는 것도, 영업이익이 크게 꺾인 종목을 그냥 두는 것도 근거 없는 선택입니다.`)
 
       return h('div', {},
         h('div', { class: 'report-hero' },
-          h('div', { class: 'rh-label' }, `${picked.join(' · ')} · 52주`),
+          h('div', { class: 'rh-label' }, `${picked.join(' · ')} · ${LEN}주`),
           h('div', { class: 'rh-num ' + numClass(ret) }, pct(ret)),
           h('p', { class: 'desc', style: 'margin-top:8px' }, `최종 자산 ${won(finalValue)}`),
         ),
         metricGrid(res.metrics),
         h('div', { class: 'card' },
-          h('b', {}, '내 선택 vs 저PER·고영업이익률 포트폴리오'),
-          compareChart(res.myCurve, res.valueCurve, ['내 3종목', 'E에너지·G헬스케어·F리테일']),
+          h('b', {}, '내 선택 vs 저PER·고영업이익률 조합'),
+          compareChart(res.myCurve, res.valueCurve, ['내 3종목', valuePick.join('·')]),
         ),
         h('div', { class: 'card' },
           h('b', {}, '뉴스에 어떻게 반응했나'),
@@ -381,34 +400,43 @@ export default {
               h('p', { class: 'small' }, ev.explain),
             ))),
         ),
+        h('p', { class: 'disclaimer' }, FUND.meta.note),
         coachCard('🧭 이번 실습이 말하는 것', lines),
       )
     },
   },
 }
 
-function buildResult({ picked, px, finalValue, fees, noiseReactions, signalHits, log, holding, cash }) {
-  const VALUE_PICK = ['E에너지', 'G헬스케어', 'F리테일']
-  const vpx = Object.fromEntries(VALUE_PICK.map(c => [c, seriesFrom(c, START, LEN)]))
+function buildResult({ picked, px, finalValue, fees, noiseReactions, signalHits, signalTotal, log, holding, cash }) {
+  // 비교군: 업종 평균보다 PER이 낮으면서 영업이익률이 높은 상위 3종목 — 실제 지표로 뽑는다
+  const VALUE_PICK = UNIVERSE
+    .filter(u => u.per && u.sectorPer && u.per < u.sectorPer)
+    .sort((a, b) => b.opm - a.opm)
+    .slice(0, 3)
+    .map(u => u.name)
   const valueCurve = Array.from({ length: LEN }, (_, i) =>
-    VALUE_PICK.reduce((a, c) => a + vpx[c][i] / vpx[c][0] / VALUE_PICK.length, 0))
+    VALUE_PICK.reduce((a, n) => a + priceSeries(n)[i] / VALUE_PICK.length, 0))
   const myCurve = Array.from({ length: LEN }, (_, i) => {
     let v = cash
     for (const c of picked) if (!holding[c].sold) v += holding[c].units * px[c][i]
     return v / SEED
   })
-  const pers = picked.map(c => UNIVERSE.find(s => s.code === c).per)
+  const pers = picked.map(c => UNIVERSE.find(u => u.name === c).per)
   const avgPer = pers.includes(null) ? null : pers.reduce((a, b) => a + b, 0) / pers.length
   const ret = (finalValue / SEED - 1) * 100
+  // 기준선: 이 8종목 동일가중. (KOSPI가 아니다 — 라벨을 '지수'라고 쓰지 말 것)
+  const benchCurve = Array.from({ length: LEN }, (_, i) =>
+    UNIVERSE.reduce((a, u) => a + priceSeries(u.name)[i] / UNIVERSE.length, 0))
   return {
     headline: `${picked.join('·')} · ${pct(ret)}`,
-    picked, finalValue, fees, noiseReactions, signalHits, log, ret, avgPer,
-    myCurve, valueCurve,
+    picked, finalValue, fees, noiseReactions, signalHits, signalTotal, log, ret, avgPer,
+    myCurve, valueCurve, valuePick: VALUE_PICK,
     valuePort: (valueCurve[LEN - 1] - 1) * 100,
+    benchRet: (benchCurve[LEN - 1] - 1) * 100,
     metrics: [
-      { k: '52주 수익률', v: pct(ret), cls: numClass(ret) },
+      { k: `${LEN}주 수익률`, v: pct(ret), cls: numClass(ret) },
       { k: '소음 반응', v: noiseReactions + '회' },
-      { k: '신호 대응', v: `${signalHits} / 2` },
+      { k: '신호 대응', v: `${signalHits} / ${signalTotal}` },
       { k: '수수료', v: won(fees) },
     ],
   }
