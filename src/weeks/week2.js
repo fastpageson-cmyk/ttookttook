@@ -1,7 +1,7 @@
 // 2주차 · 시드머니와 저축의 구조
 // 원고 원본: docs/콘텐츠/2주차_시드머니와_저축의_구조.md (수정 시 함께 반영)
 import {
-  h, fmt, won, pct, numClass, seriesFrom,
+  h, fmt, won, pct, numClass, seriesFrom, INDEX_CODE,
   metricGrid, sliderRow, choiceRow, coachCard, compareChart,
 } from '../mini-sim.js'
 
@@ -20,10 +20,11 @@ function savingsAccount(monthly, annualRate, months = MONTHS) {
   return { principal, interest: interest * (1 - TAX), total: principal + interest * (1 - TAX) }
 }
 
-// 지수ETF 월 적립 — 목업 실데이터에서 24개월(104주) 구간을 4.33주 간격으로 샘플링
-const ETF_START = 301
+// 지수 월 적립 — 실제 KOSPI에서 24개월(104주) 구간을 4.33주 간격으로 샘플링
+// 266주 = 2021~2023년 긴축 구간. 적립식이 손실을 없애주지 않는다는 걸 보여주는 정직한 구간.
+const ETF_START = 266
 function etfMonthly() {
-  const weekly = seriesFrom('지수ETF', ETF_START, 105)
+  const weekly = seriesFrom(INDEX_CODE, ETF_START, 105)
   return Array.from({ length: MONTHS }, (_, i) => weekly[Math.round(i * 104 / (MONTHS - 1))])
 }
 
@@ -180,7 +181,7 @@ export default {
             h('b', {}, '② 어디에 넣을까요?'),
             choiceRow([
               { value: 'deposit', label: '적금 (연 4%)', desc: '원금 보장 · 세후 이자' },
-              { value: 'invest', label: '지수ETF 적립', desc: '변동 있음 · 목업 실데이터' },
+              { value: 'invest', label: 'KOSPI 적립', desc: '변동 있음 · 실제 시세' },
             ], vehicle, v => { vehicle = v; paint() }),
           ),
         )
@@ -200,7 +201,7 @@ export default {
 
       const effective = mine.principal > 0 ? (mine.total / mine.principal - 1) * 100 : 0
       return {
-        headline: `저축률 ${savingRate.toFixed(0)}% · ${vehicle === 'deposit' ? '적금' : '지수ETF'}`,
+        headline: `저축률 ${savingRate.toFixed(0)}% · ${vehicle === 'deposit' ? '적금' : 'KOSPI 적립'}`,
         monthly, vehicle, savingRate, mine, dep, inv, doubleRate, doubleSave, effective,
         metrics: [
           { k: '24개월 뒤 시드머니', v: won(mine.total) },
@@ -222,8 +223,10 @@ export default {
       } else {
         const invRet = (inv.total / inv.principal - 1) * 100
         lines.push(
-          `지수ETF에 매달 적립해 원금 대비 ${pct(invRet)}가 됐습니다. 같은 돈을 연 4% 적금에 넣었다면 ${won(dep.total)}이었습니다(차이 ${won(inv.total - dep.total)}).`,
-          '다만 이 구간은 시장이 오른 구간이었습니다. 반대 구간이었다면 원금이 줄어 있을 수도 있습니다. 적립식이 손실을 없애주지는 않습니다.')
+          `KOSPI에 매달 적립해 원금 대비 ${pct(invRet)}가 됐습니다. 같은 돈을 연 4% 적금에 넣었다면 ${won(dep.total)}이었습니다(차이 ${won(inv.total - dep.total)}).`,
+          invRet >= 0
+            ? '다만 이 구간이 올랐다고 해서 적립식이 안전한 건 아닙니다. 반대 구간이었다면 원금이 줄어 있을 수도 있습니다.'
+            : '적립식으로 매달 나눠 담았는데도 원금이 줄었습니다. 적립식은 매수 시점을 분산해 줄 뿐, 손실 자체를 없애주지는 않습니다.')
       }
 
       lines.push(
@@ -259,7 +262,7 @@ export default {
               compareChart(
                 inv.curve.map((v, i) => v / (monthly * (i + 1) || 1)),
                 inv.curve.map(() => 1),
-                ['지수ETF 적립 (원금 대비)', '원금'],
+                ['KOSPI 적립 (원금 대비)', '원금'],
               ))
           : null,
         coachCard('🧭 이번 실습이 말하는 것', lines),

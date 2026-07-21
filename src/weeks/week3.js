@@ -6,7 +6,7 @@
 import { onLeave } from '../router.js'
 import { appendKids } from '../ui.js'
 import {
-  h, fmt, won, pct, numClass, seriesFrom, maxDD,
+  h, fmt, won, pct, numClass, seriesFrom, maxDD, INDEX_CODE,
   metricGrid, choiceRow, coachCard, compareChart, lineChart,
 } from '../mini-sim.js'
 
@@ -16,9 +16,10 @@ const WEEKS = 52
 const MARGIN_CALL = 0.25     // 담보비율(자기자본/자산) 25% 미만이면 반대매매
 
 // 상승장 / 하락장 — 어느 쪽을 배정받을지는 시작 전에는 알 수 없다(그게 핵심)
+// 실제 KOSPI 구간. 205주=2020년 코로나 반등 랠리(+53%), 260주=2022년 긴축 하락장(-28%)
 const SCENARIOS = [
-  { key: 'bull', label: '상승장', start: 51 },
-  { key: 'bear', label: '하락장', start: 465 },
+  { key: 'bull', label: '상승장', start: 205 },
+  { key: 'bear', label: '하락장', start: 260 },
 ]
 
 // 원리금균등 주간 상환액
@@ -32,7 +33,7 @@ function annuityPayment(loan, weeklyRate, n) {
 // export: 검증/테스트에서 순수 계산만 따로 호출하기 위함
 export function runLeverage({ multiple, repay, scenario, prepayAt = null, exitAt = null }) {
   const sc = SCENARIOS.find(s => s.key === scenario)
-  const px = seriesFrom('지수ETF', sc.start, WEEKS)
+  const px = seriesFrom(INDEX_CODE, sc.start, WEEKS)
   const wr = LOAN_RATE / 52
 
   const loan0 = EQUITY0 * multiple

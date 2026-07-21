@@ -200,7 +200,7 @@ export function generateMistakeReport(trades, report) {
       severity: gap * STARTING_CASH / 100 * 0.8,
       tradeId: null,
       headline: '아무것도 고르지 않았다면?',
-      explanation: `같은 ${won(STARTING_CASH)}을 종목 선택 없이 지수ETF에 매주 나눠 넣기만 했어도 ${pct(report.benchmarkReturn)}가 됐습니다. 당신의 결과는 ${pct(report.finalReturn)} — 차이는 ${gap.toFixed(1)}%p입니다. "무엇을 고르느냐"보다 "고르지 않는 선택"이 나을 수 있다는 것, 5주차에 배웁니다.`,
+      explanation: `같은 ${won(STARTING_CASH)}을 종목 선택 없이 KOSPI 지수에 매주 나눠 넣기만 했어도 ${pct(report.benchmarkReturn)}가 됐습니다. 당신의 결과는 ${pct(report.finalReturn)} — 차이는 ${gap.toFixed(1)}%p입니다. "무엇을 고르느냐"보다 "고르지 않는 선택"이 나을 수 있다는 것, 5주차에 배웁니다.`,
     })
   }
 

@@ -1,12 +1,12 @@
 // 4주차 · 위험 관리와 자산 배분
 // 원고 원본: docs/콘텐츠/4주차_위험관리와_자산배분.md (수정 시 함께 반영)
 import {
-  h, won, pct, numClass, seriesFrom, bondSeries, goldSeries, cashSeries,
+  h, won, pct, numClass, seriesFrom, bondSeries, goldSeries, cashSeries, INDEX_CODE,
   maxDD, recoveryNeeded, metricGrid, sliderRow, choiceRow, coachCard, compareChart,
 } from '../mini-sim.js'
 
 const SEED = 10_000_000
-const START = 416 // 큰 하락 구간이 포함된 104주(2년) 창
+const START = 87 // 2018~2020년 — 코로나 폭락(KOSPI 최대낙폭 -37%)이 포함된 104주(2년) 창
 const LEN = 104
 
 const ASSETS = [
@@ -18,7 +18,7 @@ const ASSETS = [
 
 function series() {
   return {
-    stock: seriesFrom('지수ETF', START, LEN),
+    stock: seriesFrom(INDEX_CODE, START, LEN),
     bond: bondSeries(START, LEN),
     gold: goldSeries(START, LEN),
     cash: cashSeries(START, LEN),

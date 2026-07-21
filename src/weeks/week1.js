@@ -4,22 +4,24 @@
 // 여기서는 실습 마지막에 붙는 미니 모의투자만 정의한다.
 import { LECTURE_CARDS, QUIZ } from '../content.js'
 import {
-  h, won, pct, numClass, seriesFrom, ratesFrom, cashSeries,
+  h, won, pct, numClass, seriesFrom, ratesFrom, depositSeries, INDEX_CODE,
   metricGrid, sliderRow, choiceRow, coachCard, compareChart,
 } from '../mini-sim.js'
 
 const LEN = 26 // 26주(약 6개월)
+// 실제 한국 금리 국면의 시작 주차 (rates.json 기준, 2016-07~2026-07)
+//  266주 = 2021년 대긴축 시작 / 431주 = 2024년 완화 전환 / 218주 = 2020년 코로나 저금리
 const PHASES = [
-  { value: 'tight', label: '긴축기', desc: '금리를 올리는 중', start: 121 },
-  { value: 'ease', label: '완화 전환기', desc: '금리를 내리기 시작', start: 301 },
-  { value: 'low', label: '저금리 유지기', desc: '낮은 금리가 이어짐', start: 421 },
+  { value: 'tight', label: '긴축기', desc: '금리를 올리는 중', start: 266 },
+  { value: 'ease', label: '완화 전환기', desc: '금리를 내리기 시작', start: 431 },
+  { value: 'low', label: '저금리 유지기', desc: '낮은 금리가 이어짐', start: 218 },
 ]
 const SEED = 10_000_000
 
 function runPhase(phase, stockPct) {
   const ph = PHASES.find(p => p.value === phase)
-  const stock = seriesFrom('지수ETF', ph.start, LEN)
-  const deposit = cashSeries(ph.start, LEN) // 정기예금 — 기준금리 수준의 이자만
+  const stock = seriesFrom(INDEX_CODE, ph.start, LEN)
+  const deposit = depositSeries(ph.start, LEN) // 정기예금 — 정책금리 수준의 이자
   const rates = ratesFrom(ph.start, LEN)
   const wS = stockPct / 100, wD = 1 - wS
   const mine = stock.map((v, i) => v * wS + deposit[i] * wD)
@@ -54,7 +56,7 @@ export default {
       headline: '이번엔 금리를 보고 투자해봅니다',
       lines: [
         '0단계에서는 금리가 어디로 가는지 모른 채 10년을 보냈습니다. 이번에는 금리 국면을 먼저 고르고, 그 안에서 26주(약 6개월)를 굴려봅니다.',
-        '자금은 1,000만 원입니다. 주식(지수ETF)과 정기예금에 얼마씩 나눌지만 정하면 됩니다. 정기예금 금리는 그 시점의 기준금리를 따라갑니다.',
+        '자금은 1,000만 원입니다. 주식(KOSPI 지수)과 정기예금에 얼마씩 나눌지만 정하면 됩니다. 정기예금 금리는 그 시점의 정책금리를 따라갑니다. 실제 과거 구간을 그대로 돌립니다.',
       ],
       tools: [
         '카드 2 · 기준금리 — 국면에 따라 예금 이자가 달라집니다',
@@ -79,7 +81,7 @@ export default {
           ),
           h('div', { class: 'card' },
             h('b', {}, '② 1,000만 원을 어떻게 나눌까요?'),
-            sliderRow('📈 주식(지수ETF) 비중', stockPct, { min: 0, max: 100, step: 5 }, v => { stockPct = v; paint() }),
+            sliderRow('📈 주식(KOSPI) 비중', stockPct, { min: 0, max: 100, step: 5 }, v => { stockPct = v; paint() }),
             h('p', { class: 'small' },
               `주식 ${stockPct}% (${won(SEED * stockPct / 100)}) · 정기예금 ${100 - stockPct}% (${won(SEED * (100 - stockPct) / 100)})`),
           ),

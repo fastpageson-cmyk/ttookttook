@@ -13,6 +13,11 @@ import stocksData from './data/stocks.json'
 import ratesData from './data/rates.json'
 
 // ---------- 공용 데이터 헬퍼 ----------
+// stocks.json은 2026-07 기준 실제 시세(FinanceDataReader)로 교체되었다.
+// 종목 코드는 실제 회사명이므로 하드코딩하지 말고 INDEX_CODE / stocksData를 통해 참조할 것.
+export const INDEX_CODE = stocksData.indexEtf.code   // 'KOSPI'
+export const DATA_PERIOD = stocksData.meta.period
+
 const priceMap = Object.fromEntries(
   [...stocksData.stocks, stocksData.indexEtf].map(s => [s.code, s.prices]))
 
@@ -61,6 +66,18 @@ export function goldSeries(startWeek, len) {
   let v = 1
   for (let i = 0; i < len; i++) {
     v *= 1 + 0.0009 + (rand() - 0.5) * 0.018
+    out.push(v)
+  }
+  return out
+}
+
+// 정기예금: 대체로 정책금리 수준의 이자가 붙는다(4주차의 '현금'과 구분 — 그쪽은 파킹통장)
+export function depositSeries(startWeek, len) {
+  const rates = ratesFrom(startWeek, len)
+  const out = []
+  let v = 1
+  for (let i = 0; i < len; i++) {
+    v *= 1 + Math.max(0, rates[i]) / 100 / 52
     out.push(v)
   }
   return out

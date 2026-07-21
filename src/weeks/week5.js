@@ -1,13 +1,19 @@
 // 5주차 · 기업 분석과 거시경제 지표 읽기
 // 원고 원본: docs/콘텐츠/5주차_기업분석과_거시지표_읽기.md (수정 시 함께 반영)
 import {
-  h, fmt, won, pct, numClass, seriesFrom, metricGrid, coachCard, compareChart, lineChart,
+  h, fmt, won, pct, numClass, rng, metricGrid, coachCard, compareChart, lineChart,
 } from '../mini-sim.js'
 
 const SEED = 10_000_000
-const START = 421 // 저금리 유지기 52주 창
 const LEN = 52
 const FEE = 0.002
+
+// ⚠️ 이 주차만 실제 기업이 아니라 '예시 기업'을 쓴다.
+// 이유: PER·PBR·영업이익률을 가르치는 실습인데, 과거 시점의 실제 재무지표를 확보할
+// 출처가 아직 없다(FRED에 없고, pykrx의 재무지표 API는 KRX 응답 변경으로 동작하지 않음).
+// 실제 기업명에 지어낸 재무지표를 붙이는 것은 하지 않는다.
+// DART 오픈API를 연동하면 실제 기업·실제 지표로 교체할 것. 그 전까지는 예시 기업으로 둔다.
+// 아래 주가도 그래서 실제 시세가 아니라 지표 서사에 맞춘 결정론적 합성 계열이다.
 
 // 목업 재무지표 — 실제 기업 데이터가 아니라 교육용 합성값.
 // C케미칼은 의도적으로 '저PER 함정'(싸 보이지만 본업 수익성이 무너진 기업)으로 배치했다.
@@ -53,7 +59,27 @@ const EVENTS = [
   },
 ]
 
-function priceSeries(code) { return seriesFrom(code, START, LEN) }
+// 예시 기업의 합성 주가 — seed 고정이라 항상 같은 계열이 나온다.
+// 최종 수익률을 지표 서사(저PER·고영업이익률이 대체로 유리하되 함정도 있음)에 맞춰 고정한다.
+const TARGET_RETURN = {
+  'E에너지': 0.50, 'G헬스케어': 0.18, 'D플랫폼': 0.11, 'F리테일': 0.06,
+  'A전자': -0.05, 'H반도체': -0.07, 'C케미칼': -0.10, 'B바이오': -0.22,
+}
+const VOL = { 'B바이오': 0.075, 'D플랫폼': 0.055, 'H반도체': 0.05, 'E에너지': 0.045 }
+const _cache = {}
+function priceSeries(code) {
+  if (_cache[code]) return _cache[code]
+  const target = TARGET_RETURN[code] ?? 0
+  const vol = VOL[code] ?? 0.03
+  const rand = rng([...code].reduce((a, c) => a + c.charCodeAt(0), 7))
+  const drift = Math.pow(1 + target, 1 / (LEN - 1)) - 1
+  const out = [1]
+  for (let i = 1; i < LEN; i++) out.push(out[i - 1] * (1 + drift + (rand() - 0.5) * vol))
+  // 마지막 값이 정확히 목표 수익률이 되도록 잔차를 균등 보정
+  const adj = (1 + target) / out[LEN - 1]
+  _cache[code] = out.map((v, i) => v * Math.pow(adj, i / (LEN - 1)))
+  return _cache[code]
+}
 
 export default {
   id: 5,
@@ -161,10 +187,11 @@ export default {
     navDesc: 'PER·PBR을 보고 3종목 고르기',
     startLabel: '이 3종목으로 시작',
     brief: {
-      headline: '0단계와 같은 종목, 이번엔 숫자가 보입니다',
+      headline: '이번엔 이름이 아니라 숫자를 보고 고릅니다',
       lines: [
         '0단계에서는 종목 이름과 가격만 보고 골랐습니다. 이번엔 PER·PBR·영업이익률·업종 평균 PER이 함께 표시됩니다.',
         '1,000만 원으로 3종목을 골라 균등 매수하고 52주를 갑니다. 중간에 뉴스가 네 번 뜨는데, 그게 소음인지 신호인지 직접 판단해야 합니다.',
+        '⚠️ 이 실습의 8개 회사는 실제 기업이 아니라 지표를 비교해보기 위한 예시입니다. 다른 주차와 달리 주가도 실제 시세가 아닙니다 — 실제 기업의 과거 재무지표를 가져올 출처가 확보되면 교체할 예정입니다.',
       ],
       tools: [
         '카드 1~3 · PER·PBR·영업이익률 — 종목 카드에서 직접 비교',
@@ -181,7 +208,7 @@ export default {
           h('div', { class: 'card' },
             h('b', {}, `종목 3개를 고르세요 (${picked.length}/3)`),
             h('p', { class: 'small', style: 'margin:6px 0 12px' },
-              '지표는 학습용 목업입니다. PER은 같은 업종 평균과 비교해야 의미가 있습니다.'),
+              '예시 기업입니다(실제 기업 아님). PER은 같은 업종 평균과 비교해야 의미가 있습니다.'),
           ),
           h('div', { class: 'ms-stocks' },
             UNIVERSE.map(s => {

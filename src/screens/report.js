@@ -32,10 +32,10 @@ register('report', () => {
       h('div', { class: 'stat' }, h('div', { class: 's-label' }, '최대 낙폭 (MDD)'), h('div', { class: 's-num num-down' }, '-' + r.mdd.toFixed(1) + '%')),
       h('div', { class: 'stat' }, h('div', { class: 's-label' }, '매매 횟수'), h('div', { class: 's-num' }, fmt(r.totalTrades) + '회')),
       h('div', { class: 'stat' }, h('div', { class: 's-label' }, '수수료·세금 총액'), h('div', { class: 's-num' }, won(r.totalFees))),
-      h('div', { class: 'stat' }, h('div', { class: 's-label' }, '지수ETF 적립이었다면'), h('div', { class: 's-num ' + numClass(r.benchmarkReturn) }, pct(r.benchmarkReturn))),
+      h('div', { class: 'stat' }, h('div', { class: 's-label' }, 'KOSPI 적립이었다면'), h('div', { class: 's-num ' + numClass(r.benchmarkReturn) }, pct(r.benchmarkReturn))),
     ),
     h('div', { class: 'card', style: 'margin-top:12px' },
-      h('b', { style: 'font-size:15px' }, '내 자산 vs 지수ETF 적립 매수'),
+      h('b', { style: 'font-size:15px' }, '내 자산 vs KOSPI 적립 매수'),
       h('div', { style: 'margin-top:10px' },
         lineChart({
           h: 220,
@@ -47,7 +47,7 @@ register('report', () => {
         })),
       h('div', { class: 'legend' },
         h('span', {}, h('i', { style: `background:${gap >= 0 ? '#f04452' : '#3182f6'}` }), '내 자산'),
-        h('span', {}, h('i', { style: 'background:#c6cdd5' }), '같은 돈, 지수ETF 매주 적립')),
+        h('span', {}, h('i', { style: 'background:#c6cdd5' }), '같은 돈, KOSPI 매주 적립')),
       h('p', { class: 'desc', style: 'font-size:13px;margin-top:10px' },
         gap >= 0
           ? `지수 적립보다 ${gap.toFixed(1)}%p 앞섰습니다. 운과 실력을 구분하는 법도 앞으로 배웁니다.`
@@ -96,7 +96,7 @@ function shareCard() {
     ['최대 낙폭', '-' + r.mdd.toFixed(1) + '%'],
     ['매매 횟수', fmt(r.totalTrades) + '회'],
     ['수수료·세금', won(r.totalFees)],
-    ['지수ETF 적립이었다면', pct(r.benchmarkReturn)],
+    ['KOSPI 적립이었다면', pct(r.benchmarkReturn)],
   ]
   rows.forEach(([k, v], i) => {
     const y = 500 + i * 62

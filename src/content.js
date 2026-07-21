@@ -169,4 +169,4 @@ export const QUIZ = [
 ]
 export const QUIZ_PASS = 4 // 5문항 중 4개 이상 (잠정 기준)
 
-export const DISCLAIMER = '본 시뮬레이션은 학습용 가상 데이터를 사용하며, 실제 투자 조언이 아닙니다.'
+export const DISCLAIMER = '본 시뮬레이션은 실제 과거 시세(2016~2026)를 학습용으로 재생한 것이며, 특정 종목에 대한 추천이나 투자 조언이 아닙니다. 과거 수익률은 미래를 보장하지 않습니다.'

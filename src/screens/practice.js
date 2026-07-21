@@ -54,7 +54,7 @@ register('prac1', () => {
       h('b', { style: 'font-size:16px' }, `${ph.name} (${ph.from}~${ph.to}주차)`),
       h('p', { class: 'desc', style: 'margin:8px 0' },
         `기준금리 ${rateAt(ph.from).baseRate.toFixed(1)}% → ${rateAt(ph.to).baseRate.toFixed(1)}%`, h('br'),
-        `이 구간 지수ETF: `, h('b', { class: numClass(etfChg) }, pct(etfChg)), h('br'),
+        `이 구간 KOSPI: `, h('b', { class: numClass(etfChg) }, pct(etfChg)), h('br'),
         inPlay
           ? `이 구간에서 ${S.user.nickname}님의 매매는 ${trades.length}건 (매수 ${buys} · 매도 ${trades.length - buys})`
           : '이 구간은 시뮬레이션 종료 이후 구간이에요.'),

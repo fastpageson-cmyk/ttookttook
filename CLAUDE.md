@@ -60,7 +60,7 @@ Vite 6 + **순수 JS(ES 모듈), React 없음**. 화면 = `src/screens/*.js`의 
 | `src/weeks/index.js` | 주차 레지스트리 + 잠금·진행 헬퍼(`isUnlocked`/`currentWeek`/`practiceCount`) |
 | `src/mini-sim.js` | 미니 모의투자 **공용 엔진**(브리핑→설정→진행→결과) + 목업 계열 생성(채권·금·현금)·MDD·공용 UI 조각 |
 | `src/styles.css` | 디자인 토큰(`:root`) + 반응형. 파일 하단에 데스크톱(≥1024) 블록 |
-| `src/data/` | 데이터 JSON (`docs/콘텐츠/mock-data`의 사본). **`sp500_scenario.json`만 실제 데이터**(FRED, 2020년), 나머지(`stocks.json`·`rates.json`)는 여전히 합성 목업 |
+| `src/data/` | **전부 실제 시장 데이터**(`docs/콘텐츠/mock-data`의 사본). `stocks.json`=국내 8종목+KOSPI 520주(2016-07~2026-07, FinanceDataReader), `rates.json`=한국 정책금리·국면(FRED), `sp500_scenario.json`=2020년 S&P500·연준금리(FRED). 생성 스크립트가 같은 폴더에 있음 |
 
 ## 편집 시 지킬 것 (실제로 당한 것들)
 

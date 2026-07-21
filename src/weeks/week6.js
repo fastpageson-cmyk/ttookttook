@@ -5,9 +5,9 @@ import { h, fmt, won, pct, numClass, metricGrid, choiceRow, coachCard } from '..
 const PRINCIPAL = 10_000_000
 // 3종목 세전 손익 — 분산투자를 하면 일부는 반드시 손실이 난다는 4주차 전제를 그대로 반영
 const POSITIONS = [
-  { code: 'E에너지', pnl: 3_000_000 },
-  { code: 'B바이오', pnl: -1_000_000 },
-  { code: 'G헬스케어', pnl: 500_000 },
+  { code: '종목 A', pnl: 3_000_000 },
+  { code: '종목 B', pnl: -1_000_000 },
+  { code: '종목 C', pnl: 500_000 },
 ]
 const GROSS_GAIN = POSITIONS.filter(p => p.pnl > 0).reduce((a, p) => a + p.pnl, 0) // 350만
 const GROSS_LOSS = -POSITIONS.filter(p => p.pnl < 0).reduce((a, p) => a + p.pnl, 0) // 100만
@@ -172,7 +172,7 @@ export default {
     brief: {
       headline: '투자 성과는 똑같습니다. 계좌만 다릅니다',
       lines: [
-        '1,000만 원으로 3종목에 투자했고, 결과는 이렇습니다 — E에너지 +300만, B바이오 -100만, G헬스케어 +50만. 세전 순이익 250만 원.',
+        '1,000만 원으로 3종목에 투자했고, 결과는 이렇습니다 — 종목 A +300만, 종목 B -100만, 종목 C +50만. 세전 순이익 250만 원. (계좌별 세금 차이만 보기 위한 가상의 손익입니다)',
         '4주차에서 배운 대로 분산했기 때문에 일부 종목은 손실이 났습니다. 이 손실이 세금 계산에서 어떻게 취급되는지가 이번 실습의 핵심입니다.',
         '똑같은 성과인데 어느 계좌에 담았느냐에 따라 손에 남는 돈이 달라집니다.',
       ],
@@ -253,7 +253,7 @@ export default {
       const gap = Math.max(...usable.map(x => x.net)) - Math.min(...usable.map(x => x.net))
       const lines = [
         `세 계좌 모두 세전 순이익은 똑같이 ${won(NET)}입니다. 그런데 지금 실제로 꺼낼 수 있는 돈은 최대 ${won(gap)}까지 차이가 납니다. 투자를 더 잘해서가 아니라 계좌를 고른 결과입니다.`,
-        `일반 계좌는 손익통산이 없어 이익 ${won(GROSS_GAIN)} 전체에 15.4%가 과세됩니다. B바이오에서 난 ${won(GROSS_LOSS)} 손실은 세금 계산에서 없는 셈입니다. ISA는 순이익 ${won(NET)}만 계산하고, 서민형 비과세 한도(400만) 안이라 세금이 0원입니다.`,
+        `일반 계좌는 손익통산이 없어 이익 ${won(GROSS_GAIN)} 전체에 15.4%가 과세됩니다. 종목 B에서 난 ${won(GROSS_LOSS)} 손실은 세금 계산에서 없는 셈입니다. ISA는 순이익 ${won(NET)}만 계산하고, 서민형 비과세 한도(400만) 안이라 세금이 0원입니다.`,
       ]
       if (account === 'pension' && terminated) {
         lines.push(
