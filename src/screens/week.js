@@ -3,7 +3,7 @@
 import { h, appendKids } from '../ui.js'
 import { register, go } from '../router.js'
 import { S, week, save } from '../state.js'
-import { QUIZ_PASS } from '../content.js'
+import { QUIZ_PASS, missedForWeek } from '../content.js'
 import { byId, WEEKS, practiceCount, allPracticesDone } from '../weeks/index.js'
 
 // ---------- 강의 카드 ----------
@@ -18,15 +18,25 @@ register('lecture', (params = {}) => {
     if (!st.cardsViewed.includes(i)) { st.cardsViewed.push(i); save() }
   }
 
+  // 진단에서 이 주차 개념을 틀렸던 문항 — 첫 카드에서 한 번만 짚어준다
+  const missed = missedForWeek(S.diagnosis.answers, w.id)
+
   function paint() {
     markViewed(idx)
     const c = cards[idx]
     wrap.innerHTML = ''
-    wrap.append(
+    appendKids(wrap,
       h('div', { class: 'topbar' },
         h('button', { class: 'btn-back', onclick: () => go('home') }, '‹'),
         h('div', { class: 'tb-title' }, `${w.id}주차 · ${w.title}`),
       ),
+      idx === 0 && missed.length
+        ? h('div', { class: 'diag-recall' },
+            h('b', {}, `📌 진단에서 놓친 개념 ${missed.length}가지`),
+            h('p', { class: 'small' }, '이번 주차에서 다시 나옵니다. 이번엔 확실히 잡고 가요.'),
+            h('ul', {}, missed.map(({ q }) => h('li', {}, q.q))),
+          )
+        : null,
       h('div', { class: 'progressbar', style: 'margin-bottom:16px' },
         h('i', { style: `width:${((idx + 1) / cards.length * 100).toFixed(0)}%` })),
       h('div', { class: 'card lecture-card' },

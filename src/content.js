@@ -41,6 +41,34 @@ export function categoryBreakdown(answers) {
   return [...map.values()]
 }
 
+// 진단 문항 → 그 개념을 다시 다루는 주차. 오답을 해당 주차 강의에서 재언급하기 위한 매핑.
+// 기본은 카테고리 단위, 카테고리 안에서 주차가 갈리는 문항만 인덱스로 덮어쓴다.
+const DIAG_WEEK_BY_CAT = {
+  '금리·물가': 1,
+  '저축·예금자보호': 2,
+  '신용·부채': 3,
+  '투자 기초·분산': 4,   // 분산·위험수익·ETF. PER 문항만 5주차로 override
+  '세금·제도': 6,
+}
+const DIAG_WEEK_OVERRIDE = {
+  10: 5,  // PER → 5주차(기업 분석)
+  18: 2,  // 복리 → 2주차(시간·적립)
+  19: 4,  // 손실 후 회복(MDD 수학) → 4주차
+  // 17(가계부)은 대응하는 주차가 없어 매핑하지 않음(콜아웃 미노출)
+}
+export function weekForDiagnosis(i) {
+  if (i in DIAG_WEEK_OVERRIDE) return DIAG_WEEK_OVERRIDE[i]
+  return DIAG_WEEK_BY_CAT[DIAGNOSIS[i]?.cat] ?? null
+}
+
+// 특정 주차 강의에서 재언급할 '진단에서 틀린' 문항들. 진단 미완료면 빈 배열.
+export function missedForWeek(answers, week) {
+  if (!Array.isArray(answers)) return []
+  return DIAGNOSIS
+    .map((q, i) => ({ q, i }))
+    .filter(({ q, i }) => weekForDiagnosis(i) === week && answers[i] != null && answers[i] !== q.a)
+}
+
 // ---------- 점수별 학습자 페르소나 4단계 ----------
 export const PERSONAS = [
   { min: 0, max: 30, emoji: '🌱', name: '경제 새내기',

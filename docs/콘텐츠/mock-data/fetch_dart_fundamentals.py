@@ -17,21 +17,41 @@
 
 사용법:
     cp .env.example .env.local   # 그리고 키를 채운다
-    python3 fetch_dart_fundamentals.py
+    python3 fetch_dart_fundamentals.py              # 기본 2024 사업보고서
+    python3 fetch_dart_fundamentals.py --year 2025  # 매년 갱신: 새 사업연도로 재실행
+    FISCAL_YEAR=2025 python3 fetch_dart_fundamentals.py  # 환경변수로도 가능
 출력: fundamentals.json (같은 폴더) — src/data/ 로도 복사할 것
+
+※ 연 1회 갱신: DART 사업보고서는 다음 해 3월 말 공시되므로, 4월 이후에 --year <직전연도>로
+   재실행하면 된다. 종료일은 자동으로 '오늘'이라 코드를 손댈 필요가 없다(WINDOW_END로 고정 가능).
 """
+import datetime
 import json
 import os
+import sys
 import urllib.parse
 import urllib.request
 from statistics import median
 
 import FinanceDataReader as fdr
 
-# 사업연도: 이 보고서가 공시된 뒤의 1년을 투자 구간으로 쓴다.
-FISCAL_YEAR = 2024
+
+# 사업연도 — 기본 2024. 매년 재실행 시 --year 인자 또는 FISCAL_YEAR 환경변수로 바꾼다.
+def _resolve_fiscal_year():
+    for i, a in enumerate(sys.argv):
+        if a == '--year' and i + 1 < len(sys.argv):
+            return int(sys.argv[i + 1])
+        if a.startswith('--year='):
+            return int(a.split('=', 1)[1])
+    return int(os.environ.get('FISCAL_YEAR', 2024))
+
+
+# 이 보고서가 공시된 뒤의 1년을 투자 구간으로 쓴다.
+FISCAL_YEAR = _resolve_fiscal_year()
 # 사업보고서는 보통 다음 해 3월 말에 공시된다 → 그 이후부터 지표를 '알 수 있는' 상태가 된다.
 WINDOW_START = f'{FISCAL_YEAR + 1}-04-01'
+# 주가 조회 종료일: 기본은 '오늘'(매년 재실행해도 코드 수정 불필요). 재현이 필요하면 WINDOW_END로 고정.
+WINDOW_END = os.environ.get('WINDOW_END') or datetime.date.today().isoformat()
 WEEKS = 52
 
 # 앱에서 고를 수 있는 8종목 + 업종 평균 계산용 비교군(peer)
@@ -198,7 +218,7 @@ def main():
     px_at = {}
     weekly = {}
     for code, name, _ in UNIVERSE + PEERS:
-        s = fdr.DataReader(code, WINDOW_START, '2026-07-17')['Close'].resample('W-FRI').last().dropna()
+        s = fdr.DataReader(code, WINDOW_START, WINDOW_END)['Close'].resample('W-FRI').last().dropna()
         px_at[code] = float(s.iloc[0])
         if any(code == c for c, _, _ in UNIVERSE):
             weekly[name] = [round(float(v), 1) for v in s.values[:WEEKS]]

@@ -59,7 +59,7 @@ Vite 6 + **순수 JS(ES 모듈), React 없음**. 화면 = `src/screens/*.js`의 
 | `src/main.js` | 부트스트랩 + 시작 화면 결정(재방문 시 온보딩 생략) |
 | `src/state.js` | AppState + localStorage. `STARTING_CASH`, `FEE_RATE`(0.2%) |
 | `src/sim-core.js` | 시세/금리 접근, 자산곡선 리플레이, MDD, ETF 주간적립(DCA) 벤치마크, `BANKRUPT_RATIO`, **규칙 기반 `generateMistakeReport`**(LLM 교체 지점) |
-| `src/content.js` | 진단 20문항(+explain)·`PERSONAS`/`personaForScore`·`categoryBreakdown`·강의 10카드·퀴즈 5문항 |
+| `src/content.js` | 진단 20문항(+explain)·`PERSONAS`/`personaForScore`·`categoryBreakdown`·`weekForDiagnosis`/`missedForWeek`(진단 오답→주차 매핑)·강의 10카드·퀴즈 5문항 |
 | `src/ui.js` | DOM 빌더 `h()`, `countUp()`, SVG `lineChart()`(밴드/마커/점선), `openSheet()` |
 | `src/screens/` | onboarding · diagnosis · sim · report · learn(홈/마이) · **week(강의/실습허브/퀴즈 — 주차 공통)** · practice(1주차 실습 3종) |
 | `src/weeks/weekN.js` | 주차별 **강의 카드 + 퀴즈 + 미니 모의투자 설정**. 원고 사본(원본은 `docs/콘텐츠/`) |
@@ -93,9 +93,12 @@ Vite 6 + **순수 JS(ES 모듈), React 없음**. 화면 = `src/screens/*.js`의 
 5. **시뮬 화면 순서**: 데스크톱은 `.sim-grid` 2컬럼, 모바일은 `display:contents`+`order`로
    총자산→종목→차트→시간 순 유지. `order`를 쓰므로 topbar/안내문/disclaimer에도 order를 명시해야
    함(기본 order:0이라 안 그러면 위로 튀어 오름).
-6. **`BANKRUPT_RATIO=0.20`의 이유**: 목업상 단일 종목 all-in 최악이 B바이오 -84%/D플랫폼 -81%라
-   10% 기준은 절대 도달 불가(죽은 코드)였음. 스펙 3-5의 '잔고 0' 완전파산은 상장폐지 데이터가
-   있어야 성립 — 데이터 확보 시 하향할 것.
+6. **`BANKRUPT_RATIO=0.30`의 이유(2026-07-22 정정)**: 실데이터 전환 후 단일종목 all-in 최악
+   매수→최저 홀딩이 카카오 20.6%(=-79.4%)·아모레 22.5%·한전 26.8%라, 이전 값 `0.20`(-80%)은
+   **8종목 전부 도달 불가한 죽은 코드**였다(목업 -84% 기준으로 잡았던 값이 실데이터에서 무효화).
+   `0.30`(-70%)이면 위 3종에 몰빵+악타이밍 홀딩 시에만 발동해 '집중 몰빵 참사' 신호로 기능한다.
+   배너·안내 문구는 `Math.round((1-BANKRUPT_RATIO)*100)`로 자동 반영되니 숫자를 하드코딩하지 말 것.
+   스펙 3-5의 진짜 '잔고 0' 파산은 상장폐지 시세가 있어야 성립(현 8종목은 전부 생존 대형주) — 데이터 확보 시 하향.
 7. 데이터 구조 변경 시 `docs/데이터모델.md`와 localStorage 방어 로직(`state.js`) 함께.
 8. **`week`라는 이름의 지역변수 금지** — `state.js`의 `week(id)` 접근자를 가린다. `practice.js`의
    `prac2`가 주차 카운터로 `let week`을 써서 실제로 TypeError가 났고, 지금은 `weekState` 별칭으로 import 중.
