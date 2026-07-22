@@ -41,7 +41,6 @@ function investAccount(monthly, months = MONTHS) {
 
 export default {
   id: 2,
-  emoji: '2️⃣',
   title: '시드머니와 저축의 구조',
   subtitle: '복리·저축률·통장 쪼개기',
   cards: [
@@ -265,7 +264,7 @@ export default {
                 ['KOSPI 적립 (원금 대비)', '원금'],
               ))
           : null,
-        coachCard('🧭 이번 실습이 말하는 것', lines),
+        coachCard('이번 실습이 말하는 것', lines),
       )
     },
   },

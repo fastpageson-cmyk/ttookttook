@@ -32,26 +32,26 @@ const yoy = v => (v == null ? '—' : (v > 0 ? '+' : '') + v.toFixed(1) + '%')
 // 신호는 실제 DART 공시와 실제 실적 숫자만 쓴다.
 const EVENTS = [
   {
-    week: 10, kind: 'noise', icon: '💬', source: '카톡 리딩방',
+    week: 10, kind: 'noise', source: '카톡 리딩방',
     text: '"내부 정보 입수. 다음 주 발표로 급등 확정. 지금이 마지막 기회입니다."',
     q: '이 정보를 근거로 매매하시겠습니까?',
     explain: '출처가 불분명한 리딩방 찌라시는 전형적인 소음입니다. 진짜 내부 정보라면 그걸로 거래하는 건 불법이고, 대부분은 물량을 떠넘기기 위한 작전입니다.',
   },
   {
-    week: REPORT_WEEK, kind: 'signal', good: null, icon: '📄', source: 'DART 전자공시',
+    week: REPORT_WEEK, kind: 'signal', good: null, source: 'DART 전자공시',
     text: '보유 종목의 반기보고서가 공시되었습니다. 상반기 누적 실적입니다.',
     q: '실적을 보고 어떻게 하시겠습니까?',
     explain: 'DART 정기 공시는 검증된 신호입니다. 다만 "매출이 늘었다"만 보면 안 됩니다 — 매출이 늘어도 영업이익이 줄었다면 본업 수익성이 나빠지고 있다는 뜻입니다(카드 3).',
     showFinancials: true,
   },
   {
-    week: 34, kind: 'noise', icon: '📺', source: '유튜브',
+    week: 34, kind: 'noise', source: '유튜브',
     text: '"지금 안 사면 평생 후회하는 종목 TOP3 — 조회수 82만"',
     q: '이 영상을 보고 포트폴리오를 바꾸시겠습니까?',
     explain: '조회수를 노린 자극적인 콘텐츠는 소음입니다. 썸네일의 확신은 데이터가 아니라 클릭을 위한 장치입니다.',
   },
   {
-    week: 45, kind: 'signal', good: false, icon: '📄', source: 'DART 전자공시',
+    week: 45, kind: 'signal', good: false, source: 'DART 전자공시',
     text: '보유 종목 중 상반기 영업이익이 가장 많이 줄어든 곳이 있습니다.',
     q: '이 종목을 어떻게 하시겠습니까?',
     explain: '영업이익 감소는 매도를 "검토"할 근거이지 자동 매도 신호는 아닙니다. 일시적 요인인지 구조적 악화인지는 사업보고서 본문을 봐야 알 수 있습니다.',
@@ -70,7 +70,6 @@ function priceSeries(code) {
 
 export default {
   id: 5,
-  emoji: '5️⃣',
   title: '기업 분석과 거시경제 지표 읽기',
   subtitle: 'PER·PBR·영업이익률·DART',
   cards: [
@@ -304,7 +303,7 @@ export default {
                 h('div', { class: 'small' }, '내 자산'),
                 h('b', { class: 'ms-big ' + numClass(ret) }, won(v)),
                 h('span', { class: 'chg ' + numClass(ret) }, pct(ret))),
-              h('div', { style: 'text-align:right' },
+              h('div', { class: 'tar' },
                 h('div', { class: 'small' }, '경과'),
                 h('b', { style: 'font-size:20px' }, `${i}주`))),
             lineChart({
@@ -315,7 +314,7 @@ export default {
             }),
           ),
           h('div', { class: 'card ms-news' },
-            h('div', { class: 'ms-news-src' }, `${ev.icon} ${ev.source}`),
+            h('div', { class: 'ms-news-src' }, ev.source),
             h('p', { class: 'ms-news-body' }, ev.text),
             ev.showFinancials
               ? h('div', { class: 'ms-fin' },
@@ -395,13 +394,13 @@ export default {
               h('div', { class: 'ms-ev-top' },
                 h('span', { class: 'badge ' + (ev.kind === 'noise' ? 'gray' : 'blue') },
                   ev.kind === 'noise' ? '소음' : '신호'),
-                h('span', { class: 'ms-ev-src' }, `${ev.icon} ${ev.source}`),
+                h('span', { class: 'ms-ev-src' }, ev.source),
                 h('span', { class: 'badge ' + (didTrade ? 'green' : 'gray') }, didTrade ? '매매함' : '유지')),
               h('p', { class: 'small' }, ev.explain),
             ))),
         ),
         h('p', { class: 'disclaimer' }, FUND.meta.note),
-        coachCard('🧭 이번 실습이 말하는 것', lines),
+        coachCard('이번 실습이 말하는 것', lines),
       )
     },
   },

@@ -32,7 +32,7 @@ register('lecture', (params = {}) => {
       ),
       idx === 0 && missed.length
         ? h('div', { class: 'diag-recall' },
-            h('b', {}, `📌 진단에서 놓친 개념 ${missed.length}가지`),
+            h('b', {}, `진단에서 놓친 개념 ${missed.length}가지`),
             h('p', { class: 'small' }, '이번 주차에서 다시 나옵니다. 이번엔 확실히 잡고 가요.'),
             h('ul', {}, missed.map(({ q }) => h('li', {}, q.q))),
           )
@@ -46,10 +46,9 @@ register('lecture', (params = {}) => {
         c.figure ? h('figure', { class: 'lc-figure', html: c.figure }) : c.img ? h('img', { src: c.img, alt: c.title }) : null,
         (c.paras || []).map(p => h('p', {}, p)),
         c.bullets ? h('ul', {}, c.bullets.map(b => h('li', {}, b))) : null,
-        c.note ? h('div', { class: 'note' }, '💡 ' + c.note) : null,
+        c.note ? h('div', { class: 'note' }, c.note) : null,
       ),
-      h('div', { class: 'lc-dots' },
-        cards.map((_, i) => h('i', { class: (i === idx ? 'on ' : '') + (st.cardsViewed.includes(i) ? 'seen' : '') }))),
+      // 진행 표시는 상단 진행바 + "카드 n/N" 카운터 둘로 충분 — 점 줄(lc-dots)은 같은 정보의 3중 표기였다
       h('div', { class: 'lc-nav' },
         h('button', { class: 'btn secondary', disabled: idx === 0, onclick: () => { idx--; paint() } }, '이전'),
         idx < cards.length - 1
@@ -70,10 +69,10 @@ register('practices', (params = {}) => {
   const items = w.practices || []
   const { done, total } = practiceCount(w)
 
-  const item = (isDone, ico, title, desc, screen, extraClass = '') =>
+  // 카드에는 제목·설명·상태 뱃지만 — "실습 N" 번호가 이미 구분자라 아이콘은 중복 장식이었다
+  const item = (isDone, title, desc, screen, extraClass = '') =>
     h('div', { class: 'card' + extraClass, style: 'cursor:pointer', onclick: () => go(screen, { week: w.id }) },
       h('div', { class: 'prac-row' },
-        h('span', { style: 'font-size:28px' }, ico),
         h('div', { style: 'flex:1' },
           h('b', { style: 'font-size:16px' }, title),
           h('p', { class: 'small', style: 'margin-top:2px' }, desc)),
@@ -85,14 +84,15 @@ register('practices', (params = {}) => {
       h('button', { class: 'btn-back', onclick: () => go('home') }, '‹'),
       h('div', { class: 'tb-title' }, `${w.id}주차 실습`),
     ),
+    // 진행 카운터는 하단 버튼 한 곳에만 둔다(설명문과의 2중 표기 제거)
     h('p', { class: 'desc', style: 'margin-bottom:16px' },
       total === 1
         ? '배운 개념을 바로 손으로 확인해봅니다. 미니 모의투자를 마치면 확인 퀴즈가 열립니다.'
-        : `배운 개념을 바로 손으로 확인해봅니다. ${total}개를 모두 완료하면 확인 퀴즈가 열립니다. (${done}/${total})`),
-    items.map((p, i) => item(!!st.practices[p.key], p.ico, p.title, p.desc, p.screen)),
+        : `배운 개념을 바로 손으로 확인해봅니다. ${total}개를 모두 완료하면 확인 퀴즈가 열립니다.`),
+    items.map((p, i) => item(!!st.practices[p.key], p.title, p.desc, p.screen)),
     // 실습의 마지막은 항상 미니 모의투자 — 그 주차에서 배운 개념을 직접 굴려본다
     h('div', { class: 'ms-divider' }, h('span', {}, '마무리 · 미니 모의투자')),
-    item(st.miniSim.done, '🎮', w.miniSim.navTitle, w.miniSim.navDesc, 'mini' + w.id, ' ms-entry'),
+    item(st.miniSim.done, w.miniSim.navTitle, w.miniSim.navDesc, 'mini' + w.id, ' ms-entry'),
     st.miniSim.done && st.miniSim.result
       ? h('p', { class: 'small ms-last' }, `지난 결과: ${st.miniSim.result.headline}`)
       : null,
@@ -149,7 +149,7 @@ register('quiz', (params = {}) => {
                 onclick: () => go('lecture', { week: w.id, card: item.card }),
               }, `→ 카드 ${item.card + 1} 다시 보기`) : null,
             ),
-            h('div', { style: 'margin-top:16px' },
+            h('div', { class: 'mt-4' },
               h('button', {
                 class: 'btn',
                 onclick: () => { if (idx < QUIZ.length - 1) { idx++; paintQ() } else finish() },
@@ -197,7 +197,6 @@ register('quiz', (params = {}) => {
       ),
       passed
         ? h('div', { class: 'card', style: 'text-align:center;background:var(--green-soft);box-shadow:none' },
-            h('p', { style: 'font-size:34px;margin-bottom:6px' }, isLast ? '🎓' : '✅'),
             h('b', {}, `${w.id}주차 · ${w.title}`),
             h('p', { class: 'small', style: 'margin-top:4px' },
               isLast ? '먼저 잃고, 똑똑해졌습니다' : '먼저 잃고, 조금 더 똑똑해졌습니다'))
@@ -213,7 +212,7 @@ register('quiz', (params = {}) => {
                 : h('button', {
                     class: 'btn', style: 'margin-bottom:10px',
                     onclick: () => go('graduation'),
-                  }, '🎓 졸업 리포트 보기'),
+                  }, '졸업 리포트 보기'),
               h('button', { class: 'btn secondary', onclick: () => go('home') }, '홈으로'))
           : h('div', {},
               h('button', { class: 'btn secondary', style: 'margin-bottom:10px', onclick: () => go('lecture', { week: w.id }) }, '강의 다시 보기'),

@@ -118,7 +118,6 @@ export function runLeverage({ multiple, repay, scenario, prepayAt = null, exitAt
 
 export default {
   id: 3,
-  emoji: '3️⃣',
   title: '신용과 대출, 레버리지의 두 얼굴',
   subtitle: '레버리지·상환방식·신용점수',
   cards: [
@@ -278,7 +277,7 @@ export default {
               h('b', {}, won(total)),
               h('span', { class: 'small' }, `= 내 돈 ${won(EQUITY0)} + 대출 ${won(loan)}`)),
             multiple >= 2
-              ? h('p', { class: 'ms-warn' }, '⚠️ 2배 레버리지에서는 시장이 -25%만 빠져도 내 원금의 절반이 사라집니다.')
+              ? h('p', { class: 'ms-warn' }, '2배 레버리지에서는 시장이 -25%만 빠져도 내 원금의 절반이 사라집니다.')
               : null,
           ),
           multiple > 0
@@ -337,7 +336,7 @@ export default {
                 h('div', { class: 'small' }, '내 자기자본'),
                 h('b', { class: 'ms-big ' + numClass(ret) }, won(equity)),
                 h('span', { class: 'chg ' + numClass(ret) }, pct(ret))),
-              h('div', { style: 'text-align:right' },
+              h('div', { class: 'tar' },
                 h('div', { class: 'small' }, '담보비율'),
                 h('b', { class: ratio < 35 ? 'num-down' : '', style: 'font-size:20px' }, ratio.toFixed(0) + '%'))),
             lineChart({
@@ -360,12 +359,12 @@ export default {
           ),
           ratio < 35 && ratio > 0 && !hitMargin
             ? h('div', { class: 'card ms-alert' },
-                h('b', {}, '⚠️ 담보비율 경고'),
+                h('b', {}, '담보비율 경고'),
                 h('p', {}, `담보비율이 ${ratio.toFixed(0)}%입니다. 25% 아래로 떨어지면 반대매매로 강제 청산됩니다. 지금 일부라도 상환하면 비율이 올라갑니다.`))
             : null,
           hitMargin
             ? h('div', { class: 'card ms-alert danger' },
-                h('b', {}, '💥 반대매매 발생'),
+                h('b', {}, '반대매매 발생'),
                 h('p', {}, '담보비율이 25% 아래로 떨어져 증권사가 보유 자산을 강제 청산했습니다. 이후 시장이 어떻게 되든 나는 이미 시장에서 내려왔습니다.'),
                 h('button', { class: 'btn', style: 'margin-top:12px', onclick: () => finishNow('margin') }, '결과 보기'))
             : i >= full.endIndex
@@ -383,7 +382,7 @@ export default {
                       }, 90)
                       paint()
                     },
-                  }, timer ? '⏸ 일시정지' : i === 0 ? '▶ 재생 시작' : '▶ 계속 재생'),
+                  }, timer ? '일시정지' : i === 0 ? '재생 시작' : '계속 재생'),
                   h('div', { class: 'btn-row', style: 'margin-top:10px' },
                     h('button', {
                       class: 'btn secondary', disabled: prepaid || params.multiple === 0,
@@ -431,7 +430,7 @@ export default {
         ),
         reason === 'margin'
           ? h('div', { class: 'card ms-alert danger' },
-              h('b', {}, '💥 반대매매로 강제 청산되었습니다'),
+              h('b', {}, '반대매매로 강제 청산되었습니다'),
               h('p', {}, '담보비율이 25% 아래로 떨어져, 내 의사와 무관하게 자산이 정리됐습니다.'))
           : null,
         metricGrid(res.metrics),
@@ -442,7 +441,7 @@ export default {
             base.lev0.equityCurve.map(v => v / EQUITY0),
             [`내 선택 (${multiple}배)`, '레버리지 0배']),
         ),
-        coachCard('🧭 이번 실습이 말하는 것', lines),
+        coachCard('이번 실습이 말하는 것', lines),
       )
     },
   },

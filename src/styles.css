@@ -54,6 +54,17 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { background: var(--bg); }
+
+/* ---------- 유틸리티 (8px 토큰 스케일에 묶인 간격/정렬) ---------- */
+/* 인라인 style로 흩어져 있던 하드코딩 간격을 시스템 값으로 모은다 */
+.mt-1 { margin-top: var(--s1); }  .mt-2 { margin-top: var(--s2); }
+.mt-3 { margin-top: var(--s3); }  .mt-4 { margin-top: var(--s4); }
+.mt-5 { margin-top: var(--s5); }  .mt-6 { margin-top: var(--s6); }
+.mb-2 { margin-bottom: var(--s2); }  .mb-3 { margin-bottom: var(--s3); }
+.mb-4 { margin-bottom: var(--s4); }  .mb-5 { margin-bottom: var(--s5); }
+.tac { text-align: center; }  .tar { text-align: right; }
+.spacer-2 { height: var(--s2); }
+.card.list { padding: 6px 20px; }   /* 행을 나열하는 카드(진도·커리큘럼·졸업 요약) */
 body { color: var(--ink); line-height: var(--lh); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
 .app {
@@ -74,6 +85,9 @@ body { color: var(--ink); line-height: var(--lh); -webkit-font-smoothing: antial
   width: 40px; height: 40px; margin-left: -10px; border-radius: var(--r-sm); cursor: pointer;
 }
 .btn-back:active { background: rgba(0,0,0,.05); }
+/* 우상단 텍스트 액션(종료 등) — 위험색 아닌 무채색. .btn{width:100%}를 이기도록 특이성 확보 */
+.btn.tb-action { width: auto; margin-left: auto; padding: 8px 12px; font-size: 14px; min-height: 0; flex: 0 0 auto; }
+.topbar .tb-title { flex: 0 1 auto; }
 
 .card {
   background: var(--card); border-radius: var(--radius);
@@ -131,9 +145,8 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 }
 .tabbar button {
   flex: 1; border: 0; background: transparent; cursor: pointer; font-family: inherit;
-  font-size: 11px; font-weight: 600; color: var(--mut); display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 0;
+  font-size: 15px; font-weight: 700; color: var(--mut); padding: 12px 0;
 }
-.tabbar button .ico { font-size: 22px; line-height: 1; }
 .tabbar button.active { color: var(--blue); }
 
 /* ---------- 스플래시 / 온보딩 ---------- */
@@ -142,7 +155,8 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .onb-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px; margin: 28px -20px 0; padding: 0 20px; scrollbar-width: none; }
 .onb-track::-webkit-scrollbar { display: none; }
 .onb-card { scroll-snap-align: center; flex: 0 0 86%; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s6) var(--s5); min-height: 220px; }
-.onb-card .ico { font-size: 40px; margin-bottom: 14px; display: block; }
+.onb-card .ico { display: block; margin-bottom: 14px; color: var(--blue); line-height: 0; }
+.onb-card .ico svg { display: block; }
 .onb-card b { font-size: 18px; display: block; margin-bottom: 8px; }
 .onb-dots { display: flex; gap: 6px; justify-content: center; margin: 16px 0 0; }
 .onb-dots i { width: 6px; height: 6px; border-radius: var(--r-pill); background: var(--line-strong); transition: all var(--dur) var(--ease); }
@@ -187,11 +201,10 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .cmp-bar { height: 14px; border-radius: var(--r-pill); background: var(--fill); overflow: hidden; }
 .cmp-bar > i { display: block; height: 100%; border-radius: var(--r-pill); width: 0; transition: width 1s cubic-bezier(.2,.8,.2,1); }
 
-/* 진단 결과 — 페르소나 */
+/* 진단 결과 — 페르소나 (시각 앵커는 유형명 타이포) */
 .persona-card { background: var(--blue-soft); border: 1px solid var(--line); }
-.persona-head { display: flex; align-items: center; gap: var(--s3); }
-.persona-emoji { font-size: 40px; line-height: 1; flex: 0 0 auto; }
-.persona-name { font-size: 18px; font-weight: 800; letter-spacing: -0.01em; word-break: keep-all; }
+.persona-card > .small { color: var(--blue-dark); font-weight: 700; }
+.persona-name { display: block; font-size: 19px; font-weight: 800; letter-spacing: -0.01em; word-break: keep-all; margin-top: 2px; }
 .persona-guide { margin-top: var(--s3); background: var(--card); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 11px 14px; font-size: var(--t-cap); color: var(--sub); word-break: keep-all; }
 
 /* 진단 결과 — 영역별 이해도 */
@@ -221,6 +234,7 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
   padding: 9px 14px; border-radius: var(--r-pill); border: 1.5px solid var(--line);
 }
 .chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.chip.label { background: var(--ink); color: #fff; border-color: var(--ink); pointer-events: none; }
 .chip .hold-dot { display: inline-block; width: 6px; height: 6px; background: var(--amber); border-radius: var(--r-pill); margin-left: 5px; vertical-align: 2px; }
 .price-line { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
 .price-line .p { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -233,8 +247,11 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 }
 .time-controls .tc.playing { background: var(--ink); color: #fff; }
 .trade-btns { display: flex; gap: 10px; margin-top: 12px; }
-.trade-btns .btn.buy { background: var(--up); }
-.trade-btns .btn.sell { background: var(--down); }
+/* 매수=빨강(--up)/매도=파랑(--down) 국내 관례 — 시트 확정 버튼에서도 재사용하도록 전역 규칙 */
+.btn.buy { background: var(--up); }
+.btn.sell { background: var(--down); }
+.btn.buy:active { background: #d93a48; }
+.btn.sell:active { background: var(--blue-dark); }
 
 /* 바텀시트 */
 .sheet-dim { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 90; animation: fade var(--dur) var(--ease); }
@@ -302,9 +319,13 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .next-card p { font-size: var(--t-cap); opacity: .9; }
 .step-row { display: flex; align-items: center; gap: var(--s3); padding: var(--s4) 0; border-bottom: 1px solid var(--line); cursor: pointer; transition: opacity var(--dur) var(--ease); }
 .step-row:last-child { border-bottom: 0; }
-.step-row .st-ico { width: 40px; height: 40px; flex: 0 0 40px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; background: var(--fill); }
-.step-row .st-ico.done { background: var(--green-soft); }
+.step-row .st-ico { width: 40px; height: 40px; flex: 0 0 40px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; background: var(--fill); color: var(--mut); }
+.step-row .st-ico.done { background: var(--green-soft); color: var(--green-ink); }
 .step-row .st-ico.now { background: var(--blue-soft); }
+.step-row .st-ico.lockd { background: var(--fill); color: var(--mut-soft); }
+.step-row .st-lock { display: inline-flex; }
+.step-row .st-dot { width: 9px; height: 9px; border-radius: var(--r-pill); background: var(--blue); display: block; }
+.step-row .st-dot.wait { background: var(--line-strong); }
 .step-row .st-body { flex: 1; min-width: 0; }
 .step-row .st-body b { font-size: 15px; display: block; }
 .step-row .st-body span { font-size: 12px; color: var(--mut); }
@@ -325,13 +346,10 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .diag-recall li { font-size: var(--t-cap); color: var(--sub); margin-bottom: 4px; word-break: keep-all; }
 .lc-nav { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
 .lc-nav .btn { flex: 1; }
-.lc-dots { display: flex; gap: 4px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
-.lc-dots i { width: 6px; height: 6px; border-radius: var(--r-pill); background: var(--line-strong); }
-.lc-dots i.seen { background: var(--green); }
-.lc-dots i.on { background: var(--blue); transform: scale(1.3); }
 
 /* ---------- 실습 ---------- */
 .prac-row { display: flex; align-items: center; gap: 12px; }
+.prac-row b { word-break: keep-all; }
 .slider-row { margin: 18px 0; }
 .slider-row label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
 .slider-row input[type=range] { width: 100%; accent-color: var(--blue); height: 30px; }
@@ -369,10 +387,9 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
     justify-content: center; gap: 8px; padding: 10px 0;
   }
   .tabbar button {
-    flex: 0 0 auto; flex-direction: row; gap: 8px;
-    font-size: 14px; padding: 9px 20px; border-radius: var(--r-sm);
+    flex: 0 0 auto;
+    font-size: 15px; padding: 9px 20px; border-radius: var(--r-sm);
   }
-  .tabbar button .ico { font-size: 18px; }
   .tabbar button.active { background: var(--blue-soft); }
   .screen.has-tabbar { max-width: 720px; padding-top: 96px; padding-bottom: 72px; }
 
@@ -549,8 +566,9 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 
 /* ---------- 졸업 리포트 ---------- */
 .grad-hero { text-align: center; padding: var(--s6) 0 var(--s4); }
-.grad-cap { font-size: 56px; line-height: 1; margin-bottom: var(--s3); }
+.grad-cap { display: inline-flex; color: var(--ink); margin-bottom: var(--s3); }
 .grad-hero .hero { line-height: 1.32; }
+.grad-home-cap { display: inline-flex; color: var(--blue); margin-bottom: 6px; }
 
 .grad-arc-row { display: flex; align-items: center; gap: var(--s2); }
 .grad-arc-col { flex: 1; display: flex; flex-direction: column; gap: 3px; text-align: center; }
@@ -560,7 +578,6 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 
 .grad-take { display: flex; align-items: center; gap: var(--s3); padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
 .grad-take:last-child { border-bottom: 0; }
-.grad-take-em { font-size: 22px; flex: 0 0 auto; }
 .grad-take-body { flex: 1; min-width: 0; }
 .grad-take-body b { font-size: var(--t-body); display: block; }
 .grad-take-body span { font-size: var(--t-cap); color: var(--mut); }

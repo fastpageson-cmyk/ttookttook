@@ -51,7 +51,6 @@ function settle(account, terminated) {
 
 export default {
   id: 6,
-  emoji: '6️⃣',
   title: '절세 계좌와 자산 로드맵',
   subtitle: 'ISA·연금·청년정책 (졸업)',
   cards: [
@@ -218,7 +217,7 @@ export default {
         box.innerHTML = ''
         box.append(
           h('div', { class: 'card ms-news' },
-            h('div', { class: 'ms-news-src' }, '📅 가입 18개월 차'),
+            h('div', { class: 'ms-news-src' }, '가입 18개월 차'),
             h('p', { class: 'ms-news-body' },
               '전세 계약을 하게 됐습니다. 보증금 잔금으로 800만 원이 급하게 필요합니다.'),
             h('p', { class: 'small' },
@@ -273,7 +272,7 @@ export default {
           '일반 계좌는 언제든 꺼낼 수 있다는 게 장점이었습니다. 그 대신 세금에서 아무 혜택도 받지 못했습니다. 자유와 절세는 대체로 맞바꾸는 관계입니다.')
       }
       lines.push(
-        '🎓 여기까지가 「똑똑」 6주 과정의 마지막 실습입니다. 0단계에서 아무 기준 없이 눌렀던 매수 버튼이, 지금은 금리·레버리지·분산·지표·계좌라는 다섯 개의 기준을 갖게 됐습니다.')
+        '여기까지가 「똑똑」 6주 과정의 마지막 실습입니다. 0단계에서 아무 기준 없이 눌렀던 매수 버튼이, 지금은 금리·레버리지·분산·지표·계좌라는 다섯 개의 기준을 갖게 됐습니다.')
 
       return h('div', {},
         h('div', { class: 'report-hero' },
@@ -294,7 +293,7 @@ export default {
           h('div', { class: 'ms-tax-note' },
             all.map(a => h('p', { class: 'small' }, h('b', {}, a.label + ' · '), a.note))),
         ),
-        coachCard('🧭 이번 실습이 말하는 것', lines),
+        coachCard('이번 실습이 말하는 것', lines),
       )
     },
   },

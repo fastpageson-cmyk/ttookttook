@@ -3,18 +3,19 @@ import { h } from '../ui.js'
 import { register, go } from '../router.js'
 import { S, save } from '../state.js'
 import { SLOGAN, DISCLAIMER } from '../content.js'
+import { chartDownGlyph, magnifierGlyph, bookGlyph } from '../glyphs.js'
 
 const ONB_CARDS = [
-  { ico: '📉', t: '일단, 아무것도 모른 채 투자합니다', d: '교육도 설명도 없습니다. 가상 자금 1,000만 원으로 10년치 시장을 직접 겪어보세요. 잃어도 되는 곳이니까요.' },
-  { ico: '🔍', t: '처참한 결과를 리포트로 받습니다', d: '수익률, 최대낙폭, 수수료… 그리고 당신의 매매 실수 3가지를 분석한 리포트가 도착합니다.' },
-  { ico: '📚', t: '그 실패를 교재 삼아 배웁니다', d: '내가 잃었던 바로 그 구간으로 거시경제부터 배웁니다. 남의 예시가 아니라 내 데이터로요.' },
+  { glyph: chartDownGlyph(34), t: '일단, 아무것도 모른 채 투자합니다', d: '교육도 설명도 없습니다. 가상 자금 1,000만 원으로 10년치 시장을 직접 겪어보세요. 잃어도 되는 곳이니까요.' },
+  { glyph: magnifierGlyph(34), t: '처참한 결과를 리포트로 받습니다', d: '수익률, 최대낙폭, 수수료… 그리고 당신의 매매 실수 3가지를 분석한 리포트가 도착합니다.' },
+  { glyph: bookGlyph(34), t: '그 실패를 교재 삼아 배웁니다', d: '내가 잃었던 바로 그 구간으로 거시경제부터 배웁니다. 남의 예시가 아니라 내 데이터로요.' },
 ]
 
 register('splash', () => {
   const dots = ONB_CARDS.map((_, i) => h('i', { class: i === 0 ? 'on' : '' }))
   const track = h('div', { class: 'onb-track' },
     ONB_CARDS.map(c => h('div', { class: 'onb-card' },
-      h('span', { class: 'ico' }, c.ico),
+      h('span', { class: 'ico', html: c.glyph }),
       h('b', {}, c.t),
       h('p', { class: 'desc' }, c.d),
     )))
@@ -46,13 +47,18 @@ register('nickname', () => {
   })
   input.addEventListener('focus', () => (input.style.borderColor = 'var(--blue)'))
   input.addEventListener('blur', () => (input.style.borderColor = 'var(--line)'))
+  // 빈 입력이면 버튼을 비활성으로 — 눌러보기 전에 상태가 보이게 한다
+  const startBtn = h('button', { class: 'btn', disabled: !input.value.trim() }, '시작하기')
   const start = () => {
-    const nick = input.value.trim() || '주린이'
+    const nick = input.value.trim()
+    if (!nick) return
     S.user.nickname = nick
     S.onboarded = true
     save()
     go('diag')
   }
+  startBtn.addEventListener('click', start)
+  input.addEventListener('input', () => { startBtn.disabled = !input.value.trim() })
   input.addEventListener('keydown', e => { if (e.key === 'Enter') start() })
   return h('div', { class: 'screen' },
     h('div', { class: 'topbar' }, h('button', { class: 'btn-back', onclick: () => go('splash') }, '‹')),
@@ -60,7 +66,7 @@ register('nickname', () => {
     h('p', { class: 'desc' }, '회원가입은 없습니다. 닉네임 하나면 바로 시작해요.'),
     h('div', { style: 'margin-top:28px' }, input),
     h('div', { class: 'cta-area' },
-      h('button', { class: 'btn', onclick: start }, '시작하기'),
+      startBtn,
       h('p', { class: 'disclaimer' }, '본 서비스는 투자 시뮬레이션 학습 도구이며, 실제 투자 조언이 아닙니다.'),
     ),
   )

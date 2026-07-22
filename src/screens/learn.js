@@ -1,6 +1,7 @@
 // 화면 3-8 홈/대시보드 · 3-12 마이페이지
 // (강의·실습·퀴즈 화면은 주차 공통으로 screens/week.js에 있음)
 import { h, fmt, pct, openSheet } from '../ui.js'
+import { lockGlyph, gradCapGlyph } from '../glyphs.js'
 import { register, go, tabbar } from '../router.js'
 import { S, week, resetAll } from '../state.js'
 import { QUIZ_PASS, DISCLAIMER, SLOGAN } from '../content.js'
@@ -14,7 +15,7 @@ function nextAction() {
     desc: '가상 자금 1,000만 원 · 10년', screen: 'sim', params: {}, step: '0단계',
   }
   const w = currentWeek()
-  if (!w) return { label: '졸업 리포트 보기 🎓', desc: '6주 여정을 돌아봅니다', screen: 'graduation', params: {}, step: '졸업' }
+  if (!w) return { label: '졸업 리포트 보기', desc: '6주 여정을 돌아봅니다', screen: 'graduation', params: {}, step: '졸업' }
 
   const st = week(w.id)
   const step = `${w.id}주차`
@@ -37,17 +38,22 @@ register('home', () => {
   const na = nextAction()
   const cw = currentWeek()
 
-  const step = (ico, title, sub, state, screen, params = {}) =>
+  // 상태는 왼쪽 타일 하나로만 말한다(체크=완료 / 파란 점=진행 / 자물쇠=잠김).
+  // 뱃지는 "지금 할 것"을 가리키는 '진행 중' 하나만 남긴다 — 완료·잠김 뱃지는 타일과 의미가 겹쳤다.
+  const stateTile = state =>
+    h('div', { class: 'st-ico ' + (state === 'done' ? 'done' : state === 'now' ? 'now' : state === 'locked' ? 'lockd' : '') },
+      state === 'done' ? '✓'
+        : state === 'locked' ? h('span', { class: 'st-lock', html: lockGlyph(15) })
+          : h('i', { class: 'st-dot' + (state === 'now' ? '' : ' wait') }))
+
+  const step = (title, sub, state, screen, params = {}) =>
     h('div', {
       class: 'step-row' + (state === 'locked' ? ' locked' : ''),
       onclick: () => { if (state !== 'locked' && screen) go(screen, params) },
     },
-      h('div', { class: 'st-ico ' + (state === 'done' ? 'done' : state === 'now' ? 'now' : '') },
-        state === 'done' ? '✅' : ico),
+      stateTile(state),
       h('div', { class: 'st-body' }, h('b', {}, title), h('span', {}, sub)),
-      state === 'locked' ? h('span', { class: 'badge gray' }, '잠김') :
-        state === 'done' ? h('span', { class: 'badge green' }, '완료') :
-          state === 'now' ? h('span', { class: 'badge blue' }, '진행 중') : null,
+      state === 'now' ? h('span', { class: 'badge blue' }, '진행 중') : null,
     )
 
   const diagDone = !!S.diagnosis.completedAt
@@ -61,11 +67,11 @@ register('home', () => {
     const { done, total } = practiceCount(cw)
     const pracDone = allPracticesDone(cw)
     weekRows = [
-      step('📚', `${cw.id}주차 · 강의`, `카드 ${st.cardsViewed.length}/${cw.cards.length}`,
+      step(`${cw.id}주차 · 강의`, `카드 ${st.cardsViewed.length}/${cw.cards.length}`,
         lecDone ? 'done' : 'now', 'lecture', { week: cw.id }),
-      step('🧪', `${cw.id}주차 · 실습`, `${done}/${total} 완료 · 미니 모의투자 포함`,
+      step(`${cw.id}주차 · 실습`, `${done}/${total} 완료 · 미니 모의투자 포함`,
         pracDone ? 'done' : lecDone ? 'now' : 'locked', 'practices', { week: cw.id }),
-      step('✅', `${cw.id}주차 · 확인 퀴즈`, `${QUIZ_PASS}개 이상 맞히면 통과`,
+      step(`${cw.id}주차 · 확인 퀴즈`, `${QUIZ_PASS}개 이상 맞히면 통과`,
         st.quiz.passed ? 'done' : pracDone ? 'now' : 'locked', 'quiz', { week: cw.id }),
     ]
   }
@@ -81,24 +87,24 @@ register('home', () => {
       h('p', {}, na.desc),
     ),
     h('h2', { class: 'section' }, '나의 진도'),
-    h('div', { class: 'card', style: 'padding:6px 20px' },
-      step('📝', '사전 진단', diagDone ? `${S.diagnosis.score}점 (또래 평균 62.6점)` : '금융이해력 20문항', diagDone ? 'done' : 'now', diagDone ? 'diagResult' : 'diag'),
-      step('📉', '0단계 · 블라인드 투자', simDone ? `수익률 ${pct(S.report.finalReturn)}` : '아무것도 모른 채 10년', simDone ? 'done' : diagDone ? 'now' : 'wait', simDone ? 'report' : 'sim'),
-      step('🤖', '매매 실수 리포트', simDone ? '실수 3건 분석 완료' : '0단계 종료 후 열림', simDone ? 'done' : 'locked', 'aiReport'),
+    h('div', { class: 'card list' },
+      step('사전 진단', diagDone ? `${S.diagnosis.score}점 (또래 평균 62.6점)` : '금융이해력 20문항', diagDone ? 'done' : 'now', diagDone ? 'diagResult' : 'diag'),
+      step('0단계 · 블라인드 투자', simDone ? `수익률 ${pct(S.report.finalReturn)}` : '아무것도 모른 채 10년', simDone ? 'done' : diagDone ? 'now' : 'wait', simDone ? 'report' : 'sim'),
+      step('매매 실수 리포트', simDone ? '실수 3건 분석 완료' : '0단계 종료 후 열림', simDone ? 'done' : 'locked', 'aiReport'),
       ...weekRows,
     ),
     h('h2', { class: 'section' }, '커리큘럼'),
-    h('div', { class: 'card', style: 'padding:6px 20px' },
+    h('div', { class: 'card list' },
       WEEKS.map(w => {
         const unlocked = isUnlocked(w.id)
         const complete = isWeekComplete(w.id)
-        return step(w.emoji, `${w.id}주차 · ${w.title}`, w.subtitle,
+        return step(`${w.id}주차 · ${w.title}`, w.subtitle,
           complete ? 'done' : unlocked ? 'now' : 'locked', 'lecture', { week: w.id })
       }),
     ),
     !currentWeek() && simDone
       ? h('div', { class: 'card grad-home', style: 'cursor:pointer', onclick: () => go('graduation') },
-          h('p', { style: 'font-size:34px;margin-bottom:6px' }, '🎓'),
+          h('p', { class: 'grad-home-cap', html: gradCapGlyph(36) }),
           h('b', {}, '「똑똑」 6주 과정 졸업'),
           h('p', { class: 'small', style: 'margin-top:4px' }, '졸업 리포트 보기 →'))
       : null,
@@ -132,7 +138,7 @@ register('my', () => {
       WEEKS.map(w => {
         const st = week(w.id)
         return h('div', { class: 'my-row' },
-          h('span', { style: 'color:var(--sub)' }, `${w.emoji} ${w.id}주차`),
+          h('span', { style: 'color:var(--sub)' }, `${w.id}주차`),
           h('b', {},
             !isUnlocked(w.id) ? '잠김'
               : st.quiz.passed ? `통과 (${st.quiz.lastScore}/${w.quiz.length})`

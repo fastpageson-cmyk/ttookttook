@@ -110,17 +110,12 @@ register('diagResult', () => {
           : grew === 0 ? '점수는 그대로지만, 이제 왜 그런지 설명할 수 있습니다.'
             : '점수에 일희일비하지 마세요 — 중요한 건 판단의 기준이 생겼다는 것입니다.'),
     ) : null,
-    // 페르소나
+    // 페르소나 — 시각 앵커는 이모지가 아니라 유형명 타이포가 맡는다
     persona ? h('div', { class: 'card persona-card' },
-      h('div', { class: 'persona-head' },
-        h('span', { class: 'persona-emoji' }, persona.emoji),
-        h('div', {},
-          h('div', { class: 'small' }, '나의 학습 유형'),
-          h('b', { class: 'persona-name' }, persona.name),
-        ),
-      ),
+      h('div', { class: 'small' }, '나의 학습 유형'),
+      h('b', { class: 'persona-name' }, persona.name),
       h('p', { class: 'desc', style: 'margin-top:12px' }, persona.desc),
-      h('div', { class: 'persona-guide' }, '📚 ' + persona.guide),
+      h('div', { class: 'persona-guide' }, persona.guide),
     ) : null,
     // 또래 비교
     h('div', { class: 'card' },
@@ -159,7 +154,7 @@ register('diagResult', () => {
         h('div', { class: 'explain', style: 'margin-top:10px' }, q.explain),
       )),
     ) : h('div', { class: 'card', style: 'background:var(--green-soft);box-shadow:none' },
-      h('p', { style: 'font-weight:700;color:var(--green)' }, '🎉 20문항 전부 정답! 기본기가 탄탄하네요.')),
+      h('p', { style: 'font-weight:700;color:var(--green-ink)' }, '20문항 전부 정답! 기본기가 탄탄하네요.')),
     // CTA — 최초 진단이면 0단계로, 졸업 후 재측정이면 홈/졸업으로
     first != null
       ? h('div', { class: 'cta-area' },

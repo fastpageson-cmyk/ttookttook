@@ -19,7 +19,7 @@ register('report', () => {
 
   return h('div', { class: 'screen' },
     r.bankrupt ? h('div', { class: 'bankrupt-banner' },
-      h('b', {}, '💥 파산 — 자산의 대부분을 잃었습니다'),
+      h('b', {}, '파산 — 자산의 대부분을 잃었습니다'),
       h('span', {}, '한 종목에 크게 걸었다가 무너진 결과예요. 아래 실수 리포트에서 이유를 짚어봅니다.'),
     ) : null,
     h('div', { class: 'report-hero' },
@@ -138,7 +138,8 @@ register('aiReport', () => {
       h('p', {}, it.explanation),
     )),
     h('div', { class: 'cta-area' },
-      h('button', { class: 'btn', onclick: () => go('home') }, '왜 이런 실수를 했는지 알아보기 (1주차 시작)'),
+      // 라벨이 "1주차 시작"이면 목적지도 1주차 강의여야 한다(홈 경유 제거)
+      h('button', { class: 'btn', onclick: () => go('lecture', { week: 1 }) }, '왜 이런 실수를 했는지 알아보기 (1주차 시작)'),
       h('p', { class: 'disclaimer' }, '이 리포트는 시뮬레이션 기록 기반의 학습용 분석이며, 투자 조언이 아닙니다.'),
     ),
   )

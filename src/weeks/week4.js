@@ -10,10 +10,10 @@ const START = 87 // 2018~2020년 — 코로나 폭락(KOSPI 최대낙폭 -37%)�
 const LEN = 104
 
 const ASSETS = [
-  { key: 'stock', label: '📈 주식', color: '#f04452' },
-  { key: 'bond', label: '🏛 채권', color: '#3182f6' },
-  { key: 'gold', label: '🪙 금', color: '#ff9500' },
-  { key: 'cash', label: '💵 현금', color: '#8b95a1' },
+  { key: 'stock', label: '주식', color: '#f04452' },
+  { key: 'bond', label: '채권', color: '#3182f6' },
+  { key: 'gold', label: '금', color: '#ff9500' },
+  { key: 'cash', label: '현금', color: '#8b95a1' },
 ]
 
 function series() {
@@ -57,7 +57,6 @@ function runPortfolio(weights, rule) {
 
 export default {
   id: 4,
-  emoji: '4️⃣',
   title: '위험 관리와 자산 배분',
   subtitle: '분산·MDD·리밸런싱',
   cards: [
@@ -285,7 +284,7 @@ export default {
               h('i', { style: `background:${a.color}` }),
               `${a.label} ${(weights[a.key] * 100).toFixed(0)}%`))),
         ),
-        coachCard('🧭 이번 실습이 말하는 것', lines),
+        coachCard('이번 실습이 말하는 것', lines),
       )
     },
   },

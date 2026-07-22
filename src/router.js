@@ -24,12 +24,12 @@ export function render() {
   window.scrollTo(0, 0)
 }
 
+// 탭 2개뿐이라 아이콘 없이 텍스트만 키워서 쓴다(기능이 같은 요소를 겹쳐 두지 않는다)
 export function tabbar(active) {
-  const tab = (name, ico, label, screen) =>
-    h('button', { class: active === name ? 'active' : '', onclick: () => go(screen) },
-      h('span', { class: 'ico' }, ico), label)
+  const tab = (name, label, screen) =>
+    h('button', { class: active === name ? 'active' : '', onclick: () => go(screen) }, label)
   return h('nav', { class: 'tabbar' },
-    tab('home', '🏠', '홈', 'home'),
-    tab('my', '👤', '마이', 'my'),
+    tab('home', '홈', 'home'),
+    tab('my', '마이', 'my'),
   )
 }

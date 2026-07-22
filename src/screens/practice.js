@@ -125,7 +125,7 @@ register('prac2', () => {
             h('div', { class: 'small' }, 'S&P 500'),
             h('b', { style: 'font-size:22px' }, fmt(curIdx, 0)),
             h('span', { class: 'chg ' + numClass(chg), style: 'font-size:13px;font-weight:700;margin-left:6px' }, pct(chg))),
-          h('div', { style: 'text-align:right' },
+          h('div', { class: 'tar' },
             h('div', { class: 'small' }, '미국 기준금리'),
             h('b', { style: 'font-size:22px;color:var(--blue)' }, curRate.toFixed(2) + '%')),
         ),
@@ -147,7 +147,7 @@ register('prac2', () => {
     return h('div', {},
       week === 1
         ? h('div', { class: 'card', style: 'background:#f7f8fa;box-shadow:none' },
-            h('b', { style: 'font-size:14px' }, '📰 상황 브리핑 · 2020년'),
+            h('b', { style: 'font-size:14px' }, '상황 브리핑 · 2020년'),
             h('p', { class: 'small', style: 'margin-top:6px' },
               '2020년 1월, S&P 500은 3,234에서 시작합니다. 곧 코로나19로 지수가 고점 대비 -31.8% 급락하고 연준이 긴급 대응에 나섭니다. 재생을 누르고, 오른쪽 위 기준금리 숫자를 눈여겨보세요.'))
         : null,
@@ -164,7 +164,7 @@ register('prac2', () => {
             }, 130)
             paint()
           },
-        }, timer ? '재생 중…' : week === 1 ? '▶ 재생 시작' : '▶ 계속 재생'),
+        }, timer ? '재생 중…' : week === 1 ? '재생 시작' : '계속 재생'),
       ))
   }
 
@@ -190,14 +190,14 @@ register('prac2', () => {
     }, h('span', { class: 'opt-key' }, 'ABC'[oi]), h('span', {}, o)))
     return h('div', {},
       h('div', { class: 'card', style: 'background:var(--blue-soft);box-shadow:none;margin-bottom:12px' },
-        h('b', { style: 'color:var(--blue-dark)' }, '⏸ 잠깐, 질문! '), cp.q),
+        h('b', { style: 'color:var(--blue-dark)' }, '잠깐, 질문! '), cp.q),
       opts, box)
   }
 
   function renderEnd() {
     return h('div', {},
       h('div', { class: 'card' },
-        h('b', { style: 'font-size:16px' }, '🧭 균형 잡힌 해설'),
+        h('b', { style: 'font-size:16px' }, '균형 잡힌 해설'),
         h('p', { class: 'desc', style: 'margin-top:8px' },
           '2020년에는 금리 인하와 지수 반등이 함께 왔습니다. 그해 S&P 500은 고점 대비 -31.8%까지 빠졌다가 연말에는 연초 대비 +14.5%로 끝났습니다. 하지만 이건 2020년 한 해의 기록일 뿐입니다. 금리 인하와 지수 반등이 항상 같이 오지는 않습니다 — 경기 침체가 심각해서 금리를 내리는 경우라면 주가는 더 떨어질 수도 있습니다. "금리 인하 = 매수 신호"로 기계적으로 외우지 않는 것이 이번 실습의 진짜 결론입니다.')),
       h('div', { class: 'cta-area' },
@@ -234,14 +234,14 @@ register('prac3', () => {
       ),
       h('div', { class: 'card' },
         h('div', { class: 'slider-row' },
-          h('label', {}, h('span', {}, '🇰🇷 한국 기준금리'), h('b', {}, kr.toFixed(2) + '%')),
+          h('label', {}, h('span', {}, '한국 기준금리'), h('b', {}, kr.toFixed(2) + '%')),
           (() => {
             const s = h('input', { type: 'range', min: '0', max: '6', step: '0.25', value: String(kr) })
             s.addEventListener('input', () => { kr = Number(s.value); prediction = null; paint() })
             return s
           })()),
         h('div', { class: 'slider-row' },
-          h('label', {}, h('span', {}, '🇺🇸 미국 기준금리'), h('b', {}, us.toFixed(2) + '%')),
+          h('label', {}, h('span', {}, '미국 기준금리'), h('b', {}, us.toFixed(2) + '%')),
           (() => {
             const s = h('input', { type: 'range', min: '0', max: '6', step: '0.25', value: String(us) })
             s.addEventListener('input', () => { us = Number(s.value); prediction = null; paint() })
@@ -254,7 +254,7 @@ register('prac3', () => {
       ),
       h('div', { class: 'card' },
         h('b', { style: 'font-size:15px' }, '이 경우, 원/달러 환율은 어느 쪽 압력을 받을까요?'),
-        h('div', { style: 'margin-top:12px' },
+        h('div', { class: 'mt-3' },
           OPTS.map((o, oi) => h('button', {
             class: 'opt' + (revealed ? (oi === ans ? ' correct' : prediction === oi ? ' wrong' : '') : prediction === oi ? ' picked' : ''),
             disabled: revealed,

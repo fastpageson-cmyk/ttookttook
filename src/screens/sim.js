@@ -39,7 +39,7 @@ register('sim', () => {
   function showBankruptcy() {
     stopTimer(); bankruptShown = true; paint()
     const close = openSheet(
-      h('h3', {}, '⚠️ 파산했습니다'),
+      h('h3', {}, '파산했습니다'),
       h('p', { class: 'desc', style: 'margin-bottom:18px' },
         `총자산이 시작 자금의 ${Math.round((1 - BANKRUPT_RATIO) * 100)}% 이상 사라졌어요. 한 종목에 크게 걸었다가 회복 불가능한 손실을 본 겁니다. 여기서 마치고, 무엇이 문제였는지 리포트로 확인해봐요.`),
       h('button', { class: 'btn', onclick: () => { close(); finalize() } }, '결과 보기'),
@@ -129,7 +129,7 @@ register('sim', () => {
         h('div', { class: 'r' }, h('span', {}, type === 'buy' ? '총 필요 금액' : '실수령액'), totalRow),
       ),
       h('button', {
-        class: 'btn', style: type === 'buy' ? 'background:var(--up)' : 'background:var(--down)',
+        class: 'btn ' + (type === 'buy' ? 'buy' : 'sell'),
         onclick: () => {
           const q = qty()
           const fee = tradeFee(p, q)
@@ -171,12 +171,12 @@ register('sim', () => {
           h('div', { class: 'small' }, '총자산'),
           h('div', { class: 'total' }, won(total)),
         ),
-        h('div', { style: 'text-align:right' },
+        h('div', { class: 'tar' },
           h('div', { class: 'small' }, '수익률'),
           h('div', { class: 'chg ' + numClass(ret), style: 'font-size:18px;font-weight:800' }, pct(ret)),
         ),
       ),
-      h('div', { style: 'margin-top:12px' },
+      h('div', { class: 'mt-3' },
         h('div', { class: 'progressbar' }, h('i', { style: `width:${(w / TOTAL_WEEKS * 100).toFixed(1)}%` })),
         h('div', { class: 'sim-week', style: 'margin-top:6px;display:flex;justify-content:space-between' },
           h('span', {}, `${fmt(w)}주차 · 약 ${(w / 52).toFixed(1)}년 경과`),
@@ -192,21 +192,24 @@ register('sim', () => {
     )
     const timeControls = h('div', { class: 'time-controls' },
       h('button', { class: 'tc' + (timer && speed === 1 ? ' playing' : ''), onclick: () => togglePlay(1) },
-        timer && speed === 1 ? '⏸ 일시정지' : '▶ 재생'),
+        timer && speed === 1 ? '일시정지' : '재생'),
       h('button', { class: 'tc' + (timer && speed === 4 ? ' playing' : ''), onclick: () => togglePlay(4) },
-        timer && speed === 4 ? '⏸ 일시정지' : '⏩ 빨리감기'),
+        timer && speed === 4 ? '일시정지' : '빨리감기'),
       h('button', { class: 'tc', onclick: () => { stopTimer(); sim.currentWeek = Math.min(TOTAL_WEEKS, sim.currentWeek + 4); if (sim.currentWeek >= TOTAL_WEEKS) { finalize(); return } if (!bankruptShown && isBankrupt()) { showBankruptcy(); return } save(); paint() } }, '+4주'),
     )
+    // y축 라벨: 값 범위가 좁으면(초반 몇 주) 정수 k 반올림이 "31k×4"처럼 겹친다 → 범위에 맞춰 소수 자리를 늘림
+    const chartRange = Math.max(...chartData) - Math.min(...chartData)
+    const yDec = chartRange < 400 ? 2 : chartRange < 4000 ? 1 : 0
     const chartCard = h('div', { class: 'card sim-chart-card' },
       h('div', { class: 'price-line' },
-        h('span', { class: 'chip', style: 'background:var(--ink);color:#fff;border-color:var(--ink);pointer-events:none' }, selected),
+        h('span', { class: 'chip label' }, selected),
         h('span', { class: 'p' }, won(p)),
         h('span', { class: 'chg ' + numClass(chg) }, pct(chg) + ' 주간'),
       ),
       lineChart({
         h: 210,
         series: [{ data: chartData, color: chg >= 0 ? '#f04452' : '#3182f6', width: 2, fill: chg >= 0 ? 'rgba(240,68,82,.06)' : 'rgba(49,130,246,.06)' }],
-        yFmt: v => fmt(v / 1000) + 'k',
+        yFmt: v => fmt(v / 1000, yDec) + 'k',
       }),
       held > 0
         ? h('div', { class: 'pos-line' },
@@ -221,9 +224,9 @@ register('sim', () => {
     wrap.append(
       h('div', { class: 'topbar' },
         h('div', { class: 'tb-title' }, '0단계 · 블라인드 투자'),
+        // 종료는 위험 액션이 아니라 다음 단계로 가는 문 — 빨간색이 아니라 무채색으로 둔다
         h('button', {
-          class: 'btn ghost', style: 'width:auto;margin-left:auto;padding:8px 12px;font-size:14px;color:var(--up)',
-          onclick: confirmEnd,
+          class: 'btn ghost tb-action', onclick: confirmEnd,
         }, '종료'),
       ),
       h('div', { class: 'sim-grid' },

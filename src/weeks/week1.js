@@ -36,16 +36,15 @@ function runPhase(phase, stockPct) {
 
 export default {
   id: 1,
-  emoji: '1️⃣',
   title: '거시경제와 투자의 이유',
   subtitle: '금리·환율·물가',
   cards: LECTURE_CARDS,
   quiz: QUIZ,
   // 1주차만 개별 실습 3종을 갖는다 (screens/practice.js)
   practices: [
-    { key: 'review0', ico: '🔍', title: '실습 1 · 0단계 복기', desc: '그때 금리는 어떻게 움직였을까', screen: 'prac1' },
-    { key: 'rateCutReplay', ico: '📈', title: '실습 2 · 금리 인하기 리플레이', desc: '지수 급락과 반등, 그 뒤의 금리', screen: 'prac2' },
-    { key: 'fxWidget', ico: '⚖️', title: '실습 3 · 한미 금리차와 환율', desc: '슬라이더로 직접 움직여보기', screen: 'prac3' },
+    { key: 'review0', title: '실습 1 · 0단계 복기', desc: '그때 금리는 어떻게 움직였을까', screen: 'prac1' },
+    { key: 'rateCutReplay', title: '실습 2 · 금리 인하기 리플레이', desc: '지수 급락과 반등, 그 뒤의 금리', screen: 'prac2' },
+    { key: 'fxWidget', title: '실습 3 · 한미 금리차와 환율', desc: '슬라이더로 직접 움직여보기', screen: 'prac3' },
   ],
   miniSim: {
     weekId: 1,
@@ -81,7 +80,7 @@ export default {
           ),
           h('div', { class: 'card' },
             h('b', {}, '② 1,000만 원을 어떻게 나눌까요?'),
-            sliderRow('📈 주식(KOSPI) 비중', stockPct, { min: 0, max: 100, step: 5 }, v => { stockPct = v; paint() }),
+            sliderRow('주식(KOSPI) 비중', stockPct, { min: 0, max: 100, step: 5 }, v => { stockPct = v; paint() }),
             h('p', { class: 'small' },
               `주식 ${stockPct}% (${won(SEED * stockPct / 100)}) · 정기예금 ${100 - stockPct}% (${won(SEED * (100 - stockPct) / 100)})`),
           ),
@@ -122,7 +121,7 @@ export default {
           h('b', {}, '내 포트폴리오 vs 주식 100%'),
           compareChart(res.mine, res.stock, [`내 선택 (주식 ${stockPct}%)`, '주식 100%']),
         ),
-        coachCard('🧭 이번 실습이 말하는 것', lines),
+        coachCard('이번 실습이 말하는 것', lines),
       )
     },
   },

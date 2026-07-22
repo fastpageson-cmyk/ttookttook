@@ -7,15 +7,16 @@ import { register, go } from '../router.js'
 import { S, week } from '../state.js'
 import { WEEKS } from '../weeks/index.js'
 import { PEER_AVG } from '../content.js'
+import { gradCapGlyph } from '../glyphs.js'
 
 // 각 주차가 사용자에게 남긴 '기준' 한 줄
 const TAKEAWAYS = [
-  { emoji: '📉', title: '금리를 본다', desc: '시장이 지금 어떤 바람을 맞고 있는지 읽는다' },
-  { emoji: '🏦', title: '저축률을 높인다', desc: '시드머니는 금리가 아니라 저축률이 만든다' },
-  { emoji: '⚖️', title: '레버리지를 안다', desc: '버틸 수 있는 범위 안에서만 빌린다' },
-  { emoji: '🧩', title: '분산한다', desc: '얼마나 버느냐보다 얼마나 덜 잃느냐' },
-  { emoji: '🔍', title: '숫자로 고른다', desc: '이름이 아니라 PER·영업이익률로 판단한다' },
-  { emoji: '🧾', title: '계좌를 고른다', desc: '같은 수익도 어느 계좌냐에 따라 잔고가 다르다' },
+  { title: '금리를 본다', desc: '시장이 지금 어떤 바람을 맞고 있는지 읽는다' },
+  { title: '저축률을 높인다', desc: '시드머니는 금리가 아니라 저축률이 만든다' },
+  { title: '레버리지를 안다', desc: '버틸 수 있는 범위 안에서만 빌린다' },
+  { title: '분산한다', desc: '얼마나 버느냐보다 얼마나 덜 잃느냐' },
+  { title: '숫자로 고른다', desc: '이름이 아니라 PER·영업이익률로 판단한다' },
+  { title: '계좌를 고른다', desc: '같은 수익도 어느 계좌냐에 따라 잔고가 다르다' },
 ]
 
 register('graduation', () => {
@@ -34,7 +35,7 @@ register('graduation', () => {
 
     // 히어로
     h('div', { class: 'grad-hero' },
-      h('div', { class: 'grad-cap' }, '🎓'),
+      h('div', { class: 'grad-cap', html: gradCapGlyph(48) }),
       h('h1', { class: 'hero', style: 'font-size:24px' }, `${S.user.nickname}님,`, h('br'), '6주를 완주했습니다'),
       h('p', { class: 'desc', style: 'margin-top:10px' }, '먼저 잃고, 똑똑해졌습니다'),
     ),
@@ -56,13 +57,12 @@ register('graduation', () => {
 
     // 6주가 남긴 기준
     h('h2', { class: 'section' }, '6주가 남긴 것'),
-    h('div', { class: 'card', style: 'padding:6px 20px' },
+    // '완료' 뱃지 없음 — 이 화면은 완주해야만 도달하므로 완료는 전제다(정보량 0인 뱃지 제거)
+    h('div', { class: 'card list' },
       TAKEAWAYS.map((t, i) => h('div', { class: 'grad-take' },
-        h('span', { class: 'grad-take-em' }, t.emoji),
         h('div', { class: 'grad-take-body' },
           h('b', {}, `${i + 1}주차 · ${t.title}`),
           h('span', {}, t.desc)),
-        week(WEEKS[i].id).quiz.passed ? h('span', { class: 'badge green' }, '완료') : null,
       )),
     ),
 
