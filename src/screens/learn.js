@@ -14,7 +14,7 @@ function nextAction() {
     desc: '가상 자금 1,000만 원 · 10년', screen: 'sim', params: {}, step: '0단계',
   }
   const w = currentWeek()
-  if (!w) return { label: '6주 과정 완료! 🎓', desc: '먼저 잃고, 똑똑해졌습니다', screen: null, params: {}, step: '졸업' }
+  if (!w) return { label: '졸업 리포트 보기 🎓', desc: '6주 여정을 돌아봅니다', screen: 'graduation', params: {}, step: '졸업' }
 
   const st = week(w.id)
   const step = `${w.id}주차`
@@ -97,10 +97,10 @@ register('home', () => {
       }),
     ),
     !currentWeek() && simDone
-      ? h('div', { class: 'card', style: 'text-align:center;background:var(--green-soft);box-shadow:none' },
+      ? h('div', { class: 'card grad-home', style: 'cursor:pointer', onclick: () => go('graduation') },
           h('p', { style: 'font-size:34px;margin-bottom:6px' }, '🎓'),
           h('b', {}, '「똑똑」 6주 과정 졸업'),
-          h('p', { class: 'small', style: 'margin-top:4px' }, '먼저 잃고, 똑똑해졌습니다'))
+          h('p', { class: 'small', style: 'margin-top:4px' }, '졸업 리포트 보기 →'))
       : null,
     h('p', { class: 'disclaimer' }, DISCLAIMER),
     tabbar('home'),
