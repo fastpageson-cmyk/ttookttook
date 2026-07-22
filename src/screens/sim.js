@@ -176,12 +176,10 @@ register('sim', () => {
           h('div', { class: 'chg ' + numClass(ret), style: 'font-size:18px;font-weight:800' }, pct(ret)),
         ),
       ),
-      h('div', { class: 'mt-3' },
-        h('div', { class: 'progressbar' }, h('i', { style: `width:${(w / TOTAL_WEEKS * 100).toFixed(1)}%` })),
-        h('div', { class: 'sim-week', style: 'margin-top:6px;display:flex;justify-content:space-between' },
-          h('span', {}, `${fmt(w)}주차 · 약 ${(w / 52).toFixed(1)}년 경과`),
-          h('span', {}, `현금 ${won(sim.cash)}`),
-        ),
+      // 진행 표시는 "N주차 · 약 X년 경과" 텍스트로 충분 — 줄형 progressbar 제거(중복)
+      h('div', { class: 'sim-week mt-3' },
+        h('span', {}, `${fmt(w)}주차 · 약 ${(w / 52).toFixed(1)}년 경과`),
+        h('span', {}, `현금 ${won(sim.cash)}`),
       ),
     )
     const chipsWrap = h('div', { class: 'stock-chips' },

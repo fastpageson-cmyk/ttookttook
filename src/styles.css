@@ -195,6 +195,12 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .explain { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; font-size: 14px; color: var(--sub); margin-top: 4px; animation: rise var(--dur) var(--ease); }
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+/* 진단 결과 카드뉴스 스텝 */
+.cn-dots { display: flex; gap: 6px; align-items: center; }
+.cn-dots i { width: 6px; height: 6px; border-radius: var(--r-pill); background: var(--line-strong); transition: all var(--dur) var(--ease); }
+.cn-dots i.on { background: var(--blue); width: 18px; }
+.cn-content { animation: rise var(--dur) var(--ease); }
+
 /* 진단 결과 비교 막대 */
 .cmp-row { margin-bottom: 16px; }
 .cmp-row .cmp-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
@@ -225,7 +231,7 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 /* ---------- 시뮬레이션 ---------- */
 .sim-summary { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
 .sim-summary .total { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
-.sim-week { font-size: 13px; color: var(--mut); font-weight: 600; }
+.sim-week { font-size: 13px; color: var(--mut); font-weight: 600; display: flex; justify-content: space-between; }
 .stock-chips { display: flex; gap: 8px; overflow-x: auto; margin: 14px -20px 10px; padding: 2px 20px 6px; scrollbar-width: none; }
 .stock-chips::-webkit-scrollbar { display: none; }
 .chip {

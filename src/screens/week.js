@@ -37,9 +37,8 @@ register('lecture', (params = {}) => {
             h('ul', {}, missed.map(({ q }) => h('li', {}, q.q))),
           )
         : null,
-      h('div', { class: 'progressbar', style: 'margin-bottom:16px' },
-        h('i', { style: `width:${((idx + 1) / cards.length * 100).toFixed(0)}%` })),
-      h('div', { class: 'card lecture-card' },
+      // 진행 표시는 카드 안 eyebrow("카드 N / M") 하나로 — 줄형 progressbar 제거(중복)
+      h('div', { class: 'card lecture-card', style: 'margin-top:8px' },
         h('div', { class: 'eyebrow' }, `카드 ${idx + 1} / ${cards.length}`),
         h('div', { class: 'lc-title' }, c.title),
         // 인포그래픽: figure(인라인 SVG · 디자인 토큰 색) 우선, 없으면 기존 img
@@ -165,9 +164,8 @@ register('quiz', (params = {}) => {
         h('button', { class: 'btn-back', onclick: () => go('home') }, '‹'),
         h('div', { class: 'tb-title' }, `${w.id}주차 확인 퀴즈`),
       ),
-      h('div', { class: 'progressbar', style: 'margin-bottom:20px' },
-        h('i', { style: `width:${(idx / QUIZ.length * 100).toFixed(0)}%` })),
-      h('div', { class: 'q-count' }, `${idx + 1} / ${QUIZ.length}`),
+      // 진행 표시는 카운터 하나로 — 줄형 progressbar 제거(중복)
+      h('div', { class: 'q-count', style: 'margin-top:8px' }, `${idx + 1} / ${QUIZ.length}`),
       h('div', { class: 'q-title' }, item.q),
       ...opts,
       explainBox,
