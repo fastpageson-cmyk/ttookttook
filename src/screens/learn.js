@@ -46,35 +46,42 @@ register('home', () => {
         : state === 'locked' ? h('span', { class: 'st-lock', html: lockGlyph(15) })
           : h('i', { class: 'st-dot' + (state === 'now' ? '' : ' wait') }))
 
-  const step = (title, sub, state, screen, params = {}) =>
+  // opt.indent = 현재 주차의 하위 단계(강의/실습/퀴즈), opt.noBadge = 그룹 헤더라 뱃지 생략
+  const step = (title, sub, state, screen, params = {}, opt = {}) =>
     h('div', {
-      class: 'step-row' + (state === 'locked' ? ' locked' : ''),
+      class: 'step-row' + (state === 'locked' ? ' locked' : '') + (opt.indent ? ' step-sub' : ''),
       onclick: () => { if (state !== 'locked' && screen) go(screen, params) },
     },
       stateTile(state),
       h('div', { class: 'st-body' }, h('b', {}, title), h('span', {}, sub)),
-      state === 'now' ? h('span', { class: 'badge blue' }, '진행 중') : null,
+      (state === 'now' && !opt.noBadge) ? h('span', { class: 'badge blue' }, '진행 중') : null,
     )
 
   const diagDone = !!S.diagnosis.completedAt
   const simDone = S.simulation.status === 'ended'
 
-  // 현재 진행 중인 주차의 세부 진도
-  let weekRows = []
-  if (cw) {
-    const st = week(cw.id)
-    const lecDone = st.cardsViewed.length >= cw.cards.length
-    const { done, total } = practiceCount(cw)
-    const pracDone = allPracticesDone(cw)
-    weekRows = [
-      step(`${cw.id}주차 · 강의`, `카드 ${st.cardsViewed.length}/${cw.cards.length}`,
-        lecDone ? 'done' : 'now', 'lecture', { week: cw.id }),
-      step(`${cw.id}주차 · 실습`, `${done}/${total} 완료 · 미니 모의투자 포함`,
-        pracDone ? 'done' : lecDone ? 'now' : 'locked', 'practices', { week: cw.id }),
-      step(`${cw.id}주차 · 확인 퀴즈`, `${QUIZ_PASS}개 이상 맞히면 통과`,
-        st.quiz.passed ? 'done' : pracDone ? 'now' : 'locked', 'quiz', { week: cw.id }),
+  // 단일 타임라인 = 온보딩(진단·0단계·리포트) + 6주차를 한 리스트로.
+  // 현재 주차만 강의/실습/퀴즈 하위 3행을 펼친다(나머지 주차는 한 줄). '나의 진도'와 '커리큘럼'의 중복 제거.
+  const weekRows = WEEKS.flatMap(w => {
+    const complete = isWeekComplete(w.id)
+    const isCurrent = cw && cw.id === w.id
+    const wState = complete ? 'done' : isCurrent ? 'now' : isUnlocked(w.id) ? 'now' : 'locked'
+    const header = step(`${w.id}주차 · ${w.title}`, w.subtitle, wState, 'lecture', { week: w.id }, { noBadge: isCurrent })
+    if (!isCurrent) return [header]
+    const st = week(w.id)
+    const lecDone = st.cardsViewed.length >= w.cards.length
+    const { done, total } = practiceCount(w)
+    const pracDone = allPracticesDone(w)
+    return [
+      header,
+      step('강의', `카드 ${st.cardsViewed.length}/${w.cards.length}`,
+        lecDone ? 'done' : 'now', 'lecture', { week: w.id }, { indent: true }),
+      step('실습', `${done}/${total} 완료 · 미니 모의투자 포함`,
+        pracDone ? 'done' : lecDone ? 'now' : 'locked', 'practices', { week: w.id }, { indent: true }),
+      step('확인 퀴즈', `${QUIZ_PASS}개 이상 맞히면 통과`,
+        st.quiz.passed ? 'done' : pracDone ? 'now' : 'locked', 'quiz', { week: w.id }, { indent: true }),
     ]
-  }
+  })
 
   return h('div', { class: 'screen has-tabbar' },
     h('div', { class: 'home-greet' },
@@ -86,21 +93,12 @@ register('home', () => {
       h('b', {}, na.label),
       h('p', {}, na.desc),
     ),
-    h('h2', { class: 'section' }, '나의 진도'),
+    h('h2', { class: 'section' }, '학습 여정'),
     h('div', { class: 'card list' },
       step('사전 진단', diagDone ? `${S.diagnosis.score}점 (또래 평균 62.6점)` : '금융이해력 20문항', diagDone ? 'done' : 'now', diagDone ? 'diagResult' : 'diag'),
       step('0단계 · 블라인드 투자', simDone ? `수익률 ${pct(S.report.finalReturn)}` : '아무것도 모른 채 10년', simDone ? 'done' : diagDone ? 'now' : 'wait', simDone ? 'report' : 'sim'),
       step('매매 실수 리포트', simDone ? '실수 3건 분석 완료' : '0단계 종료 후 열림', simDone ? 'done' : 'locked', 'aiReport'),
       ...weekRows,
-    ),
-    h('h2', { class: 'section' }, '커리큘럼'),
-    h('div', { class: 'card list' },
-      WEEKS.map(w => {
-        const unlocked = isUnlocked(w.id)
-        const complete = isWeekComplete(w.id)
-        return step(`${w.id}주차 · ${w.title}`, w.subtitle,
-          complete ? 'done' : unlocked ? 'now' : 'locked', 'lecture', { week: w.id })
-      }),
     ),
     !currentWeek() && simDone
       ? h('div', { class: 'card grad-home', style: 'cursor:pointer', onclick: () => go('graduation') },

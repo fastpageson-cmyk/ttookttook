@@ -336,6 +336,10 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .step-row .st-body b { font-size: 15px; display: block; }
 .step-row .st-body span { font-size: 12px; color: var(--mut); }
 .step-row.locked { opacity: .45; cursor: default; }
+/* 현재 주차의 하위 단계(강의/실습/퀴즈) — 들여쓰기 + 작은 타일 + 보조색으로 종속 표시 */
+.step-row.step-sub { padding-left: 20px; }
+.step-row.step-sub .st-ico { width: 30px; height: 30px; flex: 0 0 30px; font-size: 14px; }
+.step-row.step-sub .st-body b { font-size: 14px; font-weight: 600; color: var(--sub); }
 
 /* ---------- 강의 ---------- */
 .lecture-card { min-height: 340px; display: flex; flex-direction: column; }
