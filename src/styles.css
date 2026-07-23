@@ -608,3 +608,121 @@ h2.section { font-size: var(--t-title); font-weight: 700; letter-spacing: -0.01e
 .retest-arrow { color: var(--mut-soft); font-size: 18px; font-weight: 700; }
 .retest-delta { flex: 0 0 auto; font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--mut); background: var(--fill); border-radius: var(--r-pill); padding: 4px 12px; }
 .retest-delta.up { color: var(--green-ink); background: var(--green-soft); }
+
+/* ==========================================================================
+ * 경제 용어 사전 + 게이미피케이션 퀴즈
+ * 색·간격은 토큰만. 아이콘은 glyphs 단색 SVG(currentColor). 애니메이션은 기존 shake/pop/rise 재사용.
+ * ========================================================================== */
+
+/* 코인·콤보 칩 (공통) */
+.gl-coin { display: inline-flex; align-items: center; gap: 5px; color: var(--amber); font-variant-numeric: tabular-nums; }
+.gl-coin i { display: inline-flex; }
+.gl-coin b { font-size: 15px; color: var(--ink); font-weight: 800; }
+.gl-coin.big b { font-size: 22px; color: var(--amber); }
+.gl-combo { display: inline-flex; align-items: center; gap: 4px; color: var(--amber); font-size: 13px; font-weight: 700; }
+.gl-combo i { display: inline-flex; }
+.gl-earn { color: var(--amber); font-weight: 800; white-space: nowrap; }
+
+/* 마이페이지 진입 카드 */
+.gl-entry { display: flex; align-items: center; gap: var(--s3); }
+.gl-entry:active { background: var(--fill); }
+.gl-entry-ico { flex: 0 0 44px; width: 44px; height: 44px; border-radius: var(--r-md); background: var(--blue-soft); color: var(--blue); display: flex; align-items: center; justify-content: center; }
+.gl-entry-arrow { color: var(--mut-soft); font-size: 20px; font-weight: 700; }
+
+/* 사전 헤더 요약 */
+.gl-hero { display: flex; align-items: center; gap: var(--s3); background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4) var(--s5); margin-bottom: var(--s3); }
+.gl-hero-ico { flex: 0 0 auto; color: var(--blue); display: flex; }
+.gl-hero b { font-size: var(--t-body); }
+.gl-hero .small { margin-top: 2px; }
+
+/* 퀴즈 진입 배너 (프라이머리) */
+.gl-quiz-banner { display: flex; align-items: center; gap: var(--s3); background: var(--blue); color: #fff; border-radius: var(--radius); padding: var(--s5); margin-bottom: var(--s4); cursor: pointer; transition: transform 120ms var(--ease); }
+.gl-quiz-banner:active { transform: scale(.99); }
+.gl-quiz-banner .nc-label { color: #fff; }
+.gl-quiz-banner b { font-size: var(--t-title); display: block; margin-bottom: 3px; letter-spacing: -0.01em; }
+.gl-quiz-banner p { font-size: var(--t-cap); opacity: .9; }
+.gl-quiz-arrow { font-size: 24px; font-weight: 700; opacity: .9; }
+
+/* 검색 */
+.gl-search { width: 100%; border: 1px solid var(--line-strong); border-radius: var(--r-md); background: var(--card); padding: 13px 15px; font-size: var(--t-body); font-family: inherit; color: var(--ink); margin-bottom: var(--s3); -webkit-appearance: none; }
+.gl-search:focus { outline: none; border-color: var(--blue); }
+.gl-search::placeholder { color: var(--mut); }
+
+/* 카테고리 칩 */
+.gl-chips { display: flex; gap: var(--s2); overflow-x: auto; padding-bottom: 4px; margin-bottom: var(--s4); scrollbar-width: none; }
+.gl-chips::-webkit-scrollbar { display: none; }
+.gl-chip { flex: 0 0 auto; border: 1px solid var(--line-strong); background: var(--card); color: var(--sub); font-weight: 600; font-size: 13px; padding: 8px 14px; border-radius: var(--r-pill); cursor: pointer; font-family: inherit; white-space: nowrap; transition: background var(--dur) var(--ease), border var(--dur) var(--ease); }
+.gl-chip.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+/* 용어 리스트(아코디언) */
+.gl-list { display: flex; flex-direction: column; gap: var(--s2); }
+.gl-item { background: var(--card); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+.gl-item.open { border-color: var(--line-strong); }
+.gl-head { display: flex; align-items: flex-start; gap: var(--s3); padding: var(--s4) var(--s4); cursor: pointer; }
+.gl-head-main { flex: 1; min-width: 0; }
+.gl-term-row { display: flex; align-items: center; gap: var(--s2); }
+.gl-term { font-size: var(--t-body); font-weight: 700; word-break: keep-all; }
+.gl-chevron { margin-left: auto; color: var(--mut-soft); font-size: 18px; line-height: 1; transition: transform var(--dur) var(--ease); }
+.gl-item.open .gl-chevron { transform: rotate(180deg); }
+.gl-short { font-size: var(--t-cap); color: var(--mut); margin-top: 3px; word-break: keep-all; }
+.gl-body { padding: 0 var(--s4) var(--s4); animation: rise var(--dur) var(--ease); }
+.gl-desc { font-size: 14px; color: var(--sub); line-height: 1.6; word-break: keep-all; }
+.gl-eg { margin-top: var(--s3); background: var(--fill); border-radius: var(--r-sm); padding: var(--s3); }
+.gl-eg-label { display: inline-block; font-size: 11px; font-weight: 800; color: var(--blue); margin-bottom: 4px; letter-spacing: .02em; }
+.gl-eg p { font-size: 13px; color: var(--sub); line-height: 1.6; word-break: keep-all; }
+.gl-empty { text-align: center; padding: var(--s10) var(--s4); color: var(--mut); }
+.gl-empty .small { margin-top: 4px; }
+
+/* 퀴즈 허브 모드 카드 */
+.gl-mode { display: flex; align-items: center; gap: var(--s3); }
+.gl-mode:active { background: var(--fill); }
+.gl-mode-body { flex: 1; min-width: 0; }
+.gl-mode-body b { font-size: 16px; }
+.gl-mode-best { display: flex; align-items: center; gap: var(--s2); flex: 0 0 auto; }
+.gl-mode-arrow { color: var(--mut-soft); font-size: 18px; font-weight: 700; }
+
+/* 퀴즈 진행 중 점수바 */
+.gl-scorebar { display: flex; align-items: center; gap: var(--s4); min-height: 24px; margin-top: -4px; }
+
+/* OX 퀴즈 */
+.gl-ox-stmt { font-size: 19px; font-weight: 800; line-height: 1.45; word-break: keep-all; margin: 8px 0 24px; }
+.gl-ox-row { display: flex; gap: var(--s3); }
+.gl-ox { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: var(--card); border: 2px solid var(--line); border-radius: var(--r-lg); padding: var(--s6) 0; cursor: pointer; font-family: inherit; transition: border var(--dur) var(--ease), background var(--dur) var(--ease); }
+.gl-ox-mark { font-size: 40px; font-weight: 800; line-height: 1; }
+.gl-ox.o .gl-ox-mark { color: var(--blue); }
+.gl-ox.x .gl-ox-mark { color: var(--mut); }
+.gl-ox-label { font-size: 13px; font-weight: 700; color: var(--sub); }
+.gl-ox:disabled { cursor: default; }
+.gl-ox.correct { border-color: var(--green); background: var(--green-soft); }
+.gl-ox.correct .gl-ox-mark, .gl-ox.correct .gl-ox-label { color: var(--green-ink); }
+.gl-ox.wrong { border-color: var(--up); background: var(--up-soft); animation: shake .35s ease; }
+.gl-ox.wrong .gl-ox-mark, .gl-ox.wrong .gl-ox-label { color: var(--up); }
+
+/* 뜻 맞히기 문제 헤더 */
+.gl-meaning-q { display: flex; align-items: center; gap: var(--s2); margin: 8px 0 8px; }
+.gl-meaning-ico { display: inline-flex; color: var(--blue); }
+.gl-meaning-q b { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; word-break: keep-all; }
+
+/* 선긋기(매칭) */
+.gl-match { position: relative; display: flex; gap: 30px; }
+.gl-match-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+.gl-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--s2); }
+.gl-card { position: relative; z-index: 1; background: var(--card); border: 2px solid var(--line); border-radius: var(--r-md); padding: var(--s3) var(--s3); min-height: 60px; display: flex; align-items: center; cursor: pointer; font-size: 13.5px; line-height: 1.4; word-break: keep-all; transition: border var(--dur) var(--ease), background var(--dur) var(--ease); }
+.gl-card.term { font-weight: 700; justify-content: center; text-align: center; }
+.gl-card.def { color: var(--sub); }
+.gl-card.sel { border-color: var(--blue); background: var(--blue-soft); }
+.gl-card.done { border-color: var(--green); background: var(--green-soft); color: var(--green-ink); cursor: default; }
+.gl-card.done b { color: var(--green-ink); }
+.gl-card.miss { border-color: var(--up); background: var(--up-soft); animation: shake .35s ease; }
+
+/* 결과 화면 */
+.gl-trophy { display: inline-flex; margin-bottom: var(--s2); }
+.gl-reward { margin-top: var(--s4); }
+.gl-reward-row { display: flex; align-items: center; gap: var(--s3); }
+.gl-reward-row .gl-coin.big { flex: 0 0 auto; }
+.gl-reward .divider { margin: var(--s3) 0; }
+
+@media (min-width: 640px) {
+  .gl-match { gap: 48px; }
+  .gl-card { font-size: 14.5px; }
+}

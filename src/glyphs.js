@@ -31,3 +31,25 @@ export const bookGlyph = (size = 32) => svg(size,
   `<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21V5.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
    <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" stroke="currentColor" stroke-width="2"/>
    <path d="M8.5 7.5h7M8.5 11h4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`)
+
+// 코인 — 사전 게이미피케이션 획득 포인트 (동그라미 + 안쪽 '원' 표식)
+export const coinGlyph = (size = 20) => svg(size,
+  `<circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="2"/>
+   <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>`)
+
+// 불꽃 — 연속 정답(콤보) 스트릭 표시
+export const flameGlyph = (size = 18) => svg(size,
+  `<path d="M12 3c.5 3-1.8 3.8-3 5.5-1.4 2-2 3.6-2 5.5a5 5 0 0 0 10 0c0-1.6-.6-3-1.6-4.2-.4 1-1 1.6-1.9 1.9.6-2.4-.3-5.7-1.5-8.7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>`)
+
+// 격자(사전) — 마이페이지 진입 카드·사전 헤더
+export const gridGlyph = (size = 22) => svg(size,
+  `<rect x="4" y="4" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+   <rect x="13" y="4" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+   <rect x="4" y="13" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>
+   <rect x="13" y="13" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="2"/>`)
+
+// 트로피 — 퀴즈 결과 등급
+export const trophyGlyph = (size = 40) => svg(size,
+  `<path d="M7 4h10v5a5 5 0 0 1-10 0V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+   <path d="M7 6H4.5v1A3.5 3.5 0 0 0 8 10.5M17 6h2.5v1A3.5 3.5 0 0 1 16 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+   <path d="M12 14v3M8.5 20h7M9.5 20c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`)

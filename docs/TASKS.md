@@ -190,6 +190,26 @@ tags: [똑똑, tasks]
       합침: 온보딩(진단·0단계·리포트) + 6주차. 현재 주차만 강의/실습/퀴즈 하위 3행 펼침(`.step-sub` 들여쓰기),
       '진행 중' 뱃지는 실제 활성 단계 1곳만. '커리큘럼' 카드 제거. `learn.js` `weekRows`를 flatMap으로 재구성.
 
+## 경제 용어 사전 + 게이미피케이션 퀴즈 (2026-07-23 완료)
+마이페이지에 "지속적으로 다시 보는" 투자·경제 기초 백과사전 + 게임형 퀴즈 3종 신설. 기존 디자인 시스템
+(토큰·glyphs 단색 SVG·`h()`/`appendKids`·router `register`) 그대로. 375px 브라우저 실측, 데스크톱(1280)
+`getBoundingClientRect` 무오버플로 확인, 콘솔 에러 0, `npm run build` 통과.
+- [x] **용어 데이터** `src/glossary-data.js` — 37개 용어 6카테고리(금리·물가/저축·예금/투자 기초/신용·부채/
+      세금·제도/자산관리), 각 `{term, short, desc, example}`. OX 문항 18개. 톤은 `content.js` explain과 동일.
+- [x] **사전 홈** `screens/glossary.js` `glossary` — 헤더 요약(학습 수·보유 코인), 퀴즈 배너, 검색(term/short/desc
+      매칭), 카테고리 칩(가로 스크롤), 아코디언 용어 리스트(펼치면 `learned`에 기록·코인 헤더 반영).
+- [x] **퀴즈 허브** `glossaryQuiz` — 3모드 카드 + 모드별 최고 정답률(%) 배지. 코인·최고콤보 요약.
+- [x] **OX 퀴즈** `glossaryOX` — O(파랑)/X 큰 버튼, 정오답 correct/wrong 색, 콤보(2연속+보너스), 코인.
+- [x] **선긋기(매칭)** `glossaryMatch` — 용어↔뜻 5쌍 탭 매칭. **SVG 오버레이로 정답 시 초록 연결선**(양끝 점),
+      오답 시 shake. 완성 시 실수 기반 정답률(100-실수×10)·코인. 게이미피케이션 하이라이트.
+- [x] **뜻 맞히기** `glossaryMeaning` — 용어 제시 → 정의 4지선다(오답은 타 용어 short). 기존 `.opt` 재사용.
+- [x] **결과 화면**(공통 `renderResult`) — 트로피·등급·정답률·코인·최고기록 경신 배지. `report-hero` 톤.
+- [x] **상태·영속** `state.js` `initialGlossary()` + migrate 방어(`glossary.learned/coins/bestStreak/quiz`).
+      마이페이지에 진입 카드(`learn.js`), `main.js`에 모듈 등록, `glyphs.js`에 코인·불꽃·격자·트로피 글리프 추가.
+- [x] **검증 중 잡은 버그 2건**: ①OX에서 중립 선택지에 `classList.add('')` 호출 → 예외로 채점 중단(무반응).
+      정답/오답 분기 함수로 수정. ②매칭 결과의 최고 정답률이 항상 100%로 저장(renderResult가 correct/total로
+      계산) → `renderResult`에 명시적 `pct`/heroNum/heroLabel 인자를 추가해 실제 정답률(예: 90%) 저장.
+
 ### 남은 화면 개선 (사용자 구체 지시 대기 — 나중에)
 - [ ] **0단계 시뮬 화면 근본 재설계**(주린이 이해도) — 트레이딩 UI(칩·차트·바텀시트·재생)가 초보에게 어려움.
       *어디가 어려운지/원하는 방향의 구체 지시 필요.* (종목·진행바는 이미 처리됨)

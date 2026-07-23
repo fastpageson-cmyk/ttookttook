@@ -1,7 +1,8 @@
 // 화면 3-8 홈/대시보드 · 3-12 마이페이지
 // (강의·실습·퀴즈 화면은 주차 공통으로 screens/week.js에 있음)
 import { h, fmt, pct, openSheet } from '../ui.js'
-import { lockGlyph, gradCapGlyph } from '../glyphs.js'
+import { lockGlyph, gradCapGlyph, gridGlyph } from '../glyphs.js'
+import { TERMS } from '../glossary-data.js'
 import { register, go, tabbar } from '../router.js'
 import { S, week, resetAll } from '../state.js'
 import { QUIZ_PASS, DISCLAIMER, SLOGAN } from '../content.js'
@@ -114,6 +115,7 @@ register('home', () => {
 // ---------- 마이페이지 ----------
 register('my', () => {
   const r = S.report
+  const g = S.glossary
   const row = (k, v) => h('div', { class: 'my-row' }, h('span', { style: 'color:var(--sub)' }, k), h('b', {}, v))
   const passedCount = WEEKS.filter(w => isWeekComplete(w.id)).length
   const simCount = WEEKS.filter(w => week(w.id).miniSim.done).length
@@ -123,6 +125,16 @@ register('my', () => {
     h('div', { class: 'card' },
       h('b', { style: 'font-size:17px' }, S.user.nickname || '-'),
       h('p', { class: 'small', style: 'margin-top:2px' }, '똑똑 0기 · 학습용 프로토타입'),
+    ),
+    // 경제 용어 사전 진입 — 지속적으로 다시 보는 백과사전 + 게이미피케이션 퀴즈
+    h('div', { class: 'card gl-entry', style: 'cursor:pointer', onclick: () => go('glossary') },
+      h('div', { class: 'gl-entry-ico', html: gridGlyph(24) }),
+      h('div', { style: 'flex:1' },
+        h('b', {}, '경제 용어 사전'),
+        h('p', { class: 'small', style: 'margin-top:2px' },
+          `${TERMS.length}개 용어 · 학습 ${g.learned.length}개 · 코인 ${g.coins}`),
+      ),
+      h('span', { class: 'gl-entry-arrow' }, '→'),
     ),
     h('div', { class: 'card' },
       row('사전 진단 점수', S.diagnosis.score != null ? S.diagnosis.score + '점' : '미응시'),
